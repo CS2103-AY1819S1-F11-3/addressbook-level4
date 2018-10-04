@@ -1,6 +1,69 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>Developer Guide</title><link rel="stylesheet" href="./gh-pages.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="./coderay-asciidoctor.css"></head><body class="article"><div id="seedu-header"><nav class="navbar navbar-lg navbar-light bg-lighter"><div class="container"><a class="navbar-brand" href="https://se-edu.github.io/"><img src="images/SeEduLogo.png" alt="SE-EDU"></a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level1">AB-1</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level2">AB-2</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level3">AB-3</a></li><li class="nav-item"><a class="nav-link active" href="index.html">AB-4</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/collate">Collate</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/se-book">Book</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/learningresources">Resources</a></li></ul></div></nav></div><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="index.html">WatchOver</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link" href="DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link" href="LearningOutcomes.html">LOs</a></li><li class="nav-item"><a class="nav-link" href="AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/CS2103-AY1819S1-F11-3/main.git"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>Developer Guide</h1></div><div id="content"><div class="sect1">
+<link rel="stylesheet" href="./coderay-asciidoctor.css"></head><body class="article"><div id="seedu-header"><nav class="navbar navbar-lg navbar-light bg-lighter"><div class="container"><a class="navbar-brand" href="https://se-edu.github.io/"><img src="images/SeEduLogo.png" alt="SE-EDU"></a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level1">AB-1</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level2">AB-2</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level3">AB-3</a></li><li class="nav-item"><a class="nav-link active" href="index.html">AB-4</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/collate">Collate</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/se-book">Book</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/learningresources">Resources</a></li></ul></div></nav></div><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="index.html">WatchOver</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link active" href="DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link" href="LearningOutcomes.html">LOs</a></li><li class="nav-item"><a class="nav-link" href="AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/CS2103-AY1819S1-F11-3/main.git"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>Developer Guide</h1><div id="toc" class="toc"><div id="toctitle"></div><ul class="sectlevel1">
+<li><a href="#disclaimer">Disclaimer</a></li>
+<li><a href="#appendix-a-target-user-profile">Appendix A: Target User Profile</a></li>
+<li><a href="#appendix-b-value-proposition">Appendix B: Value proposition</a></li>
+<li><a href="#appendix-c-user-stories">Appendix C: User Stories</a></li>
+<li><a href="#appendix-d-use-cases">Appendix D: Use cases</a>
+<ul class="sectlevel2">
+<li><a href="#use-case-display-welcome-screen">Use case: Display Welcome Screen</a></li>
+<li><a href="#use-case-display-motivational-quote-mq-on-task-completion">Use case: Display Motivational Quote (MQ) on task completion</a></li>
+<li><a href="#use-case-list-task">Use case: List Task</a></li>
+<li><a href="#use-case-add-task">Use case: Add task</a></li>
+<li><a href="#use-case-delete-task">Use case: Delete task</a></li>
+<li><a href="#use-case-viewing-command-history">Use case: Viewing Command History</a></li>
+<li><a href="#use-case-undoing-last-command">Use case: Undoing Last Command</a></li>
+<li><a href="#use-case-redoing-last-command">Use case: Redoing Last Command</a></li>
+<li><a href="#use-case-completing-task">Use case: Completing Task</a></li>
+<li><a href="#use-case-display-statistics">Use case: Display Statistics</a></li>
+<li><a href="#use-case-failing-to-complete-task">Use case: Failing to complete task</a></li>
+</ul>
+</li>
+<li><a href="#non-functional-requirements">Non-functional requirements</a></li>
+<li><a href="#glossary">Glossary</a></li>
+<li><a href="#1-setting-up">1. Setting up</a>
+<ul class="sectlevel2">
+<li><a href="#1-1-prerequisites">1.1. Prerequisites</a></li>
+<li><a href="#1-2-setting-up-the-project-in-your-computer">1.2. Setting up the project in your computer</a></li>
+<li><a href="#1-3-verifying-the-setup">1.3. Verifying the setup</a></li>
+<li><a href="#1-4-configurations-to-do-before-writing-code">1.4. Configurations to do before writing code</a></li>
+</ul>
+</li>
+<li><a href="#3-implementation">3. Implementation</a>
+<ul class="sectlevel2">
+<li><a href="#3-1-undo-redo-feature">3.1. Undo/Redo feature</a></li>
+<li><a href="#3-3-logging">3.3. Logging</a></li>
+<li><a href="#3-4-configuration">3.4. Configuration</a></li>
+</ul>
+</li>
+<li><a href="#4-documentation">4. Documentation</a>
+<ul class="sectlevel2">
+<li><a href="#4-1-editing-documentation">4.1. Editing Documentation</a></li>
+<li><a href="#4-2-publishing-documentation">4.2. Publishing Documentation</a></li>
+<li><a href="#4-3-converting-documentation-to-pdf-format">4.3. Converting Documentation to PDF format</a></li>
+<li><a href="#4-5-per-file-documentation-settings">4.5. Per-file Documentation Settings</a></li>
+<li><a href="#4-6-site-template">4.6. Site Template</a></li>
+</ul>
+</li>
+<li><a href="#5-testing">5. Testing</a>
+<ul class="sectlevel2">
+<li><a href="#5-1-running-tests">5.1. Running Tests</a></li>
+<li><a href="#5-2-types-of-tests">5.2. Types of tests</a></li>
+<li><a href="#5-3-troubleshooting-testing">5.3. Troubleshooting Testing</a></li>
+</ul>
+</li>
+<li><a href="#6-dev-ops">6. Dev Ops</a>
+<ul class="sectlevel2">
+<li><a href="#6-1-build-automation">6.1. Build Automation</a></li>
+<li><a href="#6-2-continuous-integration">6.2. Continuous Integration</a></li>
+<li><a href="#6-3-coverage-reporting">6.3. Coverage Reporting</a></li>
+<li><a href="#6-4-documentation-previews">6.4. Documentation Previews</a></li>
+<li><a href="#6-5-making-a-release">6.5. Making a Release</a></li>
+<li><a href="#6-6-managing-dependencies">6.6. Managing Dependencies</a></li>
+</ul>
+</li>
+</ul></div></div><div id="content"><div class="sect1">
 <h2 id="disclaimer"><a class="link" href="#disclaimer">Disclaimer</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -69,97 +132,101 @@
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>*</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">* * *</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">organised student</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">apply lables to my task</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">focus on tasks</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>*</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">* * *</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">forgetful student</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">alerted of important deadlines</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">not forget about tasks</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>*</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">* * *</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">busy person</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">easily prioritise tasks</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">get important things out of the way first</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>*</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">* * *</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">organised student</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">have tasks organised by categories that they are under</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">manage different aspects of life better</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">manage
+different aspects of life better</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>*</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">* * *</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">proactive individual</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">view the day&#8217;s task at a glance</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">I know what I need to do</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>*</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">* * *</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">see task organized between todos and dones</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">better organisation</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>*</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">* * *</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">see a list of tasks that needs attention at present time</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">I may pay attention to them first</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I may pay attention to
+them first</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">**</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">* *</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">long-sighted quantitative person</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">overview of my past tasks of the week</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">I can track my progress and evaluate how I am doing.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I can track
+my progress and evaluate how I am doing.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">**</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">* *</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">have rewards for completing tasks</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">continue doing tasks</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">**</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">* *</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">see list of tasks that need my attention most at the present time</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">pay attention to them first</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pay attention to
+ them first</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">**</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">* *</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">see QOTD for basic motivation</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">motivation</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">**</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">* *</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user that is demoralized easily</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">get positive encouragement</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">stay motivated</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">**</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">* *</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">negative reinforcement</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">stay motivated</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">**</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">* *</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">statistics function</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">keep track of progress</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">**</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">* *</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">insights function</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">keep track of progress</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">**</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">* *</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">competitive user</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">compete with friends</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">challenge myself and peers</p></td>
@@ -178,19 +245,21 @@
 <h3 id="use-case-display-welcome-screen"><a class="link" href="#use-case-display-welcome-screen">Use case: Display Welcome Screen</a></h3>
 <div class="sect3">
 <h4 id="mss"><a class="link" href="#mss">MSS</a></h4>
-<div class="ulist">
-<ul>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p>1. User logs in successfully</p>
+<p>User logs in successfully</p>
 </li>
 <li>
-<p>2. Application fetches QOTD and shows it.</p>
+<p>Application fetches QOTD and shows it.</p>
 </li>
 <li>
-<p>3. Application then displays <strong>10</strong> tasks sorted by ascending deadline.
-Use case ends.</p>
+<p>Application then displays <strong>10</strong> tasks sorted by ascending deadline.</p>
 </li>
-</ul>
+</ol>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
 </div>
 </div>
 <div class="sect3">
@@ -199,22 +268,39 @@ Use case ends.</p>
 <ul>
 <li>
 <p>3a. There are less than <strong>10</strong> tasks available</p>
-</li>
+<div class="ulist">
+<ul>
 <li>
-<p>3a1. Let the number of tasks available be <code>n</code>, then <code>n</code> tasks will be shown.
-Use case ends.</p>
+<p>3a1. Let the number of tasks available be <code>n</code>, then <code>n</code> tasks will be shown.</p>
 </li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+<div class="ulist">
+<ul>
 <li>
 <p>3b. There are multiple tasks with the same deadline.</p>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p>3b1. Tie will be broken by the lexicographic order of Task name</p>
 </li>
 <li>
-<p>3b2. If multiple tasks have the same lexicographic order, the outputted task will be non-deterministic
-Use case ends.</p>
+<p>3b2. If multiple tasks have the same lexicographic order, the outputted task will be
+non-deterministic</p>
 </li>
 </ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
 </div>
 </div>
 </div>
@@ -222,16 +308,18 @@ Use case ends.</p>
 <h3 id="use-case-display-motivational-quote-mq-on-task-completion"><a class="link" href="#use-case-display-motivational-quote-mq-on-task-completion">Use case: Display Motivational Quote (MQ) on task completion</a></h3>
 <div class="sect3">
 <h4 id="mss-2"><a class="link" href="#mss-2">MSS</a></h4>
-<div class="ulist">
-<ul>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p>1. User marks task as complete.</p>
+<p>User marks task as complete.</p>
 </li>
 <li>
-<p>2. Application shows MQ.
-Use case ends.</p>
+<p>Application shows MQ.</p>
 </li>
-</ul>
+</ol>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
 </div>
 </div>
 <div class="sect3">
@@ -240,12 +328,18 @@ Use case ends.</p>
 <ul>
 <li>
 <p>1a. User marks multiple tasks as complete.</p>
-</li>
+<div class="ulist">
+<ul>
 <li>
-<p>1a1. Application still shows only one MQ.
-Use case ends.</p>
+<p>1a1. Application still shows only one MQ.</p>
 </li>
 </ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
 </div>
 </div>
 </div>
@@ -253,16 +347,18 @@ Use case ends.</p>
 <h3 id="use-case-list-task"><a class="link" href="#use-case-list-task">Use case: List Task</a></h3>
 <div class="sect3">
 <h4 id="mss-3"><a class="link" href="#mss-3">MSS</a></h4>
-<div class="ulist">
-<ul>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p>1. User requests to list tasks, fulfilling a (potentially empty) set of criteria.</p>
+<p>User requests to list tasks, fulfilling a (potentially empty) set of criteria.</p>
 </li>
 <li>
-<p>2. Application shows a list of corresponding tasks.
-Use case ends.</p>
+<p>Application shows a list of corresponding tasks.</p>
 </li>
-</ul>
+</ol>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
 </div>
 </div>
 <div class="sect3">
@@ -271,12 +367,18 @@ Use case ends.</p>
 <ul>
 <li>
 <p>1a. No matches found.</p>
-</li>
+<div class="ulist">
+<ul>
 <li>
-<p>1a1. Application informs user that no tasks matching the specified criteria have been found.
-Use case ends.</p>
+<p>1a1. Application informs user that no tasks matching the specified criteria have been found.</p>
 </li>
 </ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
 </div>
 </div>
 </div>
@@ -284,80 +386,18 @@ Use case ends.</p>
 <h3 id="use-case-add-task"><a class="link" href="#use-case-add-task">Use case: Add task</a></h3>
 <div class="sect3">
 <h4 id="mss-4"><a class="link" href="#mss-4">MSS</a></h4>
-<div class="ulist">
-<ul>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p>1. User requests to add a task in the list</p>
+<p>User requests to add a task in the list</p>
 </li>
 <li>
-<p>2. Application adds the task
-Use case ends.
-<mark>#</mark># Extensions</p>
+<p>Application adds the task</p>
 </li>
-<li>
-<p>1. The task already exists.</p>
-</li>
-<li>
-<p>2. Application shows an error message.
-Use case resumes at step 1 in MSS.</p>
-</li>
-<li>
-<p>1. The user enters the add command in a wrong for</p>
-</li>
-<li>
-<p>2. Application shows an error message.
-Use case resumes at step 1 in MSS.</p>
-</li>
-</ul>
+</ol>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="use-case-delete-task"><a class="link" href="#use-case-delete-task">Use case: Delete task</a></h3>
-<div class="sect3">
-<h4 id="mss-5"><a class="link" href="#mss-5">MSS</a></h4>
-<div class="ulist">
-<ul>
-<li>
-<p>1. User requests to delete a task with a particular index</p>
-</li>
-<li>
-<p>2. Application deletes the task
-Use case ends.
-<mark>#</mark># Extensions</p>
-</li>
-<li>
-<p>1a. A task with the specified index does not exist.</p>
-</li>
-<li>
-<p>1a1. Application shows an error message.
-Use case resumes at step 1 in MSS.</p>
-</li>
-<li>
-<p>1b. The task with the specified index is already deleted.</p>
-</li>
-<li>
-<p>1b1. Application shows an error message.
-Use case resumes at step 1 in MSS.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="use-case-viewing-command-history"><a class="link" href="#use-case-viewing-command-history">Use case: Viewing Command History</a></h3>
-<div class="sect3">
-<h4 id="mss-6"><a class="link" href="#mss-6">MSS</a></h4>
-<div class="ulist">
-<ul>
-<li>
-<p>1. User requests to view command history.</p>
-</li>
-<li>
-<p>2. Application displays command history.
-Use case ends.</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Use case ends.</p>
 </div>
 </div>
 <div class="sect3">
@@ -365,30 +405,55 @@ Use case ends.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>1a. Command history is empty.</p>
-</li>
+<p>1a. The task already exists.</p>
+<div class="ulist">
+<ul>
 <li>
-<p>1a1. Application informs user that there is no command history.
-Use case ends.</p>
+<p>1a1. Application shows an error message.</p>
 </li>
 </ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Use case resumes at step 1 in MSS.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1b. The user enters the add command in a wrong format.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1b1. Application shows an error message.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Use case resumes at step 1 in MSS.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-undoing-last-command"><a class="link" href="#use-case-undoing-last-command">Use case: Undoing Last Command</a></h3>
+<h3 id="use-case-delete-task"><a class="link" href="#use-case-delete-task">Use case: Delete task</a></h3>
 <div class="sect3">
-<h4 id="mss-7"><a class="link" href="#mss-7">MSS</a></h4>
-<div class="ulist">
-<ul>
+<h4 id="mss-5"><a class="link" href="#mss-5">MSS</a></h4>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p>1. User requests undoing last command.</p>
+<p>User requests to delete a task with a particular index</p>
 </li>
 <li>
-<p>2. Application resets state to before last state-changing command.
-Use case ends.</p>
+<p>Application deletes the task</p>
 </li>
-</ul>
+</ol>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
 </div>
 </div>
 <div class="sect3">
@@ -396,30 +461,55 @@ Use case ends.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>1a. Command history is empty.</p>
-</li>
+<p>1a. A task with the specified index does not exist.</p>
+<div class="ulist">
+<ul>
 <li>
-<p>1a1. Application informs user that there is no past history to undo.
-Use case ends.</p>
+<p>1a1. Application shows an error message.</p>
 </li>
 </ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Use case resumes at step 1 in MSS.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1b. The task with the specified index is already deleted.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1b1. Application shows an error message.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Use case resumes at step 1 in MSS.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-redoing-last-command"><a class="link" href="#use-case-redoing-last-command">Use case: Redoing Last Command</a></h3>
+<h3 id="use-case-viewing-command-history"><a class="link" href="#use-case-viewing-command-history">Use case: Viewing Command History</a></h3>
 <div class="sect3">
-<h4 id="mss-8"><a class="link" href="#mss-8">MSS</a></h4>
-<div class="ulist">
-<ul>
+<h4 id="mss-6"><a class="link" href="#mss-6">MSS</a></h4>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p>1. User requests redoing last command.</p>
+<p>User requests to view command history.</p>
 </li>
 <li>
-<p>2. Application resets state to before last state-changing command was undone.
-Use case ends.</p>
+<p>Application displays command history.</p>
 </li>
-</ul>
+</ol>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
 </div>
 </div>
 <div class="sect3">
@@ -427,13 +517,97 @@ Use case ends.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>1a. The immediately preceding command (ignoring redone undos) is not an undo command</p>
-</li>
+<p>1a. Command history is empty.</p>
+<div class="ulist">
+<ul>
 <li>
-<p>1a1. Application informs user that there is no undo to redo.
-Use case ends.</p>
+<p>1a1. Application informs user that there is no command history.</p>
 </li>
 </ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="use-case-undoing-last-command"><a class="link" href="#use-case-undoing-last-command">Use case: Undoing Last Command</a></h3>
+<div class="sect3">
+<h4 id="mss-7"><a class="link" href="#mss-7">MSS</a></h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User requests undoing last command.</p>
+</li>
+<li>
+<p>Application resets state to before last state-changing command.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="extensions-7"><a class="link" href="#extensions-7">Extensions</a></h4>
+<div class="ulist">
+<ul>
+<li>
+<p>1a. Command history is empty.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1a1. Application informs user that there is no past history to undo.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="use-case-redoing-last-command"><a class="link" href="#use-case-redoing-last-command">Use case: Redoing Last Command</a></h3>
+<div class="sect3">
+<h4 id="mss-8"><a class="link" href="#mss-8">MSS</a></h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User requests redoing last command.</p>
+</li>
+<li>
+<p>Application resets state to before last state-changing command was undone.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="extensions-8"><a class="link" href="#extensions-8">Extensions</a></h4>
+<div class="ulist">
+<ul>
+<li>
+<p>1a. The immediately preceding command (ignoring redone undos) is not an undo command</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1a1. Application informs user that there is no undo to redo.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
 </div>
 </div>
 </div>
@@ -441,20 +615,30 @@ Use case ends.</p>
 <h3 id="use-case-completing-task"><a class="link" href="#use-case-completing-task">Use case: Completing Task</a></h3>
 <div class="sect3">
 <h4 id="mss-9"><a class="link" href="#mss-9">MSS</a></h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User marks tasks as complete.</p>
+</li>
+<li>
+<p>Application reports both points earned and current points to user.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="extensions-9"><a class="link" href="#extensions-9">Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
-<p>1. User marks tasks as complete.</p>
-</li>
-<li>
-<p>2. Application reports both points earned and current points to user.
-<mark>#</mark># Extensions</p>
-</li>
-<li>
 <p>2a. User earns enough points to level up</p>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p>2a1. Application displays a congratulatory message, current points, and points earned to user.</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -464,22 +648,35 @@ Use case ends.</p>
 <h3 id="use-case-display-statistics"><a class="link" href="#use-case-display-statistics">Use case: Display Statistics</a></h3>
 <div class="sect3">
 <h4 id="mss-10"><a class="link" href="#mss-10">MSS</a></h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User requests for statistics.</p>
+</li>
+<li>
+<p>Application fetches data and displays statistics.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="extensions-10"><a class="link" href="#extensions-10">Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
-<p>1. User requests for statistics.</p>
-</li>
-<li>
-<p>2. Application fetches data and displays statistics.
-<mark>#</mark># Extensions</p>
-</li>
-<li>
 <p>2a. There are no statistics.</p>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p>2a1. Application displays a flavour text explaining that the user needs to complete a task first to get statistics.</p>
 </li>
 </ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
 </div>
 </div>
 </div>
@@ -487,45 +684,27 @@ Use case ends.</p>
 <h3 id="use-case-failing-to-complete-task"><a class="link" href="#use-case-failing-to-complete-task">Use case: Failing to complete task</a></h3>
 <div class="sect3">
 <h4 id="mss-11"><a class="link" href="#mss-11">MSS</a></h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User fails to complete tasks on time</p>
+</li>
+<li>
+<p>Application displays points lost and current current points to user.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="extensions-11"><a class="link" href="#extensions-11">Extensions</a></h4>
 <div class="ulist">
 <ul>
-<li>
-<p>1. User fails to complete tasks on time</p>
-</li>
-<li>
-<p>2. Application displays points lost and current current points to user.
-<mark>#</mark> Extensions</p>
-</li>
 <li>
 <p>2a. User loses enough points that it level down.</p>
 </li>
 <li>
-<p>2a1. Application displays a warning message, current points, and points lost to user.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="use-case-deleting-a-task"><a class="link" href="#use-case-deleting-a-task">Use Case: Deleting a task</a></h3>
-<div class="sect3">
-<h4 id="mss-12"><a class="link" href="#mss-12">MSS</a></h4>
-<div class="ulist">
-<ul>
-<li>
-<p>1. User lists tasks.</p>
-</li>
-<li>
-<p>2. System displays list of tasks.</p>
-</li>
-<li>
-<p>3. User selects task to delete.</p>
-</li>
-<li>
-<p>4. System deletes task.</p>
-</li>
-<li>
-<p>5. System displays success message.</p>
+<p>2a1. Application displays a warning message, current points, and points lost to user.
+Use case ends.</p>
 </li>
 </ul>
 </div>
@@ -1044,4 +1223,4 @@ Suggested path for new programmers:</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-04 13:43:45 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-04 14:31:27 UTC</div></div></div></body></html>
