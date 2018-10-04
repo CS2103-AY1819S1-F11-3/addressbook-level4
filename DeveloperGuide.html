@@ -42,6 +42,7 @@
 <li><a href="#4-1-editing-documentation">4.1. Editing Documentation</a></li>
 <li><a href="#4-2-publishing-documentation">4.2. Publishing Documentation</a></li>
 <li><a href="#4-3-converting-documentation-to-pdf-format">4.3. Converting Documentation to PDF format</a></li>
+<li><a href="#4-4-site-wide-documentation-settings">4.4. Site-wide Documentation Settings</a></li>
 <li><a href="#4-5-per-file-documentation-settings">4.5. Per-file Documentation Settings</a></li>
 <li><a href="#4-6-site-template">4.6. Site Template</a></li>
 </ul>
@@ -122,15 +123,13 @@
 <col style="width: 25%;">
 <col style="width: 25%;">
 </colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Priority</th>
-<th class="tableblock halign-left valign-top">As a &#8230;&#8203;</th>
-<th class="tableblock halign-left valign-top">I want to &#8230;&#8203;</th>
-<th class="tableblock halign-left valign-top">So that I can &#8230;&#8203;</th>
-</tr>
-</thead>
 <tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Priority</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">As a &#8230;&#8203;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I want to &#8230;&#8203;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">So that I can &#8230;&#8203;</p></td>
+</tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">* * *</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">organised student</p></td>
@@ -230,6 +229,48 @@ my progress and evaluate how I am doing.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">competitive user</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">compete with friends</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">challenge myself and peers</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">*</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">person without arms</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">have the computer interpret my words</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">type with my toes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">*</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">person who hates rules</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">enter tasks in a specified format and computer should interpret for me</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">easy addition of tasks</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">*</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">visual person</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">colour coding in tasks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">visually discern between tasks</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">*</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">feedback on completion of tasks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">better plan ways to handle tasks</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">*</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">lazy student</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">provide intuitive information about the chaining to tasks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">easy to tell end of task</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">*</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">customize persona</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">make tasks seem more personal</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">*</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unmotivated student</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">see tasks creatively explosively destroy themselves</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">derive more enjoyment</p></td>
 </tr>
 </tbody>
 </table>
@@ -736,7 +777,7 @@ Use case ends.</p>
 <p>System should be maintainable with proper documentation.</p>
 </li>
 <li>
-<p>Proper feedback to user when error occurs. // @jelena: Usability</p>
+<p>Proper feedback to user when error occurs.</p>
 </li>
 </ul>
 </div>
@@ -910,9 +951,13 @@ This will generate all resources required by the application and tests.</p>
 Optionally, you can set up AppVeyor as a second CI (see UsingAppVeyor.adoc).</p>
 </div>
 <div class="paragraph">
-<p>Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
-<mark>#</mark># 1.4.4. Getting started with coding
-When you are ready to start coding,</p>
+<p>Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="1-4-4-getting-started-with-coding"><a class="link" href="#1-4-4-getting-started-with-coding">1.4.4. Getting started with coding</a></h4>
+<div class="paragraph">
+<p>When you are ready to start coding,</p>
 </div>
 <div class="paragraph">
 <p>Get some sense of the overall design by reading Section 2.1, “Architecture”.</p>
@@ -1021,9 +1066,13 @@ Its really good</p>
 </div>
 <div class="paragraph">
 <p>chrome save as pdf
-Figure 10. Saving documentation as PDF files in Chrome
-<mark>#</mark> 4.4. Site-wide Documentation Settings
-The build.gradle file specifies some project-specific asciidoc attributes which affects how all documentation files within this project are rendered.</p>
+Figure 10. Saving documentation as PDF files in Chrome</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="4-4-site-wide-documentation-settings"><a class="link" href="#4-4-site-wide-documentation-settings">4.4. Site-wide Documentation Settings</a></h3>
+<div class="paragraph">
+<p>The build.gradle file specifies some project-specific asciidoc attributes which affects how all documentation files within this project are rendered.</p>
 </div>
 <div class="paragraph">
 <p>Attributes left unset in the build.gradle file will use their default value, if any.
@@ -1223,4 +1272,4 @@ Suggested path for new programmers:</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-04 14:56:29 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-04 15:00:23 UTC</div></div></div></body></html>
