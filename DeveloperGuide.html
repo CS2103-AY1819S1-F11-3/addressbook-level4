@@ -40,6 +40,8 @@
 <li><a href="#3-5-modelling-dependency-validity">3.5 Modelling Dependency Validity</a></li>
 <li><a href="#3-4-logging">3.4. Logging</a></li>
 <li><a href="#3-5-configuration">3.5. Configuration</a></li>
+<li><a href="#3-5-handling-date">3.5 Handling Date</a></li>
+<li><a href="#3-6-list">3.6 List</a></li>
 </ul>
 </li>
 <li><a href="#4-documentation">4. Documentation</a>
@@ -1552,6 +1554,27 @@ A topological sort can also be performed on the graph to order tasks by the numb
 <p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: config.json).</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="3-5-handling-date"><a class="link" href="#3-5-handling-date">3.5 Handling Date</a></h3>
+<div class="paragraph">
+<p>Time is of key importance when dealing with the <code>TaskManager</code>. We implement and represent time using the ubiquitous
+<code>Date</code> class in Java. The class <code>DueDate</code> internally uses the <code>Date</code> class, and harnesses built in capabilities such as
+date comparison. The precision of time for tasks is to the minute, that is the <code>AddCommand</code> can accept a <code>DueDate</code>
+accurate to the minute.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="3-6-list"><a class="link" href="#3-6-list">3.6 List</a></h3>
+<div class="paragraph">
+<p>The functionality of the default <code>list</code> command is as expected (and documented), that is all tasks are listed.
+The date filters are dependent on the due date of the task, and the current date.</p>
+</div>
+<div class="paragraph">
+<p>The Current Date is retrieved using Java&#8217;s <code>Calendar</code>, and is adjusted to be the end of the day, week, or month
+depending on the <code>ListCommand</code> 's option. A predicate is then created to check if a given <code>Task</code> is before this date.
+This predicate is passed as an argument to update filtered Tasks.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1803,4 +1826,4 @@ Suggested path for new programmers:</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-18 21:58:14 SRET</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-18 21:58:52 SRET</div></div></div></body></html>
