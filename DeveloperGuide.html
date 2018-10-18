@@ -15,7 +15,8 @@
 <li><a href="#use-case-viewing-command-history">Use case: Viewing Command History</a></li>
 <li><a href="#use-case-undoing-last-command">Use case: Undoing Last Command</a></li>
 <li><a href="#use-case-redoing-last-command">Use case: Redoing Last Command</a></li>
-<li><a href="#use-case-completing-task">Use case: Completing Task</a></li>
+<li><a href="#use-case-completing-task-single">Use case: Completing Task (Single)</a></li>
+<li><a href="#use-case-completing-task-batch-via-code-label-code">Use case: Completing Task (Batch via <code>Label</code>)</a></li>
 <li><a href="#use-case-display-statistics">Use case: Display Statistics</a></li>
 <li><a href="#use-case-failing-to-complete-task">Use case: Failing to complete task</a></li>
 </ul>
@@ -33,8 +34,10 @@
 <li><a href="#3-implementation">3. Implementation</a>
 <ul class="sectlevel2">
 <li><a href="#3-1-undo-redo-feature">3.1. Undo/Redo feature</a></li>
-<li><a href="#3-3-logging">3.3. Logging</a></li>
-<li><a href="#3-4-configuration">3.4. Configuration</a></li>
+<li><a href="#3-2-batch-completion-via-label-feature">3.2. Batch Completion via Label feature</a></li>
+<li><a href="#3-3-model-rollback-feature">3.3. Model Rollback feature</a></li>
+<li><a href="#3-4-logging">3.4. Logging</a></li>
+<li><a href="#3-5-configuration">3.5. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#4-documentation">4. Documentation</a>
@@ -653,13 +656,13 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-completing-task"><a class="link" href="#use-case-completing-task">Use case: Completing Task</a></h3>
+<h3 id="use-case-completing-task-single"><a class="link" href="#use-case-completing-task-single">Use case: Completing Task (Single)</a></h3>
 <div class="sect3">
 <h4 id="mss-9"><a class="link" href="#mss-9">MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User marks tasks as complete.</p>
+<p>User marks task as complete.</p>
 </li>
 <li>
 <p>Application reports both points earned and current points to user.</p>
@@ -671,6 +674,60 @@ non-deterministic</p>
 <h4 id="extensions-9"><a class="link" href="#extensions-9">Extensions</a></h4>
 <div class="ulist">
 <ul>
+<li>
+<p>1a. An error occurs, causes one of the task to not be completed</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1a1. Application displays error message, no points are earned either.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>2a. User earns enough points to level up</p>
+<div class="ulist">
+<ul>
+<li>
+<p>2a1. Application displays a congratulatory message, current points, and points earned to user.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="use-case-completing-task-batch-via-code-label-code"><a class="link" href="#use-case-completing-task-batch-via-code-label-code">Use case: Completing Task (Batch via <code>Label</code>)</a></h3>
+<div class="sect3">
+<h4 id="mss-10"><a class="link" href="#mss-10">MSS</a></h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User marks a batch of tasks with the same specified <code>Label</code> as complete.</p>
+</li>
+<li>
+<p>Application reports both points earned and current points to user.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="extensions-10"><a class="link" href="#extensions-10">Extensions</a></h4>
+<div class="ulist">
+<ul>
+<li>
+<p>1a. An error occurs, causes one of the tasks to not be able to be completed</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1a1. Application displays an error message, resetting the batch of tasks to their
+pre-completed state and no points are earned.</p>
+</li>
+</ul>
+</div>
+</li>
 <li>
 <p>2a. User earns enough points to level up</p>
 <div class="ulist">
@@ -688,7 +745,7 @@ non-deterministic</p>
 <div class="sect2">
 <h3 id="use-case-display-statistics"><a class="link" href="#use-case-display-statistics">Use case: Display Statistics</a></h3>
 <div class="sect3">
-<h4 id="mss-10"><a class="link" href="#mss-10">MSS</a></h4>
+<h4 id="mss-11"><a class="link" href="#mss-11">MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -701,7 +758,7 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-10"><a class="link" href="#extensions-10">Extensions</a></h4>
+<h4 id="extensions-11"><a class="link" href="#extensions-11">Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -724,7 +781,7 @@ non-deterministic</p>
 <div class="sect2">
 <h3 id="use-case-failing-to-complete-task"><a class="link" href="#use-case-failing-to-complete-task">Use case: Failing to complete task</a></h3>
 <div class="sect3">
-<h4 id="mss-11"><a class="link" href="#mss-11">MSS</a></h4>
+<h4 id="mss-12"><a class="link" href="#mss-12">MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -737,7 +794,7 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-11"><a class="link" href="#extensions-11">Extensions</a></h4>
+<h4 id="extensions-12"><a class="link" href="#extensions-12">Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -986,7 +1043,277 @@ Its really good</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="3-3-logging"><a class="link" href="#3-3-logging">3.3. Logging</a></h3>
+<h3 id="3-2-batch-completion-via-label-feature"><a class="link" href="#3-2-batch-completion-via-label-feature">3.2. Batch Completion via Label feature</a></h3>
+<div class="sect3">
+<h4 id="3-2-1-current-implementation"><a class="link" href="#3-2-1-current-implementation">3.2.1. Current Implementation</a></h4>
+<div class="paragraph">
+<p>The batch completion mechanism is facilitated by <code>CompleteCommand</code>.
+It extends <code>Command</code> and encapsulates the internal logic of finding task and completing multiple
+tasks atomically.</p>
+</div>
+<div class="paragraph">
+<p>Additionally, in order to facilitate the finding of task and completing tasks atomically, the
+following auxiliary classes have been created / extended as a result:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>LabelMatchesKeywordPredicate</code>&#8201;&#8212;&#8201;Extension of the functional interface <code>Predicate&lt;E&gt;</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>This class is required to encapsulate the logic of determining if a task has a <code>Label</code> matching
+the desired <code>Label</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Updated</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Model</code>&#8201;&#8212;&#8201;Extends with a rollback() method</p>
+</li>
+<li>
+<p><code>ModelManager</code>&#8201;&#8212;&#8201;Extends with a rollback() method</p>
+</li>
+<li>
+<p><code>VersionedTaskManager</code>&#8201;&#8212;&#8201;Implements a rollback() method</p>
+</li>
+<li>
+<p><code>CompleteCommandParser</code>&#8201;&#8212;&#8201;Extended to parse two different formats, <code>Index</code> and <code>Label</code> based
+commands</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These are the methods in the CompleteCommand class supporting the batch completion:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>#completeAllTasksReturnStringOfTasks(Model)</code></p>
+</li>
+<li>
+<p><code>#completeOneTaskReturnStringOfTasks(Task, Model)</code></p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The <code>CompleteCommand</code> class has two overloaded constructors, one taking in a
+<code>Task&lt;Predicate&gt;</code> and another taking in an <code>Index</code> to support polymorphic behavior for both a
+single operation and batch operation.
+These operations are exposed in the <code>CompleteCommand</code> class via <code>CompleteCommand#execute(&#8230;&#8203;)</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.</p>
+</div>
+<div class="paragraph">
+<p>_Premise: The application has several tasks tagger with the <code>Label::many</code>.</p>
+</div>
+<div class="paragraph">
+<p>Step 1. The user executes <code>complete l/many</code> command to complete all the tasks labelled <code>many</code>.</p>
+</div>
+<div class="paragraph">
+<p>Step 1.1. The argument <code>String</code> is passed to  the <code>CompleteCommandParser</code>, which checks to see
+if the user&#8217;s input contains a label, then calls <code>CompleteCommandParser#parseLabel(&#8230;&#8203;)</code>. As a
+result a new <code>CompleteCommand</code> instance containing a  <code>LabelMatchesKeywordPredicate</code> which
+will only test true against a <code>Task</code> containing a <code>Label::many</code>.</p>
+</div>
+<div class="paragraph">
+<p>Step 1.2. A chain of event triggers, ultimately calling <code>CompleteCommand#execute(&#8230;&#8203;)</code> for the
+created instance. Subsequently <code>CompleteCommand#completeAllTasksReturnStringOfTasks(&#8230;&#8203;)</code> is
+called which handles the logic for updating all valid completable tasks matching the predicate.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/CompleteViaLabelOnFail.png" alt="CompleteViaLabelOnFail" width="1200">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If a command fails its execution, it will call <code>Model#rollbackTaskManager()</code>, so
+all current changes will be reset to the latest commit / state in <code>taskManagerStateList</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/CompleteViaLabelOnSuccess.png" alt="CompleteViaLabelOnSuccess" width="1200">
+</div>
+</div>
+<div class="paragraph">
+<p>Step 1.2.1 If all tasks are updated successful, <code>Model#commit()</code> will be called.</p>
+</div>
+<div class="paragraph">
+<p>Step 2. The user sees all tasks previously displayed on the screen which matches the label change
+it&#8217;s status to <code>COMPLETED</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="3-2-2-design-considerations"><a class="link" href="#3-2-2-design-considerations">3.2.2. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="3-2-2-1-aspect-implementation-of-atomicity"><a class="link" href="#3-2-2-1-aspect-implementation-of-atomicity">3.2.2.1. Aspect: Implementation of atomicity</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Calling <code>Model#rollback()</code> when an exception is caught,
+otherwise <code>Model#commit()</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: This implementation defensively codes for scenarios where exceptions are thrown, thus
+ensuring that no half-done batch operation may left.</p>
+</li>
+<li>
+<p>Cons: Increases coupling of components.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Doing a check on all tasks and only proceeding to update the model and
+commit if deemed that all tasks can be completed successfully else throw an exception.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Reduces coupling.</p>
+</li>
+<li>
+<p>Cons: Unable to handle unforeseen failure to complete, resulting in a partially committed
+batch operation.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="3-2-2-2-aspect-handling-different-completecommand-behaviour"><a class="link" href="#3-2-2-2-aspect-handling-different-completecommand-behaviour">3.2.2.2. Aspect: Handling different CompleteCommand behaviour</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Overloading the constructors and implement the logic for
+both behaviours within.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Groups possibly tightly coupled code together into a single class; thus reducing
+coupling.</p>
+</li>
+<li>
+<p>Cons: Possibly goes against the Seperations of Concerns principle.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2 (possible enhancement):</strong> Implementing <code>CompleteCommand</code> as a interface and
+creating two separate
+classes for each of the behaviours.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Clear separation of concern.</p>
+</li>
+<li>
+<p>Cons: Harder to design properly.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="3-2-2-3-aspect-representation-of-predicate-to-be-stored-by-completecommand"><a class="link" href="#3-2-2-3-aspect-representation-of-predicate-to-be-stored-by-completecommand">3.2.2.3. Aspect: Representation of predicate to be stored by CompleteCommand</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> As an explicit implemented class
+<code>LabelMatchesKeywordPredicate</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Notion of equality can be overload, making testing for equality in every class composing
+the class able to check for structural equality.</p>
+</li>
+<li>
+<p>Cons: Creation of an extra class requires more understanding by developers to pick up the
+quirks as opposed to commonly recognised <em>Alternative 2</em></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Declaration of predicate as an anonymous function</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easily understood by developers who are familiar with Functional Interfaces being Single
+Abstract Methods.</p>
+</li>
+<li>
+<p>Cons: Inability to properly check for equality.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="3-3-model-rollback-feature"><a class="link" href="#3-3-model-rollback-feature">3.3. Model Rollback feature</a></h3>
+<div class="sect3">
+<h4 id="3-3-1-current-implementation"><a class="link" href="#3-3-1-current-implementation">3.3.1. Current Implementation</a></h4>
+<div class="paragraph">
+<p>Allows for any uncommitted changes to be discarded.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Model</code>&#8201;&#8212;&#8201;Extends with a <code>rollback()</code> method</p>
+</li>
+<li>
+<p><code>ModelManager</code>&#8201;&#8212;&#8201;Extends with a <code>rollback()</code> method</p>
+</li>
+<li>
+<p><code>VersionedTaskManager</code>&#8201;&#8212;&#8201;Implements a <code>rollback()</code> method</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>When <code>VersionedTaskManager#Rollback()</code> is called, the current data is reset to the state of the
+latest commit. Internally, <code>VersionedTaskManager#resetDate(&#8230;&#8203;)</code> is called to reset the data to
+the latest commit, also the <code>currentStatePointer</code> is set to point at the index of the latest
+commit in <code>taskManagerStateList</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="3-4-logging"><a class="link" href="#3-4-logging">3.4. Logging</a></h3>
 <div class="paragraph">
 <p>We are using java.util.logging package for logging. The LogsCenter class is used to manage the logging levels and logging destinations.</p>
 </div>
@@ -1016,7 +1343,7 @@ Its really good</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="3-4-configuration"><a class="link" href="#3-4-configuration">3.4. Configuration</a></h3>
+<h3 id="3-5-configuration"><a class="link" href="#3-5-configuration">3.5. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: config.json).</p>
 </div>
@@ -1272,4 +1599,4 @@ Suggested path for new programmers:</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-18 20:36:02 SRET</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-18 21:05:31 SRET</div></div></div></body></html>
