@@ -34,14 +34,15 @@
 </li>
 <li><a href="#3-implementation">3. Implementation</a>
 <ul class="sectlevel2">
+<li><a href="#3-1-achievement-mechanism">3.1. Achievement mechanism</a></li>
 <li><a href="#3-2-batch-completion-via-label-feature">3.2. Batch Completion via Label feature</a></li>
 <li><a href="#3-3-model-rollback-feature">3.3. Model Rollback feature</a></li>
 <li><a href="#3-4-dependency-feature-modelling">3.4. Dependency Feature Modelling</a></li>
 <li><a href="#3-5-modelling-dependency-validity">3.5 Modelling Dependency Validity</a></li>
-<li><a href="#3-4-logging">3.4. Logging</a></li>
-<li><a href="#3-5-configuration">3.5. Configuration</a></li>
-<li><a href="#3-5-handling-date">3.5 Handling Date</a></li>
-<li><a href="#3-6-list">3.6 List</a></li>
+<li><a href="#3-6-handling-date">3.6 Handling Date</a></li>
+<li><a href="#3-7-list">3.7 List</a></li>
+<li><a href="#3-8-logging">3.8. Logging</a></li>
+<li><a href="#3-9-configuration">3.9. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#4-documentation">4. Documentation</a>
@@ -1112,6 +1113,117 @@ Optionally, you can set up AppVeyor as a second CI (see UsingAppVeyor.adoc).</p>
 <p>This section describes some noteworthy details on how certain features are implemented.</p>
 </div>
 <div class="sect2">
+<h3 id="3-1-achievement-mechanism"><a class="link" href="#3-1-achievement-mechanism">3.1. Achievement mechanism</a></h3>
+<div class="sect3">
+<h4 id="3-1-1-structural-overview"><a class="link" href="#3-1-1-structural-overview">3.1.1. Structural Overview</a></h4>
+<div class="paragraph">
+<p>The achievement mechanism is facilitated by <code>AchievementRecord</code>. TaskManager is now composed of a <code>UniqueTaskList</code> as
+well as an <code>AchievementRecord</code>. It stores the achievement information of the user internally with an <code>Xp</code> field and a
+<code>Level</code> field.<br>
+<br>
+When the task manager application runs for the first time, it is initialized at 0 xp and level 1, xp and level
+information in <code>AchievementRecord</code> are updated subsequently when tasks are completed.<br>
+<br>
+The storage of the <code>AchievementRecord</code> is facilitated by <code>XmlAdaptedAchievementRecord</code> which is saved together with
+the list of <code>XmlAdaptedTask</code> in the <code>SerializableTaskManager</code>.<br>
+<br>
+Integration of AchievementRecord in Model component:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/AchievementModel.png" alt="AchievementModel" width="1200">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="3-1-2-basic-mechanism"><a class="link" href="#3-1-2-basic-mechanism">3.1.2. Basic Mechanism</a></h4>
+<div class="paragraph">
+<p>An <code>updateTaskStatus</code> method is implemented in <code>ModelManager</code> and exposed in the <code>Model</code> interface, this method is
+called in the execution of complete command. Upon completion of a task, the status of task is updated to COMPLETED,
+along with that, the <code>AchievementRecord</code> is also updated with higher Xp. <code>AchievementRecord</code> implements the operations
+<code>updateXp</code>, <code>getMatchingLevel</code> and <code>updateLevelWithXp</code> to update xp, recalculate the level corresponding to the
+new Xp value and update level information.<br>
+<br>
+Sequence diagram of the achievement mechanism:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/AchievementSequence1.png" alt="AchievementSequence1" width="1200">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/AchievementSequence2.png" alt="AchievementSequence2" width="1200">
+</div>
+</div>
+<div class="paragraph">
+<p>Activity diagram of updating of xp and level:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/AchievementActivity.png" alt="AchievementActivity" width="1200">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="3-1-3-event-driven-interaction-with-other-components"><a class="link" href="#3-1-3-event-driven-interaction-with-other-components">3.1.3. Event-driven Interaction with other components</a></h4>
+<div class="paragraph">
+<p>The achievement mechanism follows the event-driven interaction of model component with Storage and UI components.
+When a task is marked as complete, both the <code>UniqueTaskList</code> and the <code>AchievementRecord</code> of the task manager is updated
+to reflect the new status of the task and the new xp and level information. A <code>TaskManagerChangedEvent</code> is then posted
+to <code>EventsCenter</code> and handled by both Storage and UI components to save the changes and feedback to user.<br>
+<br>
+On top of the <code>TaskManagerChangedEvent</code>, an <code>AchievementLevelChangedEvent</code> would be posted by the Model component as
+well, if the user levels up with the newly added xp. This event will be handled by UI component to display a
+congratulatory message to user. (to be implemented in v1.3)</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="3-1-4-design-considerations"><a class="link" href="#3-1-4-design-considerations">3.1.4. Design Considerations</a></h4>
+<div class="paragraph">
+<p>Aspect: Associations Among <code>TaskManager</code>,<code>UniqueTaskList</code> and <code>AchievementRecord</code><br></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Alternative 1 (current choice): Integrate <code>AchievementRecord</code> into <code>TaskManager</code> as an additional field besides the
+existing <code>UniqueTaskList</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to implement, greater efficiency. As xp and level change always come together with task status change,
+we can update both the <code>UniqueTaskList</code> and <code>AchievementRecord</code> then save the <code>TaskManager</code> only once. Undo/redo
+commands that revert the status tasks would revert the xp and level as well, matching between task status and
+corresponding achievements is guaranteed.</p>
+</li>
+<li>
+<p>Cons: <code>TaskManager</code> now has another reason of change, breaks Single Responsibility Principle.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Alternative 2: Implement <code>AchievementRecord</code> as another component outside of <code>TaskManager</code> and let them communicate
+with events.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Follows Single Responsibility Principle. <code>TaskManager</code> handles only task operations, achievement
+information is handled by <code>AchievementRecord</code> independently.</p>
+</li>
+<li>
+<p>Cons: Logic is duplicated twice. For example, we would need to implement a <code>VersionedAchievementRecord</code> besides
+the current <code>VersionedTaskManager</code> to support undo/redo. A lot of overhead will result from the communication
+between <code>TaskManager</code> and <code>AchievementRecord</code> as well.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
 <h3 id="3-2-batch-completion-via-label-feature"><a class="link" href="#3-2-batch-completion-via-label-feature">3.2. Batch Completion via Label feature</a></h3>
 <div class="sect3">
 <h4 id="3-2-1-current-implementation"><a class="link" href="#3-2-1-current-implementation">3.2.1. Current Implementation</a></h4>
@@ -1519,7 +1631,28 @@ A topological sort can also be performed on the graph to order tasks by the numb
 </div>
 </div>
 <div class="sect2">
-<h3 id="3-4-logging"><a class="link" href="#3-4-logging">3.4. Logging</a></h3>
+<h3 id="3-6-handling-date"><a class="link" href="#3-6-handling-date">3.6 Handling Date</a></h3>
+<div class="paragraph">
+<p>Time is of key importance when dealing with the <code>TaskManager</code>. We implement and represent time using the ubiquitous
+<code>Date</code> class in Java. The class <code>DueDate</code> internally uses the <code>Date</code> class, and harnesses built in capabilities such as
+date comparison. The precision of time for tasks is to the minute, that is the <code>AddCommand</code> can accept a <code>DueDate</code>
+accurate to the minute.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="3-7-list"><a class="link" href="#3-7-list">3.7 List</a></h3>
+<div class="paragraph">
+<p>The functionality of the default <code>list</code> command is as expected (and documented), that is all tasks are listed.
+The date filters are dependent on the due date of the task, and the current date.</p>
+</div>
+<div class="paragraph">
+<p>The Current Date is retrieved using Java&#8217;s <code>Calendar</code>, and is adjusted to be the end of the day, week, or month
+depending on the <code>ListCommand</code> 's option. A predicate is then created to check if a given <code>Task</code> is before this date.
+This predicate is passed as an argument to update filtered Tasks.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="3-8-logging"><a class="link" href="#3-8-logging">3.8. Logging</a></h3>
 <div class="paragraph">
 <p>We are using java.util.logging package for logging. The LogsCenter class is used to manage the logging levels and logging destinations.</p>
 </div>
@@ -1549,30 +1682,9 @@ A topological sort can also be performed on the graph to order tasks by the numb
 </div>
 </div>
 <div class="sect2">
-<h3 id="3-5-configuration"><a class="link" href="#3-5-configuration">3.5. Configuration</a></h3>
+<h3 id="3-9-configuration"><a class="link" href="#3-9-configuration">3.9. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: config.json).</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="3-5-handling-date"><a class="link" href="#3-5-handling-date">3.5 Handling Date</a></h3>
-<div class="paragraph">
-<p>Time is of key importance when dealing with the <code>TaskManager</code>. We implement and represent time using the ubiquitous
-<code>Date</code> class in Java. The class <code>DueDate</code> internally uses the <code>Date</code> class, and harnesses built in capabilities such as
-date comparison. The precision of time for tasks is to the minute, that is the <code>AddCommand</code> can accept a <code>DueDate</code>
-accurate to the minute.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="3-6-list"><a class="link" href="#3-6-list">3.6 List</a></h3>
-<div class="paragraph">
-<p>The functionality of the default <code>list</code> command is as expected (and documented), that is all tasks are listed.
-The date filters are dependent on the due date of the task, and the current date.</p>
-</div>
-<div class="paragraph">
-<p>The Current Date is retrieved using Java&#8217;s <code>Calendar</code>, and is adjusted to be the end of the day, week, or month
-depending on the <code>ListCommand</code> 's option. A predicate is then created to check if a given <code>Task</code> is before this date.
-This predicate is passed as an argument to update filtered Tasks.</p>
 </div>
 </div>
 </div>
@@ -1826,4 +1938,4 @@ Suggested path for new programmers:</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-18 23:37:51 SRET</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-18 23:55:01 SRET</div></div></div></body></html>
