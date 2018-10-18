@@ -11,6 +11,7 @@
 <li><a href="#use-case-display-motivational-quote-mq-on-task-completion">Use case: Display Motivational Quote (MQ) on task completion</a></li>
 <li><a href="#use-case-list-task">Use case: List Task</a></li>
 <li><a href="#use-case-add-task">Use case: Add task</a></li>
+<li><a href="#use-case-add-dependency-for-task">Use case: Add dependency for task</a></li>
 <li><a href="#use-case-delete-task">Use case: Delete task</a></li>
 <li><a href="#use-case-viewing-command-history">Use case: Viewing Command History</a></li>
 <li><a href="#use-case-undoing-last-command">Use case: Undoing Last Command</a></li>
@@ -33,9 +34,10 @@
 </li>
 <li><a href="#3-implementation">3. Implementation</a>
 <ul class="sectlevel2">
-<li><a href="#3-1-undo-redo-feature">3.1. Undo/Redo feature</a></li>
 <li><a href="#3-2-batch-completion-via-label-feature">3.2. Batch Completion via Label feature</a></li>
 <li><a href="#3-3-model-rollback-feature">3.3. Model Rollback feature</a></li>
+<li><a href="#3-4-dependency-feature-modelling">3.4. Dependency Feature Modelling</a></li>
+<li><a href="#3-5-modelling-dependency-validity">3.5 Modelling Dependency Validity</a></li>
 <li><a href="#3-4-logging">3.4. Logging</a></li>
 <li><a href="#3-5-configuration">3.5. Configuration</a></li>
 </ul>
@@ -483,9 +485,82 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-delete-task"><a class="link" href="#use-case-delete-task">Use case: Delete task</a></h3>
+<h3 id="use-case-add-dependency-for-task"><a class="link" href="#use-case-add-dependency-for-task">Use case: Add dependency for task</a></h3>
 <div class="sect3">
 <h4 id="mss-5"><a class="link" href="#mss-5">MSS</a></h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User requests to add a dependency between tasks</p>
+</li>
+<li>
+<p>Application adds the task dependency</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="extensions-5"><a class="link" href="#extensions-5">Extensions</a></h4>
+<div class="ulist">
+<ul>
+<li>
+<p>1a. The additional task dependency creates a cyclic dependency</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1a1. Application shows an error message, rejects the additional task dependency</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Use case resumes at step 1 in MSS.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1b. The user enters the add dependency command in a wrong format.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1b1. Application shows an error message.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Use case resumes at step 1 in MSS.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1c. The dependency already exists in the model</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1c1. Application shows an error message, rejects the additional task dependency</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Use case resumes at step 1 in MSS.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="use-case-delete-task"><a class="link" href="#use-case-delete-task">Use case: Delete task</a></h3>
+<div class="sect3">
+<h4 id="mss-6"><a class="link" href="#mss-6">MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -501,7 +576,7 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-5"><a class="link" href="#extensions-5">Extensions</a></h4>
+<h4 id="extensions-6"><a class="link" href="#extensions-6">Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -541,7 +616,7 @@ non-deterministic</p>
 <div class="sect2">
 <h3 id="use-case-viewing-command-history"><a class="link" href="#use-case-viewing-command-history">Use case: Viewing Command History</a></h3>
 <div class="sect3">
-<h4 id="mss-6"><a class="link" href="#mss-6">MSS</a></h4>
+<h4 id="mss-7"><a class="link" href="#mss-7">MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -557,7 +632,7 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-6"><a class="link" href="#extensions-6">Extensions</a></h4>
+<h4 id="extensions-7"><a class="link" href="#extensions-7">Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -580,7 +655,7 @@ non-deterministic</p>
 <div class="sect2">
 <h3 id="use-case-undoing-last-command"><a class="link" href="#use-case-undoing-last-command">Use case: Undoing Last Command</a></h3>
 <div class="sect3">
-<h4 id="mss-7"><a class="link" href="#mss-7">MSS</a></h4>
+<h4 id="mss-8"><a class="link" href="#mss-8">MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -596,7 +671,7 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-7"><a class="link" href="#extensions-7">Extensions</a></h4>
+<h4 id="extensions-8"><a class="link" href="#extensions-8">Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -619,7 +694,7 @@ non-deterministic</p>
 <div class="sect2">
 <h3 id="use-case-redoing-last-command"><a class="link" href="#use-case-redoing-last-command">Use case: Redoing Last Command</a></h3>
 <div class="sect3">
-<h4 id="mss-8"><a class="link" href="#mss-8">MSS</a></h4>
+<h4 id="mss-9"><a class="link" href="#mss-9">MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -635,7 +710,7 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-8"><a class="link" href="#extensions-8">Extensions</a></h4>
+<h4 id="extensions-9"><a class="link" href="#extensions-9">Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -658,7 +733,7 @@ non-deterministic</p>
 <div class="sect2">
 <h3 id="use-case-completing-task-single"><a class="link" href="#use-case-completing-task-single">Use case: Completing Task (Single)</a></h3>
 <div class="sect3">
-<h4 id="mss-9"><a class="link" href="#mss-9">MSS</a></h4>
+<h4 id="mss-10"><a class="link" href="#mss-10">MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -671,7 +746,7 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-9"><a class="link" href="#extensions-9">Extensions</a></h4>
+<h4 id="extensions-10"><a class="link" href="#extensions-10">Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -701,7 +776,7 @@ non-deterministic</p>
 <div class="sect2">
 <h3 id="use-case-completing-task-batch-via-code-label-code"><a class="link" href="#use-case-completing-task-batch-via-code-label-code">Use case: Completing Task (Batch via <code>Label</code>)</a></h3>
 <div class="sect3">
-<h4 id="mss-10"><a class="link" href="#mss-10">MSS</a></h4>
+<h4 id="mss-11"><a class="link" href="#mss-11">MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -714,7 +789,7 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-10"><a class="link" href="#extensions-10">Extensions</a></h4>
+<h4 id="extensions-11"><a class="link" href="#extensions-11">Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -745,7 +820,7 @@ pre-completed state and no points are earned.</p>
 <div class="sect2">
 <h3 id="use-case-display-statistics"><a class="link" href="#use-case-display-statistics">Use case: Display Statistics</a></h3>
 <div class="sect3">
-<h4 id="mss-11"><a class="link" href="#mss-11">MSS</a></h4>
+<h4 id="mss-12"><a class="link" href="#mss-12">MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -758,7 +833,7 @@ pre-completed state and no points are earned.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-11"><a class="link" href="#extensions-11">Extensions</a></h4>
+<h4 id="extensions-12"><a class="link" href="#extensions-12">Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -781,7 +856,7 @@ pre-completed state and no points are earned.</p>
 <div class="sect2">
 <h3 id="use-case-failing-to-complete-task"><a class="link" href="#use-case-failing-to-complete-task">Use case: Failing to complete task</a></h3>
 <div class="sect3">
-<h4 id="mss-12"><a class="link" href="#mss-12">MSS</a></h4>
+<h4 id="mss-13"><a class="link" href="#mss-13">MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -794,17 +869,19 @@ pre-completed state and no points are earned.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-12"><a class="link" href="#extensions-12">Extensions</a></h4>
+<h4 id="extensions-13"><a class="link" href="#extensions-13">Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
 <p>2a. User loses enough points that it level down.</p>
 </li>
 <li>
-<p>2a1. Application displays a warning message, current points, and points lost to user.
-Use case ends.</p>
+<p>2a1. Application displays a warning message, current points, and points lost to user.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
 </div>
 </div>
 </div>
@@ -1033,16 +1110,6 @@ Optionally, you can set up AppVeyor as a second CI (see UsingAppVeyor.adoc).</p>
 <p>This section describes some noteworthy details on how certain features are implemented.</p>
 </div>
 <div class="sect2">
-<h3 id="3-1-undo-redo-feature"><a class="link" href="#3-1-undo-redo-feature">3.1. Undo/Redo feature</a></h3>
-<div class="sect3">
-<h4 id="3-1-1-current-implementation"><a class="link" href="#3-1-1-current-implementation">3.1.1. Current Implementation</a></h4>
-<div class="paragraph">
-<p>Look at <a href="https://nus-cs2103-ay1819s1.github.io/addressbook-level4/DeveloperGuide.html#implementation" class="bare">https://nus-cs2103-ay1819s1.github.io/addressbook-level4/DeveloperGuide.html#implementation</a>
-Its really good</p>
-</div>
-</div>
-</div>
-<div class="sect2">
 <h3 id="3-2-batch-completion-via-label-feature"><a class="link" href="#3-2-batch-completion-via-label-feature">3.2. Batch Completion via Label feature</a></h3>
 <div class="sect3">
 <h4 id="3-2-1-current-implementation"><a class="link" href="#3-2-1-current-implementation">3.2.1. Current Implementation</a></h4>
@@ -1122,7 +1189,7 @@ These operations are exposed in the <code>CompleteCommand</code> class via <code
 <p>Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.</p>
 </div>
 <div class="paragraph">
-<p>_Premise: The application has several tasks tagger with the <code>Label::many</code>.</p>
+<p><em>Premise: The application has several tasks tagger with the <code>Label::many</code>.</em></p>
 </div>
 <div class="paragraph">
 <p>Step 1. The user executes <code>complete l/many</code> command to complete all the tasks labelled <code>many</code>.</p>
@@ -1309,6 +1376,143 @@ Abstract Methods.</p>
 latest commit. Internally, <code>VersionedTaskManager#resetDate(&#8230;&#8203;)</code> is called to reset the data to
 the latest commit, also the <code>currentStatePointer</code> is set to point at the index of the latest
 commit in <code>taskManagerStateList</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="3-4-dependency-feature-modelling"><a class="link" href="#3-4-dependency-feature-modelling">3.4. Dependency Feature Modelling</a></h3>
+<div class="sect3">
+<h4 id="3-4-1-current-implementation"><a class="link" href="#3-4-1-current-implementation">3.4.1. Current Implementation</a></h4>
+<div class="paragraph">
+<p>The dependency mechanism is facilitated by an embedded dependency object. This object internally represents dependency with
+a hashset that contains the hashcode of the object that the task is dependent upon.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="3-4-2-design-considerations"><a class="link" href="#3-4-2-design-considerations">3.4.2 Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-modelling-of-the-embedded-dependency-object"><a class="link" href="#aspect-modelling-of-the-embedded-dependency-object">Aspect: Modelling of the embedded dependency object.</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong> Alternative 1(current choice):</strong> Add a new string of the hashcode into the hashset.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Simple to implement. There is no task creation propogation when task dependency is added. (refer to alternative 2).
+Easy to reform the dependency graph.</p>
+</li>
+<li>
+<p>Cons: Some functions such as UI display might require a details of the dependee task. Additional complexity incurred when
+finding details of the dependee task given its hashcode.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong> Alternative 2: </strong>Add (a reference to) the dependant Task object into the hashset.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: It allows an easy reference to the task object. Allows creation of a real-time dependency graph, which is referenced
+to rather than recreated every time a topological sort or a cyclical check is needed.</p>
+</li>
+<li>
+<p>Cons: Introduces unnecessary complications.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>When saving to storage, the hashcodes needs to be retrieved. But when retrieving from storage, the parser needs to first load the dependencies
+as a set of hashcodes, and can only perform the tasks reference once all tasks are instantiated from storage.</p>
+</li>
+<li>
+<p>Tasks are immutable, so whenever a task dependency is added, all connected components of the graph needs to be reinstantiated.
+i.e. Task A has a new dependency. Task A has to be recreated with the additional dependency. After this new task is created, all
+other tasks that depends on A has to be recreated.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/DependencyCommandSequenceDiagram.png" alt="DependencyCommandSequenceDiagram" width="1200">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="3-5-modelling-dependency-validity"><a class="link" href="#3-5-modelling-dependency-validity">3.5 Modelling Dependency Validity</a></h3>
+<div class="sect3">
+<h4 id="3-5-1-current-implementation"><a class="link" href="#3-5-1-current-implementation">3.5.1 Current Implementation</a></h4>
+<div class="paragraph">
+<p>The dependency graph is the graph representing the dependencies between the task objects. A graph model needs to be created
+so useful functions can be implemented such as cyclic and topological sort.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="3-5-2-design-considerations"><a class="link" href="#3-5-2-design-considerations">3.5.2 Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-real-time-graph-or-graph-instantiated-on-function-call"><a class="link" href="#aspect-real-time-graph-or-graph-instantiated-on-function-call">Aspect: Real-time graph or graph instantiated on function call.</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1(current choice):</strong> Graph is only instantiated when needed.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Graph does not have to be updated or maintained.</p>
+</li>
+<li>
+<p>Cons: Slight increase in latency, but mitigated by the fact that it is likely that a typical user won&#8217;t
+have an extremely large amount of tasks.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong> Alternative 2:</strong> Graph created on start-up and maintained during run-time.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Slightly faster speed for dependency related commands.</p>
+</li>
+<li>
+<p>Cons: Upkeep of graph is slightly more complex to implement, only for a slightly shorter run-time</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-task-dependency-modelled-as-a-graph"><a class="link" href="#aspect-task-dependency-modelled-as-a-graph">Aspect: Task dependency modelled as a graph</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1(current choice):</strong> Using a graph.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: With a graph, major problems with task dependency can be identified. The most major problem is
+cyclic dependency, which is when a set of tasks have a dependency to each other and hence they cannot be completed because they
+depend on each other.
+A topological sort can also be performed on the graph to order tasks by the number of dependencies.</p>
+</li>
+<li>
+<p>Cons: nil</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
@@ -1599,4 +1803,4 @@ Suggested path for new programmers:</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-18 21:05:31 SRET</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-18 21:58:14 SRET</div></div></div></body></html>
