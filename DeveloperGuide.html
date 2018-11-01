@@ -2,89 +2,20 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="seedu-header"><nav class="navbar navbar-lg navbar-light bg-lighter"><div class="container"><a class="navbar-brand" href="https://se-edu.github.io/"><img src="images/SeEduLogo.png" alt="SE-EDU"></a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level1">AB-1</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level2">AB-2</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level3">AB-3</a></li><li class="nav-item"><a class="nav-link active" href="index.html">AB-4</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/collate">Collate</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/se-book">Book</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/learningresources">Resources</a></li></ul></div></nav></div><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="index.html">WatchOver</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link active" href="DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link" href="LearningOutcomes.html">LOs</a></li><li class="nav-item"><a class="nav-link" href="AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/CS2103-AY1819S1-F11-3/main.git"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>Developer Guide</h1><div id="toc" class="toc"><div id="toctitle"></div><ul class="sectlevel1">
 <li><a href="#disclaimer">Disclaimer</a></li>
-<li><a href="#appendix-a-target-user-profile">Appendix A: Target User Profile</a>
-<ul class="sectlevel3">
-<li><a href="#setting-up-ci">Setting up CI</a></li>
-</ul>
-</li>
-<li><a href="#appendix-b-value-proposition">Appendix B: Value proposition</a></li>
-<li><a href="#appendix-c-user-stories">Appendix C: User Stories</a></li>
-<li><a href="#appendix-d-use-cases">Appendix D: Use cases</a>
-<ul class="sectlevel2">
-<li><a href="#use-case-display-welcome-screen">Use case: Display Welcome Screen</a></li>
-<li><a href="#use-case-list-task">Use case: List Task</a></li>
-<li><a href="#use-case-add-task">Use case: Add task</a></li>
-<li><a href="#use-case-add-dependency-for-task">Use case: Add dependency for task</a></li>
-<li><a href="#use-case-remove-dependency-for-task">Use case: Remove dependency for task</a></li>
-<li><a href="#use-case-delete-task">Use case: Delete task</a></li>
-<li><a href="#use-case-viewing-command-history">Use case: Viewing Command History</a></li>
-<li><a href="#use-case-undoing-last-command">Use case: Undoing Last Command</a></li>
-<li><a href="#use-case-redoing-last-command">Use case: Redoing Last Command</a></li>
-<li><a href="#use-case-completing-task-single">Use case: Completing Task (Single)</a></li>
-<li><a href="#use-case-completing-task-batch-via-code-label-code">Use case: Completing Task (Batch via <code>Label</code>)</a></li>
-</ul>
-</li>
-<li><a href="#non-functional-requirements">Non-functional requirements</a></li>
-<li><a href="#glossary">Glossary</a></li>
-<li><a href="#1-setting-up">1. Setting up</a>
-<ul class="sectlevel2">
-<li><a href="#1-1-prerequisites">1.1. Prerequisites</a></li>
-<li><a href="#1-2-setting-up-the-project-in-your-computer">1.2. Setting up the project in your computer</a></li>
-<li><a href="#1-3-verifying-the-setup">1.3. Verifying the setup</a></li>
-<li><a href="#1-4-configurations-to-do-before-writing-code">1.4. Configurations to do before writing code</a></li>
-</ul>
-</li>
-<li><a href="#3-implementation">3. Implementation</a>
-<ul class="sectlevel2">
-<li><a href="#3-1-achievement-mechanism">3.1. Achievement mechanism</a></li>
-<li><a href="#3-2-batch-completion-via-label-feature">3.2. Batch Completion via Label feature</a></li>
-<li><a href="#3-3-model-rollback-feature">3.3. Model Rollback feature</a></li>
-<li><a href="#3-4-dependency-feature-modelling">3.4. Dependency Feature Modelling</a></li>
-<li><a href="#3-5-modelling-dependency-validity">3.5 Modelling Dependency Validity</a></li>
-<li><a href="#3-6-monitoring-time">3.6 Monitoring time</a></li>
-<li><a href="#3-7-list">3.7 List</a></li>
-<li><a href="#3-8-logging">3.8. Logging</a></li>
-<li><a href="#3-9-configuration">3.9. Configuration</a></li>
-</ul>
-</li>
-<li><a href="#4-documentation">4. Documentation</a>
-<ul class="sectlevel2">
-<li><a href="#4-1-editing-documentation">4.1. Editing Documentation</a></li>
-<li><a href="#4-2-publishing-documentation">4.2. Publishing Documentation</a></li>
-<li><a href="#4-3-converting-documentation-to-pdf-format">4.3. Converting Documentation to PDF format</a></li>
-<li><a href="#4-4-site-wide-documentation-settings">4.4. Site-wide Documentation Settings</a></li>
-<li><a href="#4-5-per-file-documentation-settings">4.5. Per-file Documentation Settings</a></li>
-<li><a href="#4-6-site-template">4.6. Site Template</a></li>
-</ul>
-</li>
-<li><a href="#5-testing">5. Testing</a>
-<ul class="sectlevel2">
-<li><a href="#5-1-running-tests">5.1. Running Tests</a></li>
-<li><a href="#5-2-types-of-tests">5.2. Types of tests</a></li>
-<li><a href="#5-3-troubleshooting-testing">5.3. Troubleshooting Testing</a></li>
-</ul>
-</li>
-<li><a href="#6-dev-ops">6. Dev Ops</a>
-<ul class="sectlevel2">
-<li><a href="#6-1-build-automation">6.1. Build Automation</a></li>
-<li><a href="#6-2-continuous-integration">6.2. Continuous Integration</a></li>
-<li><a href="#6-3-coverage-reporting">6.3. Coverage Reporting</a></li>
-<li><a href="#6-4-documentation-previews">6.4. Documentation Previews</a></li>
-<li><a href="#6-5-making-a-release">6.5. Making a Release</a></li>
-<li><a href="#6-6-managing-dependencies">6.6. Managing Dependencies</a></li>
-</ul>
-</li>
 </ul></div></div><div id="content"><div class="sect1">
 <h2 id="disclaimer"><a class="link" href="#disclaimer">Disclaimer</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This guide was adapted from relevant parts of the developer guide from AB4 (<a href="https://github.com/nus-cs2103-AY1819S1/addressbook-level4" class="bare">https://github.com/nus-cs2103-AY1819S1/addressbook-level4</a>). This project and AB4 are distributed under the MIT license.</p>
 </div>
+<div class="paragraph">
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</p>
 </div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>## Appendix A: Target User Profile</p>
 </div>
-<div class="sect1">
-<h2 id="appendix-a-target-user-profile"><a class="link" href="#appendix-a-target-user-profile">Appendix A: Target User Profile</a></h2>
-<div class="sectionbody">
 <div class="paragraph">
 <p>Tech savvy students who need to keep their tasks organized and motivate themselves to complete them.</p>
 </div>
@@ -94,8 +25,9 @@
 <div class="paragraph">
 <p>Attributable to our target demographic are the following qualities:</p>
 </div>
-<div class="sect3">
-<h4 id="setting-up-ci"><a class="link" href="#setting-up-ci">Setting up CI</a></h4>
+<div class="paragraph">
+<p>==== Setting up CI</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -112,22 +44,15 @@
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>## Appendix B: Value proposition</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="appendix-b-value-proposition"><a class="link" href="#appendix-b-value-proposition">Appendix B: Value proposition</a></h2>
-<div class="sectionbody">
 <div class="paragraph">
 <p>By offering a gamified experience, we hope to be able to improve the user experience and keep users motivated in completing their tasks.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="appendix-c-user-stories"><a class="link" href="#appendix-c-user-stories">Appendix C: User Stories</a></h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely to have) - *</p>
+<p>## Appendix C: User Stories
+Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely to have) - *</p>
 </div>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
@@ -287,37 +212,23 @@ my progress and evaluate how I am doing.</p></td>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-<div class="sect1">
-<h2 id="appendix-d-use-cases"><a class="link" href="#appendix-d-use-cases">Appendix D: Use cases</a></h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>Only features that require more than a few steps to implement will be shown.</p>
+<p>## Appendix D: Use cases
+Only features that require more than a few steps to implement will be shown.</p>
 </div>
-<div class="sect2">
-<h3 id="use-case-display-welcome-screen"><a class="link" href="#use-case-display-welcome-screen">Use case: Display Welcome Screen</a></h3>
-<div class="sect3">
-<h4 id="mss"><a class="link" href="#mss">MSS</a></h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>User logs in successfully</p>
-</li>
-<li>
-<p>Application fetches QOTD and shows it.</p>
-</li>
-<li>
-<p>Application then displays <strong>10</strong> tasks sorted by ascending deadline.</p>
-</li>
-</ol>
+<div class="paragraph">
+<p><mark># Use case: Display Welcome Screen
+</mark>## MSS
+.  User logs in successfully
+.  Application fetches QOTD and shows it.
+.  Application then displays <strong>10</strong> tasks sorted by ascending deadline.</p>
 </div>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
+<div class="paragraph">
+<p><mark>#</mark># Extensions</p>
 </div>
-<div class="sect3">
-<h4 id="extensions"><a class="link" href="#extensions">Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -356,80 +267,36 @@ non-deterministic</p>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="use-case-list-task"><a class="link" href="#use-case-list-task">Use case: List Task</a></h3>
-<div class="sect3">
-<h4 id="mss-2"><a class="link" href="#mss-2">MSS</a></h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>User requests to list tasks, fulfilling a (potentially empty) set of criteria.</p>
-</li>
-<li>
-<p>Application shows a list of corresponding tasks.</p>
-</li>
-</ol>
+<div class="paragraph">
+<p><mark># Use case: List Task
+</mark>## MSS
+. User requests to list tasks, fulfilling a (potentially empty) set of criteria.
+. Application shows a list of corresponding tasks.</p>
 </div>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
-</div>
-<div class="sect3">
-<h4 id="extensions-2"><a class="link" href="#extensions-2">Extensions</a></h4>
-<div class="ulist">
-<ul>
-<li>
-<p>1a. No matches found.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>1a1. Application informs user that no tasks matching the specified criteria have been found.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
+<div class="paragraph">
+<p><mark>#</mark># Extensions
+* 1a. No matches found.
+** 1a1. Application informs user that no tasks matching the specified criteria have been found.</p>
 </div>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="use-case-add-task"><a class="link" href="#use-case-add-task">Use case: Add task</a></h3>
-<div class="sect3">
-<h4 id="mss-3"><a class="link" href="#mss-3">MSS</a></h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>User requests to add a task in the list</p>
-</li>
-<li>
-<p>Application adds the task</p>
-</li>
-</ol>
+<div class="paragraph">
+<p><mark># Use case: Add task
+</mark>## MSS
+. User requests to add a task in the list
+. Application adds the task</p>
 </div>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
-</div>
-<div class="sect3">
-<h4 id="extensions-3"><a class="link" href="#extensions-3">Extensions</a></h4>
-<div class="ulist">
-<ul>
-<li>
-<p>1a. The task already exists.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>1a1. Application shows an error message.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
+<div class="paragraph">
+<p><mark>#</mark># Extensions
+* 1a. The task already exists.
+** 1a1. Application shows an error message.</p>
 </div>
 <div class="paragraph">
 <p>Use case resumes at step 1 in MSS.</p>
@@ -451,41 +318,19 @@ non-deterministic</p>
 <div class="paragraph">
 <p>Use case resumes at step 1 in MSS.</p>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="use-case-add-dependency-for-task"><a class="link" href="#use-case-add-dependency-for-task">Use case: Add dependency for task</a></h3>
-<div class="sect3">
-<h4 id="mss-4"><a class="link" href="#mss-4">MSS</a></h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>User requests to add a dependency between tasks</p>
-</li>
-<li>
-<p>Application adds the task dependency</p>
-</li>
-</ol>
+<div class="paragraph">
+<p><mark># Use case: Add dependency for task
+</mark>## MSS
+. User requests to add a dependency between tasks
+. Application adds the task dependency</p>
 </div>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
-</div>
-<div class="sect3">
-<h4 id="extensions-4"><a class="link" href="#extensions-4">Extensions</a></h4>
-<div class="ulist">
-<ul>
-<li>
-<p>1a. The additional task dependency creates a cyclic dependency</p>
-<div class="ulist">
-<ul>
-<li>
-<p>1a1. Application shows an error message, rejects the additional task dependency</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
+<div class="paragraph">
+<p><mark>#</mark># Extensions
+* 1a. The additional task dependency creates a cyclic dependency
+** 1a1. Application shows an error message, rejects the additional task dependency</p>
 </div>
 <div class="paragraph">
 <p>Use case resumes at step 1 in MSS.</p>
@@ -507,80 +352,36 @@ non-deterministic</p>
 <div class="paragraph">
 <p>Use case resumes at step 1 in MSS.</p>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="use-case-remove-dependency-for-task"><a class="link" href="#use-case-remove-dependency-for-task">Use case: Remove dependency for task</a></h3>
-<div class="sect3">
-<h4 id="mss-5"><a class="link" href="#mss-5">MSS</a></h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>User requests to remove a dependency between tasks</p>
-</li>
-<li>
-<p>Application removes the task dependency</p>
-</li>
-</ol>
+<div class="paragraph">
+<p><mark># Use case: Remove dependency for task
+</mark>## MSS
+. User requests to remove a dependency between tasks
+. Application removes the task dependency</p>
 </div>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
-</div>
-<div class="sect3">
-<h4 id="extensions-5"><a class="link" href="#extensions-5">Extensions</a></h4>
-<div class="ulist">
-<ul>
-<li>
-<p>1a. The user enters the remove dependency command in a wrong format.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>1a1. Application shows an error message.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
+<div class="paragraph">
+<p><mark>#</mark># Extensions
+* 1a. The user enters the remove dependency command in a wrong format.
+** 1a1. Application shows an error message.</p>
 </div>
 <div class="paragraph">
 <p>Use case resumes at step 1 in MSS.</p>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="use-case-delete-task"><a class="link" href="#use-case-delete-task">Use case: Delete task</a></h3>
-<div class="sect3">
-<h4 id="mss-6"><a class="link" href="#mss-6">MSS</a></h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>User requests to delete a task with a particular index</p>
-</li>
-<li>
-<p>Application deletes the task</p>
-</li>
-</ol>
+<div class="paragraph">
+<p><mark># Use case: Delete task
+</mark>## MSS
+. User requests to delete a task with a particular index
+. Application deletes the task</p>
 </div>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
-</div>
-<div class="sect3">
-<h4 id="extensions-6"><a class="link" href="#extensions-6">Extensions</a></h4>
-<div class="ulist">
-<ul>
-<li>
-<p>1a. A task with the specified index does not exist.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>1a1. Application shows an error message.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
+<div class="paragraph">
+<p><mark>#</mark># Extensions
+* 1a. A task with the specified index does not exist.
+** 1a1. Application shows an error message.</p>
 </div>
 <div class="paragraph">
 <p>Use case resumes at step 1 in MSS.</p>
@@ -602,154 +403,70 @@ non-deterministic</p>
 <div class="paragraph">
 <p>Use case resumes at step 1 in MSS.</p>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="use-case-viewing-command-history"><a class="link" href="#use-case-viewing-command-history">Use case: Viewing Command History</a></h3>
-<div class="sect3">
-<h4 id="mss-7"><a class="link" href="#mss-7">MSS</a></h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>User requests to view command history.</p>
-</li>
-<li>
-<p>Application displays command history.</p>
-</li>
-</ol>
+<div class="paragraph">
+<p><mark># Use case: Viewing Command History
+</mark>## MSS
+. User requests to view command history.
+. Application displays command history.</p>
 </div>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
-</div>
-<div class="sect3">
-<h4 id="extensions-7"><a class="link" href="#extensions-7">Extensions</a></h4>
-<div class="ulist">
-<ul>
-<li>
-<p>1a. Command history is empty.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>1a1. Application informs user that there is no command history.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
+<div class="paragraph">
+<p><mark>#</mark># Extensions
+* 1a. Command history is empty.
+** 1a1. Application informs user that there is no command history.</p>
 </div>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="use-case-undoing-last-command"><a class="link" href="#use-case-undoing-last-command">Use case: Undoing Last Command</a></h3>
-<div class="sect3">
-<h4 id="mss-8"><a class="link" href="#mss-8">MSS</a></h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>User requests undoing last command.</p>
-</li>
-<li>
-<p>Application resets state to before last state-changing command.</p>
-</li>
-</ol>
+<div class="paragraph">
+<p><mark># Use case: Undoing Last Command
+</mark>## MSS
+. User requests undoing last command.
+. Application resets state to before last state-changing command.</p>
 </div>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
-</div>
-<div class="sect3">
-<h4 id="extensions-8"><a class="link" href="#extensions-8">Extensions</a></h4>
-<div class="ulist">
-<ul>
-<li>
-<p>1a. Command history is empty.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>1a1. Application informs user that there is no past history to undo.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
+<div class="paragraph">
+<p><mark>#</mark># Extensions
+* 1a. Command history is empty.
+** 1a1. Application informs user that there is no past history to undo.</p>
 </div>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="use-case-redoing-last-command"><a class="link" href="#use-case-redoing-last-command">Use case: Redoing Last Command</a></h3>
-<div class="sect3">
-<h4 id="mss-9"><a class="link" href="#mss-9">MSS</a></h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>User requests redoing last command.</p>
-</li>
-<li>
-<p>Application resets state to before last state-changing command was undone.</p>
-</li>
-</ol>
+<div class="paragraph">
+<p><mark># Use case: Redoing Last Command
+</mark>## MSS
+. User requests redoing last command.
+. Application resets state to before last state-changing command was undone.</p>
 </div>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
-</div>
-<div class="sect3">
-<h4 id="extensions-9"><a class="link" href="#extensions-9">Extensions</a></h4>
-<div class="ulist">
-<ul>
-<li>
-<p>1a. The immediately preceding command (ignoring redone undos) is not an undo command</p>
-<div class="ulist">
-<ul>
-<li>
-<p>1a1. Application informs user that there is no undo to redo.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
+<div class="paragraph">
+<p><mark>#</mark># Extensions
+* 1a. The immediately preceding command (ignoring redone undos) is not an undo command
+** 1a1. Application informs user that there is no undo to redo.</p>
 </div>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
+<div class="paragraph">
+<p><mark># Use case: Completing Task (Single)
+</mark>## MSS
+. User marks task as complete.
+. Application displays a default congratulatory message, reports points earned and task completed to user.</p>
 </div>
+<div class="paragraph">
+<p><mark>#</mark># Extensions
+* 1a. An error occurs, causes one of the task to not be completed
+** 1a1. Application displays error message, no points are earned either.</p>
 </div>
-<div class="sect2">
-<h3 id="use-case-completing-task-single"><a class="link" href="#use-case-completing-task-single">Use case: Completing Task (Single)</a></h3>
-<div class="sect3">
-<h4 id="mss-10"><a class="link" href="#mss-10">MSS</a></h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>User marks task as complete.</p>
-</li>
-<li>
-<p>Application displays a default congratulatory message, reports points earned and task completed to user.</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="extensions-10"><a class="link" href="#extensions-10">Extensions</a></h4>
 <div class="ulist">
 <ul>
-<li>
-<p>1a. An error occurs, causes one of the task to not be completed</p>
-<div class="ulist">
-<ul>
-<li>
-<p>1a1. Application displays error message, no points are earned either.</p>
-</li>
-</ul>
-</div>
-</li>
 <li>
 <p>2a. User earns enough points to level up</p>
 <div class="ulist">
@@ -762,38 +479,20 @@ non-deterministic</p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p><mark># Use case: Completing Task (Batch via <code>Label</code>)
+</mark>## MSS
+. User marks a batch of tasks with the same specified <code>Label</code> as complete.
+. Application displays a default congratulatory message, reports points earned and task(s) completed to user.</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="use-case-completing-task-batch-via-code-label-code"><a class="link" href="#use-case-completing-task-batch-via-code-label-code">Use case: Completing Task (Batch via <code>Label</code>)</a></h3>
-<div class="sect3">
-<h4 id="mss-11"><a class="link" href="#mss-11">MSS</a></h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>User marks a batch of tasks with the same specified <code>Label</code> as complete.</p>
-</li>
-<li>
-<p>Application displays a default congratulatory message, reports points earned and task(s) completed to user.</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="extensions-11"><a class="link" href="#extensions-11">Extensions</a></h4>
-<div class="ulist">
-<ul>
-<li>
-<p>1a. An error occurs, causes one of the tasks to not be able to be completed</p>
-<div class="ulist">
-<ul>
-<li>
-<p>1a1. Application displays an error message, resetting the batch of tasks to their
+<div class="paragraph">
+<p><mark>#</mark># Extensions
+* 1a. An error occurs, causes one of the tasks to not be able to be completed
+** 1a1. Application displays an error message, resetting the batch of tasks to their
 pre-completed state and no points are earned.</p>
-</li>
-</ul>
 </div>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p>2a. User earns enough points to level up</p>
 <div class="ulist">
@@ -806,43 +505,19 @@ pre-completed state and no points are earned.</p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>## Non-functional requirements
+- There should be no noticeable lag when typing on the command line.
+- Should work on any mainstream OS as long as it has Java 9 or higher installed.
+- Storage of application data will be in a text file.
+- Should be able to hold up to 1000 tasks without a noticeable decline in performance.
+- Should not take more than 3 seconds to complete a command.
+- System should be maintainable with proper documentation.
+- Proper feedback to user when error occurs.</p>
 </div>
+<div class="paragraph">
+<p>## Glossary</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="non-functional-requirements"><a class="link" href="#non-functional-requirements">Non-functional requirements</a></h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>There should be no noticeable lag when typing on the command line.</p>
-</li>
-<li>
-<p>Should work on any mainstream OS as long as it has Java 9 or higher installed.</p>
-</li>
-<li>
-<p>Storage of application data will be in a text file.</p>
-</li>
-<li>
-<p>Should be able to hold up to 1000 tasks without a noticeable decline in performance.</p>
-</li>
-<li>
-<p>Should not take more than 3 seconds to complete a command.</p>
-</li>
-<li>
-<p>System should be maintainable with proper documentation.</p>
-</li>
-<li>
-<p>Proper feedback to user when error occurs.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="glossary"><a class="link" href="#glossary">Glossary</a></h2>
-<div class="sectionbody">
 <div class="paragraph">
 <p>A glossary serves to ensure that all stakeholders have a common understanding of the noteworthy terms, abbreviation, acronyms etc.</p>
 </div>
@@ -880,15 +555,15 @@ pre-completed state and no points are earned.</p>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-<div class="sect1">
-<h2 id="1-setting-up"><a class="link" href="#1-setting-up">1. Setting up</a></h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="1-1-prerequisites"><a class="link" href="#1-1-prerequisites">1.1. Prerequisites</a></h3>
 <div class="paragraph">
-<p>JDK 9 or later</p>
+<p>&gt;&gt;&gt;&gt;&gt;&gt;&gt; 31aa2286d06fa242c54f7e313e50857c67192db3</p>
+</div>
+<div class="paragraph">
+<p>## 1. Setting up</p>
+</div>
+<div class="paragraph">
+<p><mark>#</mark> 1.1. Prerequisites
+JDK 9 or later</p>
 </div>
 <div class="paragraph">
 <p>JDK 10 on Windows will fail to run tests in headless mode due to a JavaFX bug. Windows developers are highly recommended to use JDK 9.
@@ -898,11 +573,9 @@ IntelliJ IDE</p>
 <p>IntelliJ by default has Gradle and JavaFx plugins installed.
 Do not disable them. If you have disabled them, go to File &gt; Settings &gt; Plugins to re-enable them.</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="1-2-setting-up-the-project-in-your-computer"><a class="link" href="#1-2-setting-up-the-project-in-your-computer">1.2. Setting up the project in your computer</a></h3>
 <div class="paragraph">
-<p>Fork this repo, and clone the fork to your computer</p>
+<p><mark>#</mark> 1.2. Setting up the project in your computer
+Fork this repo, and clone the fork to your computer</p>
 </div>
 <div class="paragraph">
 <p>Open IntelliJ (if you are not in the welcome screen, click File &gt; Close Project to close the existing project dialog first)</p>
@@ -944,22 +617,17 @@ This will generate all resources required by the application and tests.</p>
 <div class="paragraph">
 <p>Repeat this for the test folder as well (e.g. check XmlUtilTest.java and HelpWindowTest.java for code errors, and if so, resolve it the same way)</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="1-3-verifying-the-setup"><a class="link" href="#1-3-verifying-the-setup">1.3. Verifying the setup</a></h3>
 <div class="paragraph">
-<p>Run the seedu.address.MainApp and try a few commands</p>
+<p><mark>#</mark> 1.3. Verifying the setup
+Run the seedu.address.MainApp and try a few commands</p>
 </div>
 <div class="paragraph">
 <p>Run the tests to ensure they all pass.</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="1-4-configurations-to-do-before-writing-code"><a class="link" href="#1-4-configurations-to-do-before-writing-code">1.4. Configurations to do before writing code</a></h3>
-<div class="sect3">
-<h4 id="1-4-1-configuring-the-coding-style"><a class="link" href="#1-4-1-configuring-the-coding-style">1.4.1. Configuring the coding style</a></h4>
 <div class="paragraph">
-<p>This project follows oss-generic coding standards. IntelliJ’s default style is mostly compliant with ours but it uses a different import order from ours. To rectify,</p>
+<p><mark># 1.4. Configurations to do before writing code
+</mark>## 1.4.1. Configuring the coding style
+This project follows oss-generic coding standards. IntelliJ’s default style is mostly compliant with ours but it uses a different import order from ours. To rectify,</p>
 </div>
 <div class="paragraph">
 <p>Go to File &gt; Settings… (Windows/Linux), or IntelliJ IDEA &gt; Preferences… (macOS)</p>
@@ -979,11 +647,9 @@ This will generate all resources required by the application and tests.</p>
 <div class="paragraph">
 <p>Optionally, you can follow the UsingCheckstyle.adoc document to configure Intellij to check style-compliance as you write code.</p>
 </div>
-</div>
-<div class="sect3">
-<h4 id="1-4-2-updating-documentation-to-match-your-fork"><a class="link" href="#1-4-2-updating-documentation-to-match-your-fork">1.4.2. Updating documentation to match your fork</a></h4>
 <div class="paragraph">
-<p>After forking the repo, the documentation will still have the SE-EDU branding and refer to the se-edu/addressbook-level4 repo.</p>
+<p><mark>#</mark># 1.4.2. Updating documentation to match your fork
+After forking the repo, the documentation will still have the SE-EDU branding and refer to the se-edu/addressbook-level4 repo.</p>
 </div>
 <div class="paragraph">
 <p>If you plan to develop this fork as a separate product (i.e. instead of contributing to se-edu/addressbook-level4), you should do the following:</p>
@@ -994,11 +660,9 @@ This will generate all resources required by the application and tests.</p>
 <div class="paragraph">
 <p>Replace the URL in the attribute repoURL in DeveloperGuide.adoc and UserGuide.adoc with the URL of your fork.</p>
 </div>
-</div>
-<div class="sect3">
-<h4 id="1-4-3-setting-up-ci"><a class="link" href="#1-4-3-setting-up-ci">1.4.3. Setting up CI</a></h4>
 <div class="paragraph">
-<p>Set up Travis to perform Continuous Integration (CI) for your fork. See UsingTravis.adoc to learn how to set it up.</p>
+<p><mark>#</mark># 1.4.3. Setting up CI
+Set up Travis to perform Continuous Integration (CI) for your fork. See UsingTravis.adoc to learn how to set it up.</p>
 </div>
 <div class="paragraph">
 <p>After setting up Travis, you can optionally set up coverage reporting for your team fork (see UsingCoveralls.adoc).</p>
@@ -1010,11 +674,9 @@ Optionally, you can set up AppVeyor as a second CI (see UsingAppVeyor.adoc).</p>
 <div class="paragraph">
 <p>Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)</p>
 </div>
-</div>
-<div class="sect3">
-<h4 id="1-4-4-getting-started-with-coding"><a class="link" href="#1-4-4-getting-started-with-coding">1.4.4. Getting started with coding</a></h4>
 <div class="paragraph">
-<p>When you are ready to start coding,</p>
+<p><mark>#</mark># 1.4.4. Getting started with coding
+When you are ready to start coding,</p>
 </div>
 <div class="paragraph">
 <p>Get some sense of the overall design by reading Section 2.1, “Architecture”.</p>
@@ -1022,22 +684,34 @@ Optionally, you can set up AppVeyor as a second CI (see UsingAppVeyor.adoc).</p>
 <div class="paragraph">
 <p>Take a look at Appendix A, Suggested Programming Tasks to Get Started.</p>
 </div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="3-implementation"><a class="link" href="#3-implementation">3. Implementation</a></h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>This section describes some noteworthy details on how certain features are implemented.</p>
+<p><mark> 2. Design
+</mark># 2.1 Command Component
+Command was implemented using a template model pattern. The reason for this implementation is because there is shared codes
+and invariants among all the execution of the command classes (i.e. there is a call if tasks are overdue at every call to execute).
+The common patterns in execution are implemented in the <code>execute</code> function of the command class which is declared final.
+Concrete implementations of each execute function is implemented in the <code>executePrimitive</code> function of each subclass of command.
+The implementation for executePrimitive fill the "variant" portion of the model template. Note that execute primitive is implemented as a
+abstract method in command.</p>
 </div>
-<div class="sect2">
-<h3 id="3-1-achievement-mechanism"><a class="link" href="#3-1-achievement-mechanism">3.1. Achievement mechanism</a></h3>
-<div class="sect3">
-<h4 id="3-1-1-structural-overview"><a class="link" href="#3-1-1-structural-overview">3.1.1. Structural Overview</a></h4>
 <div class="paragraph">
-<p>The achievement mechanism is facilitated by <code>AchievementRecord</code>. TaskManager is now composed of a <code>UniqueTaskList</code> as
+<p>Simplified class diagram for the command component:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/CommandComponentClassDiagram.png" alt="CommandComponentClassDiagram" width="1200">
+</div>
+</div>
+<div class="paragraph">
+<p>## 3. Implementation
+This section describes some noteworthy details on how certain features are implemented.</p>
+</div>
+<div class="paragraph">
+<p><mark>#</mark> 3.1. Achievement mechanism</p>
+</div>
+<div class="paragraph">
+<p><mark>#</mark># 3.1.1. Structural Overview
+The achievement mechanism is facilitated by <code>AchievementRecord</code>. TaskManager is now composed of a <code>UniqueTaskList</code> as
 well as an <code>AchievementRecord</code>.<br>
 <br>
 <code>AchievementRecord</code> stores the achievement information of the user internally. These information include
@@ -1060,11 +734,9 @@ Integration of AchievementRecord in Model component:</p>
 <img src="images/AchievementModel.png" alt="AchievementModel" width="1200">
 </div>
 </div>
-</div>
-<div class="sect3">
-<h4 id="3-1-2-basic-mechanism"><a class="link" href="#3-1-2-basic-mechanism">3.1.2. Basic Mechanism</a></h4>
 <div class="paragraph">
-<p>An <code>updateTaskStatus</code> method is implemented in <code>ModelManager</code> and exposed in the <code>Model</code> interface, this method is
+<p><mark>#</mark># 3.1.2. Basic Mechanism
+An <code>updateTaskStatus</code> method is implemented in <code>ModelManager</code> and exposed in the <code>Model</code> interface, this method is
 called in the execution of complete command. Upon completion of a task, the status of task is updated to COMPLETED,
 along with that, the <code>AchievementRecord</code> is also updated with the new xp. Current xp, number of tasks completed
 increases, current level is recalculated and updated to match current xp. As the time based achievement fields should
@@ -1098,9 +770,9 @@ the set of achievement information as specified by user&#8217;s command.<br></p>
 <img src="images/AchievementActivity.png" alt="AchievementActivity" width="500">
 </div>
 </div>
+<div class="paragraph">
+<p><mark>#</mark># 3.1.3. Event-driven Interaction with other components</p>
 </div>
-<div class="sect3">
-<h4 id="3-1-3-event-driven-interaction-with-other-components"><a class="link" href="#3-1-3-event-driven-interaction-with-other-components">3.1.3. Event-driven Interaction with other components</a></h4>
 <div class="paragraph">
 <p>The achievement mechanism follows the event-driven interaction of model component with Storage and UI components.
 When a task is marked as complete, both the <code>UniqueTaskList</code> and the <code>AchievementRecord</code> of the task manager is updated
@@ -1111,9 +783,9 @@ On top of the <code>TaskManagerChangedEvent</code>, an <code>AchievementsUpdated
 the <code>AchievementRecord</code> is update(on task completion or change of display option). This event is handled by the
 <code>AchievementPanel</code> UI component which then update the achievement information displayed.</p>
 </div>
+<div class="paragraph">
+<p><mark>#</mark># 3.1.4. Design Considerations</p>
 </div>
-<div class="sect3">
-<h4 id="3-1-4-design-considerations"><a class="link" href="#3-1-4-design-considerations">3.1.4. Design Considerations</a></h4>
 <div class="paragraph">
 <p>Aspect: Associations Among <code>TaskManager</code>,<code>UniqueTaskList</code> and <code>AchievementRecord</code><br></p>
 </div>
@@ -1196,12 +868,10 @@ abstraction.</p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p><mark># 3.2. Batch Completion via Label feature
+</mark>## 3.2.1. Current Implementation</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="3-2-batch-completion-via-label-feature"><a class="link" href="#3-2-batch-completion-via-label-feature">3.2. Batch Completion via Label feature</a></h3>
-<div class="sect3">
-<h4 id="3-2-1-current-implementation"><a class="link" href="#3-2-1-current-implementation">3.2.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The batch completion mechanism is facilitated by <code>CompleteLabelCommand</code>.
 It extends <code>CompleteCommand</code> and encapsulates the internal logic of finding task and completing multiple
@@ -1323,11 +993,12 @@ all current changes will be reset to the latest commit / state in <code>taskMana
 <p>Step 2. The user sees all tasks previously displayed on the screen which matches the label change
 it&#8217;s status to <code>COMPLETED</code></p>
 </div>
+<div class="paragraph">
+<p><mark>#</mark># 3.2.2. Design Considerations</p>
 </div>
-<div class="sect3">
-<h4 id="3-2-2-design-considerations"><a class="link" href="#3-2-2-design-considerations">3.2.2. Design Considerations</a></h4>
-<div class="sect4">
-<h5 id="3-2-2-1-aspect-implementation-of-atomicity"><a class="link" href="#3-2-2-1-aspect-implementation-of-atomicity">3.2.2.1. Aspect: Implementation of atomicity</a></h5>
+<div class="paragraph">
+<p><mark>#</mark> 3.2.2.1. Aspect: Implementation of atomicity</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -1362,9 +1033,9 @@ batch operation.</p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p><mark>#</mark> 3.2.2.2. Aspect: Handling different CompleteCommand behaviour</p>
 </div>
-<div class="sect4">
-<h5 id="3-2-2-2-aspect-handling-different-completecommand-behaviour"><a class="link" href="#3-2-2-2-aspect-handling-different-completecommand-behaviour">3.2.2.2. Aspect: Handling different CompleteCommand behaviour</a></h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1415,9 +1086,9 @@ a high amount of coupling.
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p><mark>#</mark> 3.2.2.3. Aspect: Representation of predicate to be stored by CompleteCommand</p>
 </div>
-<div class="sect4">
-<h5 id="3-2-2-3-aspect-representation-of-predicate-to-be-stored-by-completecommand"><a class="link" href="#3-2-2-3-aspect-representation-of-predicate-to-be-stored-by-completecommand">3.2.2.3. Aspect: Representation of predicate to be stored by CompleteCommand</a></h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1453,13 +1124,10 @@ Abstract Methods.</p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p><mark># 3.3. Model Rollback feature
+</mark>## 3.3.1. Current Implementation</p>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="3-3-model-rollback-feature"><a class="link" href="#3-3-model-rollback-feature">3.3. Model Rollback feature</a></h3>
-<div class="sect3">
-<h4 id="3-3-1-current-implementation"><a class="link" href="#3-3-1-current-implementation">3.3.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>Allows for any uncommitted changes to be discarded.</p>
 </div>
@@ -1490,14 +1158,10 @@ commit in <code>taskManagerStateList</code>.</p>
 <div class="paragraph">
 <p><em>Internal calls of <code>VersionedTaskManager.resetData(&#8230;&#8203;)</code> has been omitted for brevity</em></p>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="3-4-dependency-feature-modelling"><a class="link" href="#3-4-dependency-feature-modelling">3.4. Dependency Feature Modelling</a></h3>
-<div class="sect3">
-<h4 id="3-4-1-current-implementation"><a class="link" href="#3-4-1-current-implementation">3.4.1. Current Implementation</a></h4>
 <div class="paragraph">
-<p>The dependency mechanism is facilitated by an embedded dependency object. This object internally represents dependency with
+<p><mark># 3.4. Dependency Feature Modelling
+</mark>## 3.4.1. Current Implementation
+The dependency mechanism is facilitated by an embedded dependency object. This object internally represents dependency with
 a hashset that contains the hashcode of the object that the task is dependent upon.</p>
 </div>
 <div class="imageblock">
@@ -1505,11 +1169,10 @@ a hashset that contains the hashcode of the object that the task is dependent up
 <img src="images/DependencyCommandSequenceDiagram.png" alt="DependencyCommandSequenceDiagram" width="1200">
 </div>
 </div>
+<div class="paragraph">
+<p><mark><mark># 3.4.2 Design Considerations
+</mark></mark>## Aspect: Modelling of the embedded dependency object.</p>
 </div>
-<div class="sect3">
-<h4 id="3-4-2-design-considerations"><a class="link" href="#3-4-2-design-considerations">3.4.2 Design Considerations</a></h4>
-<div class="sect4">
-<h5 id="aspect-modelling-of-the-embedded-dependency-object"><a class="link" href="#aspect-modelling-of-the-embedded-dependency-object">Aspect: Modelling of the embedded dependency object.</a></h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1556,96 +1219,58 @@ other tasks that depends on A has to be recreated.</p>
 </li>
 </ul>
 </div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="3-5-modelling-dependency-validity"><a class="link" href="#3-5-modelling-dependency-validity">3.5 Modelling Dependency Validity</a></h3>
-<div class="sect3">
-<h4 id="3-5-1-current-implementation"><a class="link" href="#3-5-1-current-implementation">3.5.1 Current Implementation</a></h4>
 <div class="paragraph">
-<p>The dependency graph is the graph representing the dependencies between the task objects. A graph model needs to be created
+<p><mark># 3.5 Modelling Dependency Validity
+</mark>## 3.5.1 Current Implementation
+The dependency graph is the graph representing the dependencies between the task objects. A graph model needs to be created
 so useful functions can be implemented such as cyclic and topological sort.</p>
 </div>
+<div class="paragraph">
+<p><mark><mark># 3.5.2 Design Considerations
+</mark></mark>## Aspect: Real-time graph or graph instantiated on function call.
+* <strong>Alternative 1(current choice):</strong> Graph is only instantiated when needed.
+<strong> Pros: Graph does not have to be updated or maintained.
+</strong> Cons: Slight increase in latency, but mitigated by the fact that it is likely that a typical user won&#8217;t
+have an extremely large amount of tasks.
+* <strong> Alternative 2:</strong> Graph created on start-up and maintained during run-time.
+<strong>* Pros: Slightly faster speed for dependency related commands.
+</strong>* Cons: Upkeep of graph is slightly more complex to implement, only for a slightly shorter run-time</p>
 </div>
-<div class="sect3">
-<h4 id="3-5-2-design-considerations"><a class="link" href="#3-5-2-design-considerations">3.5.2 Design Considerations</a></h4>
-<div class="sect4">
-<h5 id="aspect-real-time-graph-or-graph-instantiated-on-function-call"><a class="link" href="#aspect-real-time-graph-or-graph-instantiated-on-function-call">Aspect: Real-time graph or graph instantiated on function call.</a></h5>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Alternative 1(current choice):</strong> Graph is only instantiated when needed.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Graph does not have to be updated or maintained.</p>
-</li>
-<li>
-<p>Cons: Slight increase in latency, but mitigated by the fact that it is likely that a typical user won&#8217;t
-have an extremely large amount of tasks.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong> Alternative 2:</strong> Graph created on start-up and maintained during run-time.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Slightly faster speed for dependency related commands.</p>
-</li>
-<li>
-<p>Cons: Upkeep of graph is slightly more complex to implement, only for a slightly shorter run-time</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect4">
-<h5 id="aspect-task-dependency-modelled-as-a-graph"><a class="link" href="#aspect-task-dependency-modelled-as-a-graph">Aspect: Task dependency modelled as a graph</a></h5>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Alternative 1(current choice):</strong> Using a graph.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: With a graph, major problems with task dependency can be identified. The most major problem is
+<div class="paragraph">
+<p><mark>#</mark> Aspect: Task dependency modelled as a graph
+* <strong>Alternative 1(current choice):</strong> Using a graph.
+<strong> Pros: With a graph, major problems with task dependency can be identified. The most major problem is
 cyclic dependency, which is when a set of tasks have a dependency to each other and hence they cannot be completed because they
 depend on each other.
-A topological sort can also be performed on the graph to order tasks by the number of dependencies.</p>
-</li>
-<li>
-<p>Cons: nil</p>
-</li>
-</ul>
+A topological sort can also be performed on the graph to order tasks by the number of dependencies.
+</strong> Cons: nil</p>
 </div>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="3-6-monitoring-time"><a class="link" href="#3-6-monitoring-time">3.6 Monitoring time</a></h3>
-<div class="sect3">
-<h4 id="3-6-1-current-implementation"><a class="link" href="#3-6-1-current-implementation">3.6.1 Current Implementation</a></h4>
 <div class="paragraph">
-<p>Time is of key importance when dealing with the <code>TaskManager</code>. We implement and represent time using the ubiquitous
+<p><mark># 3.6 Monitoring time
+</mark>## 3.6.1 Current Implementation
+Time is of key importance when dealing with the <code>TaskManager</code>. We implement and represent time using the ubiquitous
 <code>Date</code> class in Java. The class <code>DueDate</code> internally uses the <code>Date</code> class, and harnesses built in capabilities such as
 date comparison. The precision of time for tasks is to the minute, that is the <code>AddCommand</code> can accept a <code>DueDate</code>
 accurate to the minute.</p>
 </div>
 <div class="paragraph">
-<p>A check on whether any of the tasks are overdue is done on every command. Thus,</p>
+<p>A check on whether any of the tasks are overdue is done before the execution of every command/</p>
 </div>
+<div class="paragraph">
+<p><mark><mark></mark> 3.6.2 Design Considerations
+<mark></mark></mark># Aspect: Implementing the check on whether a task is overdue
+* <strong>Alternative 1 (current choice):</strong> Run a check before the execution of every command
+<strong> Pros: From a user experience perspective, the user should not expect there to be a commit to state every time a task is overdue. i.e. An undo command
+should never undo an overdue. Simple implementation prevents race conditions (refer to cons of alternative 2).
+</strong> Cons: If a user does not input a command, the task state will not be updated. (Mitigated by the fact that
+the number of commands that a person uses likely occurs at a higher rate than the number of tasks itself).
+* <strong>Alternative 2:</strong> Run a cron job that checks at a regular interval if the task is overdue
+<strong> Pros: The overdue state of the task is definitely current
+</strong> Cons: Potential race condition and might introduce latency to the application.</p>
 </div>
+<div class="paragraph">
+<p><mark>#</mark> 3.7 List</p>
 </div>
-<div class="sect2">
-<h3 id="3-7-list"><a class="link" href="#3-7-list">3.7 List</a></h3>
 <div class="paragraph">
 <p>The functionality of the default <code>list</code> command is as expected (and documented), that is all tasks are listed.
 The date filters are dependent on the due date of the task, and the current date.</p>
@@ -1655,11 +1280,9 @@ The date filters are dependent on the due date of the task, and the current date
 depending on the <code>ListCommand</code> 's option. A predicate is then created to check if a given <code>Task</code> is before this date.
 This predicate is passed as an argument to update filtered Tasks.</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="3-8-logging"><a class="link" href="#3-8-logging">3.8. Logging</a></h3>
 <div class="paragraph">
-<p>We are using java.util.logging package for logging. The LogsCenter class is used to manage the logging levels and logging destinations.</p>
+<p><mark>#</mark> 3.8. Logging
+We are using java.util.logging package for logging. The LogsCenter class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="paragraph">
 <p>The logging level can be controlled using the logLevel setting in the configuration file (See Section 3.4, “Configuration”)</p>
@@ -1685,40 +1308,28 @@ This predicate is passed as an argument to update filtered Tasks.</p>
 <div class="paragraph">
 <p>FINE : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="3-9-configuration"><a class="link" href="#3-9-configuration">3.9. Configuration</a></h3>
 <div class="paragraph">
-<p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: config.json).</p>
+<p><mark>#</mark> 3.9. Configuration
+Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: config.json).</p>
 </div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="4-documentation"><a class="link" href="#4-documentation">4. Documentation</a></h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>We use asciidoc for writing documentation.</p>
+<p>## 4. Documentation
+We use asciidoc for writing documentation.</p>
 </div>
 <div class="paragraph">
 <p>We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.</p>
 </div>
-<div class="sect2">
-<h3 id="4-1-editing-documentation"><a class="link" href="#4-1-editing-documentation">4.1. Editing Documentation</a></h3>
 <div class="paragraph">
-<p>See UsingGradle.adoc to learn how to render .adoc files locally to preview the end result of your edits. Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your .adoc files in real-time.</p>
+<p><mark>#</mark> 4.1. Editing Documentation
+See UsingGradle.adoc to learn how to render .adoc files locally to preview the end result of your edits. Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your .adoc files in real-time.</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="4-2-publishing-documentation"><a class="link" href="#4-2-publishing-documentation">4.2. Publishing Documentation</a></h3>
 <div class="paragraph">
-<p>See UsingTravis.adoc to learn how to deploy GitHub Pages using Travis.</p>
+<p><mark>#</mark> 4.2. Publishing Documentation
+See UsingTravis.adoc to learn how to deploy GitHub Pages using Travis.</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="4-3-converting-documentation-to-pdf-format"><a class="link" href="#4-3-converting-documentation-to-pdf-format">4.3. Converting Documentation to PDF format</a></h3>
 <div class="paragraph">
-<p>We use Google Chrome for converting documentation to PDF format, as Chrome’s PDF engine preserves hyperlinks used in webpages.</p>
+<p><mark>#</mark> 4.3. Converting Documentation to PDF format
+We use Google Chrome for converting documentation to PDF format, as Chrome’s PDF engine preserves hyperlinks used in webpages.</p>
 </div>
 <div class="paragraph">
 <p>Here are the steps to convert the project documentation files to PDF format.</p>
@@ -1739,11 +1350,9 @@ This predicate is passed as an argument to update filtered Tasks.</p>
 <p>chrome save as pdf
 Figure 10. Saving documentation as PDF files in Chrome</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="4-4-site-wide-documentation-settings"><a class="link" href="#4-4-site-wide-documentation-settings">4.4. Site-wide Documentation Settings</a></h3>
 <div class="paragraph">
-<p>The build.gradle file specifies some project-specific asciidoc attributes which affects how all documentation files within this project are rendered.</p>
+<p><mark>#</mark> 4.4. Site-wide Documentation Settings
+The build.gradle file specifies some project-specific asciidoc attributes which affects how all documentation files within this project are rendered.</p>
 </div>
 <div class="paragraph">
 <p>Attributes left unset in the build.gradle file will use their default value, if any.
@@ -1775,15 +1384,10 @@ site-name</p>
 <div class="paragraph">
 <p>not set</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="4-5-per-file-documentation-settings"><a class="link" href="#4-5-per-file-documentation-settings">4.5. Per-file Documentation Settings</a></h3>
-
-</div>
-<div class="sect2">
-<h3 id="4-6-site-template"><a class="link" href="#4-6-site-template">4.6. Site Template</a></h3>
 <div class="paragraph">
-<p>The files in docs/stylesheets are the CSS stylesheets of the site. You can modify them to change some properties of the site’s design.</p>
+<p><mark># 4.5. Per-file Documentation Settings
+</mark># 4.6. Site Template
+The files in docs/stylesheets are the CSS stylesheets of the site. You can modify them to change some properties of the site’s design.</p>
 </div>
 <div class="paragraph">
 <p>The files in docs/templates controls the rendering of .adoc files into HTML5. These template files are written in a mixture of Ruby and Slim.</p>
@@ -1791,16 +1395,10 @@ site-name</p>
 <div class="paragraph">
 <p>Modifying the template files in docs/templates requires some knowledge and experience with Ruby and Asciidoctor’s API. You should only modify them if you need greater control over the site’s layout than what stylesheets can provide. The SE-EDU team does not provide support for modified template files.</p>
 </div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="5-testing"><a class="link" href="#5-testing">5. Testing</a></h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="5-1-running-tests"><a class="link" href="#5-1-running-tests">5.1. Running Tests</a></h3>
 <div class="paragraph">
-<p>There are three ways to run tests.</p>
+<p><mark> 5. Testing
+</mark># 5.1. Running Tests
+There are three ways to run tests.</p>
 </div>
 <div class="paragraph">
 <p>The most reliable way to run tests is the 3rd one. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
@@ -1828,16 +1426,13 @@ Method 3: Using Gradle (headless)</p>
 <div class="paragraph">
 <p>To run tests in headless mode, open a console and run the command gradlew clean headless allTests (Mac/Linux: ./gradlew clean headless allTests)</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="5-2-types-of-tests"><a class="link" href="#5-2-types-of-tests">5.2. Types of tests</a></h3>
 <div class="paragraph">
-<p>We have two types of tests:</p>
+<p><mark>#</mark> 5.2. Types of tests
+We have two types of tests:</p>
 </div>
-<div class="sect3">
-<h4 id="gui-tests"><a class="link" href="#gui-tests">GUI Tests</a></h4>
 <div class="paragraph">
-<p>These are tests involving the GUI. They include:</p>
+<p><mark>#</mark># GUI Tests
+These are tests involving the GUI. They include:</p>
 </div>
 <div class="paragraph">
 <p>System Tests that test the entire App by simulating user actions on the GUI. These are in the systemtests package.</p>
@@ -1845,11 +1440,9 @@ Method 3: Using Gradle (headless)</p>
 <div class="paragraph">
 <p>Unit tests that test the individual components. These are in seedu.address.ui package.</p>
 </div>
-</div>
-<div class="sect3">
-<h4 id="non-gui-tests"><a class="link" href="#non-gui-tests">Non-GUI Tests</a></h4>
 <div class="paragraph">
-<p>These are tests not involving the GUI. They include,</p>
+<p><mark>#</mark># Non-GUI Tests
+These are tests not involving the GUI. They include,</p>
 </div>
 <div class="paragraph">
 <p>Unit tests targeting the lowest level methods/classes.
@@ -1863,12 +1456,9 @@ e.g. seedu.address.storage.StorageManagerTest</p>
 <p>Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together.
 e.g. seedu.address.logic.LogicManagerTest</p>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="5-3-troubleshooting-testing"><a class="link" href="#5-3-troubleshooting-testing">5.3. Troubleshooting Testing</a></h3>
 <div class="paragraph">
-<p>Problem: HelpWindowTest fails with a NullPointerException.</p>
+<p><mark>#</mark> 5.3. Troubleshooting Testing
+Problem: HelpWindowTest fails with a NullPointerException.</p>
 </div>
 <div class="paragraph">
 <p>Reason: One of its dependencies, HelpWindow.html in src/main/resources/docs is missing.</p>
@@ -1876,40 +1466,26 @@ e.g. seedu.address.logic.LogicManagerTest</p>
 <div class="paragraph">
 <p>Solution: Execute Gradle task processResources.</p>
 </div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="6-dev-ops"><a class="link" href="#6-dev-ops">6. Dev Ops</a></h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="6-1-build-automation"><a class="link" href="#6-1-build-automation">6.1. Build Automation</a></h3>
 <div class="paragraph">
-<p>See UsingGradle.adoc to learn how to use Gradle for build automation.</p>
+<p><mark> 6. Dev Ops
+</mark># 6.1. Build Automation
+See UsingGradle.adoc to learn how to use Gradle for build automation.</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="6-2-continuous-integration"><a class="link" href="#6-2-continuous-integration">6.2. Continuous Integration</a></h3>
 <div class="paragraph">
-<p>We use Travis CI and AppVeyor to perform Continuous Integration on our projects. See UsingTravis.adoc and UsingAppVeyor.adoc for more details.</p>
+<p><mark>#</mark> 6.2. Continuous Integration
+We use Travis CI and AppVeyor to perform Continuous Integration on our projects. See UsingTravis.adoc and UsingAppVeyor.adoc for more details.</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="6-3-coverage-reporting"><a class="link" href="#6-3-coverage-reporting">6.3. Coverage Reporting</a></h3>
 <div class="paragraph">
-<p>We use Coveralls to track the code coverage of our projects. See UsingCoveralls.adoc for more details.</p>
+<p><mark>#</mark> 6.3. Coverage Reporting
+We use Coveralls to track the code coverage of our projects. See UsingCoveralls.adoc for more details.</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="6-4-documentation-previews"><a class="link" href="#6-4-documentation-previews">6.4. Documentation Previews</a></h3>
 <div class="paragraph">
-<p>When a pull request has changes to asciidoc files, you can use Netlify to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See UsingNetlify.adoc for more details.</p>
+<p><mark>#</mark> 6.4. Documentation Previews
+When a pull request has changes to asciidoc files, you can use Netlify to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See UsingNetlify.adoc for more details.</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="6-5-making-a-release"><a class="link" href="#6-5-making-a-release">6.5. Making a Release</a></h3>
 <div class="paragraph">
-<p>Here are the steps to create a new release.</p>
+<p><mark>#</mark> 6.5. Making a Release
+Here are the steps to create a new release.</p>
 </div>
 <div class="paragraph">
 <p>Update the version number in MainApp.java.</p>
@@ -1923,11 +1499,9 @@ e.g. seedu.address.logic.LogicManagerTest</p>
 <div class="paragraph">
 <p>Create a new release using GitHub and upload the JAR file you created.</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="6-6-managing-dependencies"><a class="link" href="#6-6-managing-dependencies">6.6. Managing Dependencies</a></h3>
 <div class="paragraph">
-<p>A project often depends on third-party libraries. For example, Address Book depends on the Jackson library for XML parsing. Managing these dependencies can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives.
+<p><mark>#</mark> 6.6. Managing Dependencies
+A project often depends on third-party libraries. For example, Address Book depends on the Jackson library for XML parsing. Managing these dependencies can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives.
 a. Include those libraries in the repo (this bloats the repo size)
 b. Require developers to download those libraries manually (this creates extra work for developers)</p>
 </div>
@@ -1939,8 +1513,606 @@ Suggested path for new programmers:</p>
 <p>First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in Section A.1, “Improving each component”.</p>
 </div>
 <div class="paragraph">
-<p>Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. Section A.2, “Creating a new command: remark” explains how to go about adding such a feature.</p>
+<p>Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. Section A.2, “Creating a new command: remark” explains how to go about adding such a feature.
+## Appendix A: Target User Profile</p>
+</div>
+<div class="paragraph">
+<p>Tech savvy students who need to keep their tasks organized and motivate themselves to complete them.</p>
+</div>
+<div class="paragraph">
+<p>The target age group is from 15 years old to 25 years old.</p>
+</div>
+<div class="paragraph">
+<p>Attributable to our target demographic are the following qualities:</p>
+</div>
+<div class="paragraph">
+<p>==== Setting up CI</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Adept with technology</p>
+</li>
+<li>
+<p>Inclined to vicariously project a virtual avatar&#8217;s experience unto themselves</p>
+</li>
+<li>
+<p>Inclined against keeping data on physical mediums</p>
+</li>
+<li>
+<p>Perpetually experiencing the continuous bombardment of deadlines from assignments</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>## Appendix B: Value proposition</p>
+</div>
+<div class="paragraph">
+<p>By offering a gamified experience, we hope to be able to improve the user experience and keep users motivated in completing their tasks.</p>
+</div>
+<div class="paragraph">
+<p>## Appendix C: User Stories
+Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely to have) - *</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Priority</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">As a &#8230;&#8203;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I want to &#8230;&#8203;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">So that I can &#8230;&#8203;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">* * *</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">organised student</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">apply lables to my task</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">focus on tasks</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">* * *</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">forgetful student</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">alerted of important deadlines</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">not forget about tasks</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">* * *</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">busy person</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">easily prioritise tasks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">get important things out of the way first</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">* * *</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">organised student</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">have tasks organised by categories that they are under</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">manage
+different aspects of life better</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">* * *</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">proactive individual</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">view the day&#8217;s task at a glance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I know what I need to do</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">* * *</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">see task organized between todos and dones</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">better organisation</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">* * *</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">see a list of tasks that needs attention at present time</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I may pay attention to
+them first</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">* *</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">long-sighted quantitative person</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">overview of my past tasks of the week</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I can track
+my progress and evaluate how I am doing.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">* *</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">have rewards for completing tasks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">continue doing tasks</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">* *</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">see list of tasks that need my attention most at the present time</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pay attention to
+ them first</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">* *</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">see QOTD for basic motivation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">motivation</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">* *</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user that is demoralized easily</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">get positive encouragement</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">stay motivated</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">* *</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">negative reinforcement</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">stay motivated</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">* *</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">statistics function</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keep track of progress</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">* *</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">insights function</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keep track of progress</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">* *</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">competitive user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">compete with friends</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">challenge myself and peers</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">*</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">person without arms</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">have the computer interpret my words</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">type with my toes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">*</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">person who hates rules</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">enter tasks in a specified format and computer should interpret for me</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">easy addition of tasks</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">*</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">visual person</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">colour coding in tasks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">visually discern between tasks</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">*</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">feedback on completion of tasks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">better plan ways to handle tasks</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">*</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">lazy student</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">provide intuitive information about the chaining to tasks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">easy to tell end of task</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">*</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">customize persona</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">make tasks seem more personal</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">*</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unmotivated student</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">see tasks creatively explosively destroy themselves</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">derive more enjoyment</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>## Appendix D: Use cases
+Only features that require more than a few steps to implement will be shown.</p>
+</div>
+<div class="paragraph">
+<p><mark># Use case: Display Welcome Screen
+</mark>## MSS
+.  User logs in successfully
+.  Application fetches QOTD and shows it.
+.  Application then displays <strong>10</strong> tasks sorted by ascending deadline.</p>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+<div class="paragraph">
+<p><mark>#</mark># Extensions</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>3a. There are less than <strong>10</strong> tasks available</p>
+<div class="ulist">
+<ul>
+<li>
+<p>3a1. Let the number of tasks available be <code>n</code>, then <code>n</code> tasks will be shown.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>3b. There are multiple tasks with the same deadline.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>3b1. Tie will be broken by the lexicographic order of Task name</p>
+</li>
+<li>
+<p>3b2. If multiple tasks have the same lexicographic order, the outputted task will be
+non-deterministic</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+<div class="paragraph">
+<p><mark># Use case: Display Motivational Quote (MQ) on task completion
+</mark>## MSS
+. User marks task as complete.
+. Application shows MQ.</p>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+<div class="paragraph">
+<p><mark>#</mark># Extensions</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1a. User marks multiple tasks as complete.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1a1. Application still shows only one MQ.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+<div class="paragraph">
+<p><mark># Use case: List Task
+</mark>## MSS
+. User requests to list tasks, fulfilling a (potentially empty) set of criteria.
+. Application shows a list of corresponding tasks.</p>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+<div class="paragraph">
+<p><mark>#</mark># Extensions
+* 1a. No matches found.
+** 1a1. Application informs user that no tasks matching the specified criteria have been found.</p>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+<div class="paragraph">
+<p><mark># Use case: Add task
+</mark>## MSS
+. User requests to add a task in the list
+. Application adds the task</p>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+<div class="paragraph">
+<p><mark>#</mark># Extensions
+* 1a. The task already exists.
+** 1a1. Application shows an error message.</p>
+</div>
+<div class="paragraph">
+<p>Use case resumes at step 1 in MSS.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1b. The user enters the add command in a wrong format.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1b1. Application shows an error message.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Use case resumes at step 1 in MSS.</p>
+</div>
+<div class="paragraph">
+<p><mark># Use case: Add dependency for task
+</mark>## MSS
+. User requests to add a dependency between tasks
+. Application adds the task dependency</p>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+<div class="paragraph">
+<p><mark>#</mark># Extensions
+* 1a. The additional task dependency creates a cyclic dependency
+** 1a1. Application shows an error message, rejects the additional task dependency</p>
+</div>
+<div class="paragraph">
+<p>Use case resumes at step 1 in MSS.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1b. The user enters the add dependency command in a wrong format.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1b1. Application shows an error message.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Use case resumes at step 1 in MSS.</p>
+</div>
+<div class="paragraph">
+<p><mark># Use case: Remove dependency for task
+</mark>## MSS
+. User requests to remove a dependency between tasks
+. Application removes the task dependency</p>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+<div class="paragraph">
+<p><mark>#</mark># Extensions
+* 1a. The user enters the remove dependency command in a wrong format.
+** 1a1. Application shows an error message.</p>
+</div>
+<div class="paragraph">
+<p>Use case resumes at step 1 in MSS.</p>
+</div>
+<div class="paragraph">
+<p><mark># Use case: Delete task
+</mark>## MSS
+. User requests to delete a task with a particular index
+. Application deletes the task</p>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+<div class="paragraph">
+<p><mark>#</mark># Extensions
+* 1a. A task with the specified index does not exist.
+** 1a1. Application shows an error message.</p>
+</div>
+<div class="paragraph">
+<p>Use case resumes at step 1 in MSS.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1b. The task with the specified index is already deleted.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1b1. Application shows an error message.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Use case resumes at step 1 in MSS.</p>
+</div>
+<div class="paragraph">
+<p><mark># Use case: Viewing Command History
+</mark>## MSS
+. User requests to view command history.
+. Application displays command history.</p>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+<div class="paragraph">
+<p><mark>#</mark># Extensions
+* 1a. Command history is empty.
+** 1a1. Application informs user that there is no command history.</p>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+<div class="paragraph">
+<p><mark># Use case: Undoing Last Command
+</mark>## MSS
+. User requests undoing last command.
+. Application resets state to before last state-changing command.</p>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+<div class="paragraph">
+<p><mark>#</mark># Extensions
+* 1a. Command history is empty.
+** 1a1. Application informs user that there is no past history to undo.</p>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+<div class="paragraph">
+<p><mark># Use case: Redoing Last Command
+</mark>## MSS
+. User requests redoing last command.
+. Application resets state to before last state-changing command was undone.</p>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+<div class="paragraph">
+<p><mark>#</mark># Extensions
+* 1a. The immediately preceding command (ignoring redone undos) is not an undo command
+** 1a1. Application informs user that there is no undo to redo.</p>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+<div class="paragraph">
+<p><mark># Use case: Completing Task (Single)
+</mark>## MSS
+. User marks task as complete.
+. Application reports both points earned and current points to user.</p>
+</div>
+<div class="paragraph">
+<p><mark>#</mark># Extensions
+* 1a. An error occurs, causes one of the task to not be completed
+** 1a1. Application displays error message, no points are earned either.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>2a. User earns enough points to level up</p>
+<div class="ulist">
+<ul>
+<li>
+<p>2a1. Application displays a congratulatory message, current points, and points earned to user.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><mark># Use case: Completing Task (Batch via <code>Label</code>)
+</mark>## MSS
+. User marks a batch of tasks with the same specified <code>Label</code> as complete.
+. Application reports both points earned and current points to user.</p>
+</div>
+<div class="paragraph">
+<p><mark>#</mark># Extensions
+* 1a. An error occurs, causes one of the tasks to not be able to be completed
+** 1a1. Application displays an error message, resetting the batch of tasks to their
+pre-completed state and no points are earned.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>2a. User earns enough points to level up</p>
+<div class="ulist">
+<ul>
+<li>
+<p>2a1. Application displays a congratulatory message, current points, and points earned to user.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><mark># Use case: Display Statistics
+</mark>## MSS
+. User requests for statistics.
+. Application fetches data and displays statistics.</p>
+</div>
+<div class="paragraph">
+<p><mark>#</mark># Extensions
+* 2a. There are no statistics.
+** 2a1. Application displays a flavour text explaining that the user needs to complete a task first to get statistics.</p>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+<div class="paragraph">
+<p><mark># Use case: Failing to complete task
+</mark>## MSS
+. User fails to complete tasks on time
+. Application displays points lost and current current points to user.</p>
+</div>
+<div class="paragraph">
+<p><mark>#</mark># Extensions
+* 2a. User loses enough points that it level down.
+    * 2a1. Application displays a warning message, current points, and points lost to user.</p>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+<div class="paragraph">
+<p>## Appendix E: Non-functional requirements
+- There should be no noticable lag when typing on the command line.
+- Should work on any mainstream OS as long as it has Java 9 or higher installed.
+- Storage of application data will be in a text file.
+- Should be able to hold up to 1000 tasks without a noticable decline in performance.
+- Should not take more than 3 seconds to complete a command.
+- System should be maintainable with proper documentation.
+- Proper feedback to user when error occurs.</p>
+</div>
+<div class="paragraph">
+<p>## Appendix F: Glossary</p>
+</div>
+<div class="paragraph">
+<p>A glossary serves to ensure that all stakeholders have a common understanding of the noteworthy terms, abbreviation, acronyms etc.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Word</th>
+<th class="tableblock halign-left valign-top">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Task</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A piece of work to be completed and is registered by the user</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Application</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Refers to the CLI application registered by the user</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mainstream OS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Windows, Linux, Unix, OS-X</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Points</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A unit of measurement to measure current experience</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Level</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A larger unit of measurement to measure experience.</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-01 23:49:59 SRET</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-01 23:51:22 SRET</div></div></div></body></html>

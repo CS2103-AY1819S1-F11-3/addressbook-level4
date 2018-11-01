@@ -210,7 +210,7 @@ be interpreted as the start of the day, i.e <code>00:00</code>.</p>
 <div class="sect3">
 <h4 id="deleting-a-task-code-delete-code"><a class="link" href="#deleting-a-task-code-delete-code">3.2.2. Deleting a Task: <code>delete</code></a></h4>
 <div class="paragraph">
-<p>Deletes a task from the task manager<br>
+<p>Deletes a task and task dependencies to it from the task manager<br>
 Format: <code>delete INDEX</code><br>
 +Example: <code>delete 1</code><br>
 -Example: <code>delete task</code></p>
@@ -412,6 +412,9 @@ comes back from the future.
 <p><strong>Delete</strong> : <code>delete INDEX</code></p>
 </li>
 <li>
+<p><strong>Dependency</strong> : <code>dependency INDEX_DEPENDANT INDEX_DEPENDEE</code></p>
+</li>
+<li>
 <p><strong>Edit</strong> : <code>edit INDEX [t/DUE_DATE] [p/PRIORITY_VALUE] [d/detailed description] [l/LABEL]</code></p>
 </li>
 <li>
@@ -454,4 +457,4 @@ comes back from the future.
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-01 23:49:59 SRET</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-01 23:51:22 SRET</div></div></div></body></html>
