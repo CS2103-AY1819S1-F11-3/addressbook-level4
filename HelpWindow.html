@@ -27,7 +27,7 @@
 <li><a href="#adding-a-task-code-add-code">3.2.1. Adding a Task: <code>add</code></a></li>
 <li><a href="#deleting-a-task-code-delete-code">3.2.2. Deleting a Task: <code>delete</code></a></li>
 <li><a href="#editing-a-task-code-edit-code">3.2.3. Editing a Task: <code>edit</code></a></li>
-<li><a href="#adding-a-dependency-to-a-task-code-dependency-code">3.2.4. Adding a dependency to a Task: <code>dependency</code></a></li>
+<li><a href="#adding-removing-a-dependency-to-a-task-code-dependency-code">3.2.4. Adding/Removing a dependency to a Task: <code>dependency</code></a></li>
 <li><a href="#completing-a-task-code-complete-code">3.2.5. Completing a Task: <code>complete</code></a></li>
 <li><a href="#listing-tasks-code-list-code">3.2.6. Listing Tasks: <code>list</code></a></li>
 <li><a href="#search-for-tasks-by-keyword-code-find-code">3.2.7. Search for Tasks by Keyword: <code>find</code></a></li>
@@ -228,15 +228,19 @@ Format:<br>
 </div>
 </div>
 <div class="sect3">
-<h4 id="adding-a-dependency-to-a-task-code-dependency-code"><a class="link" href="#adding-a-dependency-to-a-task-code-dependency-code">3.2.4. Adding a dependency to a Task: <code>dependency</code></a></h4>
+<h4 id="adding-removing-a-dependency-to-a-task-code-dependency-code"><a class="link" href="#adding-removing-a-dependency-to-a-task-code-dependency-code">3.2.4. Adding/Removing a dependency to a Task: <code>dependency</code></a></h4>
 <div class="paragraph">
-<p>Adds a dependency to a task dependant to the task dependee<br>
+<p>Adds/removes a dependency to a task dependant to the task dependee (toggling task dependency)<br>
 Format:<br>
-<code>edit INDEX_DEPENDANT INDEX_DEPENDEE</code><br>
-+Example:<br>
-<code>dependency 1 2</code><br>
--Example:<br>
-<code>dependency 1</code><br>
+<code>dependency INDEX_DEPENDANT INDEX_DEPENDEE</code></p>
+</div>
+<div class="paragraph">
+<p>+Example:
+<code>dependency 1 2</code></p>
+</div>
+<div class="paragraph">
+<p>-Example:
+<code>dependency 1</code>
 <code>dependency a b</code></p>
 </div>
 </div>
@@ -410,4 +414,4 @@ Format: <code>achievements TIME_SPAN</code>, a valid TIME_SPAN may take the vale
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-01 20:35:24 SRET</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-01 20:45:11 SRET</div></div></div></body></html>

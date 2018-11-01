@@ -16,6 +16,7 @@
 <li><a href="#use-case-list-task">Use case: List Task</a></li>
 <li><a href="#use-case-add-task">Use case: Add task</a></li>
 <li><a href="#use-case-add-dependency-for-task">Use case: Add dependency for task</a></li>
+<li><a href="#use-case-remove-dependency-for-task">Use case: Remove dependency for task</a></li>
 <li><a href="#use-case-delete-task">Use case: Delete task</a></li>
 <li><a href="#use-case-viewing-command-history">Use case: Viewing Command History</a></li>
 <li><a href="#use-case-undoing-last-command">Use case: Undoing Last Command</a></li>
@@ -43,7 +44,7 @@
 <li><a href="#3-3-model-rollback-feature">3.3. Model Rollback feature</a></li>
 <li><a href="#3-4-dependency-feature-modelling">3.4. Dependency Feature Modelling</a></li>
 <li><a href="#3-5-modelling-dependency-validity">3.5 Modelling Dependency Validity</a></li>
-<li><a href="#3-6-handling-date">3.6 Handling Date</a></li>
+<li><a href="#3-6-monitoring-time">3.6 Monitoring time</a></li>
 <li><a href="#3-7-list">3.7 List</a></li>
 <li><a href="#3-8-logging">3.8. Logging</a></li>
 <li><a href="#3-9-configuration">3.9. Configuration</a></li>
@@ -548,14 +549,36 @@ non-deterministic</p>
 <div class="paragraph">
 <p>Use case resumes at step 1 in MSS.</p>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="use-case-remove-dependency-for-task"><a class="link" href="#use-case-remove-dependency-for-task">Use case: Remove dependency for task</a></h3>
+<div class="sect3">
+<h4 id="mss-6"><a class="link" href="#mss-6">MSS</a></h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User requests to remove a dependency between tasks</p>
+</li>
+<li>
+<p>Application removes the task dependency</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="extensions-6"><a class="link" href="#extensions-6">Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
-<p>1c. The dependency already exists in the model</p>
+<p>1a. The user enters the remove dependency command in a wrong format.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>1c1. Application shows an error message, rejects the additional task dependency</p>
+<p>1a1. Application shows an error message.</p>
 </li>
 </ul>
 </div>
@@ -570,7 +593,7 @@ non-deterministic</p>
 <div class="sect2">
 <h3 id="use-case-delete-task"><a class="link" href="#use-case-delete-task">Use case: Delete task</a></h3>
 <div class="sect3">
-<h4 id="mss-6"><a class="link" href="#mss-6">MSS</a></h4>
+<h4 id="mss-7"><a class="link" href="#mss-7">MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -586,7 +609,7 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-6"><a class="link" href="#extensions-6">Extensions</a></h4>
+<h4 id="extensions-7"><a class="link" href="#extensions-7">Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -626,7 +649,7 @@ non-deterministic</p>
 <div class="sect2">
 <h3 id="use-case-viewing-command-history"><a class="link" href="#use-case-viewing-command-history">Use case: Viewing Command History</a></h3>
 <div class="sect3">
-<h4 id="mss-7"><a class="link" href="#mss-7">MSS</a></h4>
+<h4 id="mss-8"><a class="link" href="#mss-8">MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -642,7 +665,7 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-7"><a class="link" href="#extensions-7">Extensions</a></h4>
+<h4 id="extensions-8"><a class="link" href="#extensions-8">Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -665,7 +688,7 @@ non-deterministic</p>
 <div class="sect2">
 <h3 id="use-case-undoing-last-command"><a class="link" href="#use-case-undoing-last-command">Use case: Undoing Last Command</a></h3>
 <div class="sect3">
-<h4 id="mss-8"><a class="link" href="#mss-8">MSS</a></h4>
+<h4 id="mss-9"><a class="link" href="#mss-9">MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -681,7 +704,7 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-8"><a class="link" href="#extensions-8">Extensions</a></h4>
+<h4 id="extensions-9"><a class="link" href="#extensions-9">Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -704,7 +727,7 @@ non-deterministic</p>
 <div class="sect2">
 <h3 id="use-case-redoing-last-command"><a class="link" href="#use-case-redoing-last-command">Use case: Redoing Last Command</a></h3>
 <div class="sect3">
-<h4 id="mss-9"><a class="link" href="#mss-9">MSS</a></h4>
+<h4 id="mss-10"><a class="link" href="#mss-10">MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -720,7 +743,7 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-9"><a class="link" href="#extensions-9">Extensions</a></h4>
+<h4 id="extensions-10"><a class="link" href="#extensions-10">Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -743,7 +766,7 @@ non-deterministic</p>
 <div class="sect2">
 <h3 id="use-case-completing-task-single"><a class="link" href="#use-case-completing-task-single">Use case: Completing Task (Single)</a></h3>
 <div class="sect3">
-<h4 id="mss-10"><a class="link" href="#mss-10">MSS</a></h4>
+<h4 id="mss-11"><a class="link" href="#mss-11">MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -756,7 +779,7 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-10"><a class="link" href="#extensions-10">Extensions</a></h4>
+<h4 id="extensions-11"><a class="link" href="#extensions-11">Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -786,7 +809,7 @@ non-deterministic</p>
 <div class="sect2">
 <h3 id="use-case-completing-task-batch-via-code-label-code"><a class="link" href="#use-case-completing-task-batch-via-code-label-code">Use case: Completing Task (Batch via <code>Label</code>)</a></h3>
 <div class="sect3">
-<h4 id="mss-11"><a class="link" href="#mss-11">MSS</a></h4>
+<h4 id="mss-12"><a class="link" href="#mss-12">MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -799,7 +822,7 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-11"><a class="link" href="#extensions-11">Extensions</a></h4>
+<h4 id="extensions-12"><a class="link" href="#extensions-12">Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -830,7 +853,7 @@ pre-completed state and no points are earned.</p>
 <div class="sect2">
 <h3 id="use-case-display-statistics"><a class="link" href="#use-case-display-statistics">Use case: Display Statistics</a></h3>
 <div class="sect3">
-<h4 id="mss-12"><a class="link" href="#mss-12">MSS</a></h4>
+<h4 id="mss-13"><a class="link" href="#mss-13">MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -843,7 +866,7 @@ pre-completed state and no points are earned.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-12"><a class="link" href="#extensions-12">Extensions</a></h4>
+<h4 id="extensions-13"><a class="link" href="#extensions-13">Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -866,7 +889,7 @@ pre-completed state and no points are earned.</p>
 <div class="sect2">
 <h3 id="use-case-failing-to-complete-task"><a class="link" href="#use-case-failing-to-complete-task">Use case: Failing to complete task</a></h3>
 <div class="sect3">
-<h4 id="mss-13"><a class="link" href="#mss-13">MSS</a></h4>
+<h4 id="mss-14"><a class="link" href="#mss-14">MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -879,7 +902,7 @@ pre-completed state and no points are earned.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-13"><a class="link" href="#extensions-13">Extensions</a></h4>
+<h4 id="extensions-14"><a class="link" href="#extensions-14">Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1638,12 +1661,18 @@ A topological sort can also be performed on the graph to order tasks by the numb
 </div>
 </div>
 <div class="sect2">
-<h3 id="3-6-handling-date"><a class="link" href="#3-6-handling-date">3.6 Handling Date</a></h3>
+<h3 id="3-6-monitoring-time"><a class="link" href="#3-6-monitoring-time">3.6 Monitoring time</a></h3>
+<div class="sect3">
+<h4 id="3-6-1-current-implementation"><a class="link" href="#3-6-1-current-implementation">3.6.1 Current Implementation</a></h4>
 <div class="paragraph">
 <p>Time is of key importance when dealing with the <code>TaskManager</code>. We implement and represent time using the ubiquitous
 <code>Date</code> class in Java. The class <code>DueDate</code> internally uses the <code>Date</code> class, and harnesses built in capabilities such as
 date comparison. The precision of time for tasks is to the minute, that is the <code>AddCommand</code> can accept a <code>DueDate</code>
 accurate to the minute.</p>
+</div>
+<div class="paragraph">
+<p>A check on whether any of the tasks are overdue is done on every command. Thus,</p>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -1945,4 +1974,4 @@ Suggested path for new programmers:</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-01 20:35:24 SRET</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-01 20:45:11 SRET</div></div></div></body></html>
