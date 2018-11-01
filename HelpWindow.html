@@ -1,69 +1,181 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>User Guide</title><link rel="stylesheet" href="./gh-pages.css">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>WatchOver - User Guide</title><link rel="stylesheet" href="stylesheets/gh-pages.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="./coderay-asciidoctor.css"></head><body class="article"><div id="header"><h1>User Guide</h1><div id="toc" class="toc"><div id="toctitle"></div><ul class="sectlevel1">
-<li><a href="#features">1. Features</a>
+<link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="header"><h1>WatchOver - User Guide</h1></div><div id="content"><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>By: <code>Team F11-3</code>      Since: <code>Aug 2018</code>      Licence: <code>MIT</code></p>
+</div>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle"></div>
+<ul class="sectlevel1">
+<li><a href="#introduction">1. Introduction</a></li>
+<li><a href="#quick-start">2. Quick Start</a></li>
+<li><a href="#Features">3. Features</a>
 <ul class="sectlevel2">
-<li><a href="#system-commands">1.1. System Commands</a></li>
-<li><a href="#task-management">1.2. Task Management</a></li>
+<li><a href="#system-commands">3.1. System Commands</a>
+<ul class="sectlevel3">
+<li><a href="#viewing-help-code-help-code">3.1.1. Viewing help: <code>help</code></a></li>
+<li><a href="#undoing-the-previously-command-code-undo-code">3.1.2. Undoing the previously command: <code>undo</code></a></li>
+<li><a href="#redoing-the-previously-undone-command-code-redo-code">3.1.3. Redoing the previously undone command: <code>redo</code></a></li>
+<li><a href="#listing-entered-commands-code-history-code">3.1.4. Listing entered commands: <code>history</code></a></li>
+<li><a href="#exiting-the-program-code-exit-code">3.1.5. Exiting the program: <code>exit</code></a></li>
 </ul>
 </li>
-<li><a href="#command-summary">2. Command Summary</a></li>
-</ul></div></div><div id="content"><div class="sect1">
-<h2 id="features"><a class="link" href="#features">1. Features</a></h2>
+<li><a href="#task-management">3.2. Task Management</a>
+<ul class="sectlevel3">
+<li><a href="#adding-a-task-code-add-code">3.2.1. Adding a Task: <code>add</code></a></li>
+<li><a href="#deleting-a-task-code-delete-code">3.2.2. Deleting a Task: <code>delete</code></a></li>
+<li><a href="#editing-a-task-code-edit-code">3.2.3. Editing a Task: <code>edit</code></a></li>
+<li><a href="#adding-a-dependency-to-a-task-code-dependency-code">3.2.4. Adding a dependency to a Task: <code>dependency</code></a></li>
+<li><a href="#completing-a-task-code-complete-code">3.2.5. Completing a Task: <code>complete</code></a></li>
+<li><a href="#listing-tasks-code-list-code">3.2.6. Listing Tasks: <code>list</code></a></li>
+<li><a href="#search-for-tasks-by-keyword-code-find-code">3.2.7. Search for Tasks by Keyword: <code>find</code></a></li>
+</ul>
+</li>
+<li><a href="#gamification">3.3. Gamification</a>
+<ul class="sectlevel3">
+<li><a href="#display-achievements-across-a-time-period-code-achievements-code">3.3.1. Display achievements across a time period: <code>achievements</code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#faq">4. FAQ</a></li>
+<li><a href="#command-summary">5. Command Summary</a></li>
+</ul>
+</div>
+</div>
+<div class="sect1">
+<h2 id="introduction"><a class="link" href="#introduction">1. Introduction</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>WatchOver is for those who <strong>prefer to use a desktop app for managing tasks</strong>. More importantly, WatchOver is <strong>optimized for those who prefer to work with a Command Line Interface</strong> (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, WatchOver enables you to manage your tasks faster than traditional GUI apps. Interested? Jump to the <a href="#quick-start">Section 2, &#8220;Quick Start&#8221;</a> to get started. Enjoy!</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="quick-start"><a class="link" href="#quick-start">2. Quick Start</a></h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Ensure you have Java version <code>9</code> or later installed in your Computer.</p>
+</li>
+<li>
+<p>Download the latest <code>watchover.jar</code> <a href="https://github.com/CS2103-AY1819S1-F11-3/main/releases">here</a>.</p>
+</li>
+<li>
+<p>Copy the file to the folder you want to use as the home folder for your task manager.</p>
+</li>
+<li>
+<p>Double-click the file to start the app. The GUI should appear in a few seconds.</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/ActualUi.png" alt="ActualUi" width="790">
+</div>
+</div>
+</li>
+<li>
+<p>Type the command in the command box and press <kbd>Enter</kbd> to execute it.<br>
+e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> will open the help window.</p>
+</li>
+<li>
+<p>Some example commands you can try:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong><code>list</code></strong> : lists all tasks</p>
+</li>
+<li>
+<p><strong><code>add</code></strong><code>n/Do CS2103 tutorial t/02-12-18 1330 p/5 d/Do it for Jelena l/tutorial</code> : adds a task named <code>Do 2103 tutorial</code> to the task manager.</p>
+</li>
+<li>
+<p><strong><code>delete</code></strong><code>3</code> : deletes the 3rd task shown in the current list</p>
+</li>
+<li>
+<p><strong><code>exit</code></strong> : exits the app</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Refer to <a href="#Features">Section 3, &#8220;Features&#8221;</a> for details of each command.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Features"><a class="link" href="#Features">3. Features</a></h2>
+<div class="sectionbody">
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Command Format</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Words in <code>UPPER_CASE</code> are the parameters to be supplied by the user e.g. in <code>add n/NAME</code>, <code>NAME</code> is a parameter which can be used as <code>add n/Count eggs</code>.</p>
+</li>
+<li>
+<p>Items in square brackets are optional e.g <code>n/NAME [l/LABEL]</code> can be used as <code>n/Count eggs l/tutorial</code> or as <code>n/Count eggs</code>.</p>
+</li>
+<li>
+<p>Items with <code>…</code>​ after them can be used multiple times including zero times e.g. <code>[l/LABEL]&#8230;&#8203;</code> can be used as <code>&#160;</code> (i.e. 0 times), <code>l/tutorial</code>, <code>l/tutorial l/skipped</code> etc.</p>
+</li>
+<li>
+<p>Parameters can be in any order e.g. if the command specifies <code>n/NAME p/PRIORITY_VALUE</code>, <code>p/PRIORITY_VALUE n/NAME</code> is also acceptable.</p>
+</li>
+<li>
+<p><code>+Example</code> indicates positive example while <code>-Example</code> indicates negative example.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
 <div class="sect2">
-<h3 id="system-commands"><a class="link" href="#system-commands">1.1. System Commands</a></h3>
+<h3 id="system-commands"><a class="link" href="#system-commands">3.1. System Commands</a></h3>
 <div class="sect3">
-<h4 id="viewing-help-code-help-code"><a class="link" href="#viewing-help-code-help-code">1.1.1. Viewing help: <code>help</code></a></h4>
+<h4 id="viewing-help-code-help-code"><a class="link" href="#viewing-help-code-help-code">3.1.1. Viewing help: <code>help</code></a></h4>
 <div class="paragraph">
 <p>Displays and explains commonly used commands.<br>
 Format: <code>help</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="undoing-the-previously-command-code-undo-code"><a class="link" href="#undoing-the-previously-command-code-undo-code">1.1.2. Undoing the previously command: <code>undo</code></a></h4>
+<h4 id="undoing-the-previously-command-code-undo-code"><a class="link" href="#undoing-the-previously-command-code-undo-code">3.1.2. Undoing the previously command: <code>undo</code></a></h4>
 <div class="paragraph">
 <p>Reverses the most recent command.<br>
 Format: <code>undo</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">1.1.3. Redoing the previously undone command: <code>redo</code></a></h4>
+<h4 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">3.1.3. Redoing the previously undone command: <code>redo</code></a></h4>
 <div class="paragraph">
 <p>Reverses the most recent undo command.<br>
 Format: <code>redo</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">1.1.4. Listing entered commands: <code>history</code></a></h4>
+<h4 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">3.1.4. Listing entered commands: <code>history</code></a></h4>
 <div class="paragraph">
 <p>Lists all the commands that you have entered in reverse chronological order.<br>
 Format: <code>history</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">1.1.5. Exiting the program: <code>exit</code></a></h4>
+<h4 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.1.5. Exiting the program: <code>exit</code></a></h4>
 <div class="paragraph">
 <p>Exits the program.<br>
 Format: <code>exit</code></p>
 </div>
-<hr>
 </div>
 </div>
 <div class="sect2">
-<h3 id="task-management"><a class="link" href="#task-management">1.2. Task Management</a></h3>
-<div class="ulist">
-<ul>
-<li>
-<p><em>+Example indicates positive example</em></p>
-</li>
-<li>
-<p><em>-Example indicates negative example</em></p>
-</li>
-</ul>
-</div>
+<h3 id="task-management"><a class="link" href="#task-management">3.2. Task Management</a></h3>
 <div class="sect3">
-<h4 id="adding-a-task-code-add-code"><a class="link" href="#adding-a-task-code-add-code">1.2.1. Adding a Task: <code>add</code></a></h4>
+<h4 id="adding-a-task-code-add-code"><a class="link" href="#adding-a-task-code-add-code">3.2.1. Adding a Task: <code>add</code></a></h4>
 <div class="paragraph">
 <p>Adds a task to the task manager.<br>
 Format:</p>
@@ -95,7 +207,7 @@ be interpreted as the start of the day, i.e <code>00:00</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="deleting-a-task-code-delete-code"><a class="link" href="#deleting-a-task-code-delete-code">1.2.2. Deleting a Task: <code>delete</code></a></h4>
+<h4 id="deleting-a-task-code-delete-code"><a class="link" href="#deleting-a-task-code-delete-code">3.2.2. Deleting a Task: <code>delete</code></a></h4>
 <div class="paragraph">
 <p>Deletes a task from the task manager<br>
 Format: <code>delete INDEX</code><br>
@@ -104,7 +216,7 @@ Format: <code>delete INDEX</code><br>
 </div>
 </div>
 <div class="sect3">
-<h4 id="editing-a-task-code-edit-code"><a class="link" href="#editing-a-task-code-edit-code">1.2.3. Editing a Task: <code>edit</code></a></h4>
+<h4 id="editing-a-task-code-edit-code"><a class="link" href="#editing-a-task-code-edit-code">3.2.3. Editing a Task: <code>edit</code></a></h4>
 <div class="paragraph">
 <p>Edits a task in the task manager<br>
 Format:<br>
@@ -116,7 +228,7 @@ Format:<br>
 </div>
 </div>
 <div class="sect3">
-<h4 id="adding-a-dependency-to-a-task-code-dependency-code"><a class="link" href="#adding-a-dependency-to-a-task-code-dependency-code">1.2.4. Adding a dependency to a Task: <code>dependency</code></a></h4>
+<h4 id="adding-a-dependency-to-a-task-code-dependency-code"><a class="link" href="#adding-a-dependency-to-a-task-code-dependency-code">3.2.4. Adding a dependency to a Task: <code>dependency</code></a></h4>
 <div class="paragraph">
 <p>Adds a dependency to a task dependant to the task dependee<br>
 Format:<br>
@@ -129,7 +241,7 @@ Format:<br>
 </div>
 </div>
 <div class="sect3">
-<h4 id="completing-a-task-code-complete-code"><a class="link" href="#completing-a-task-code-complete-code">1.2.5. Completing a Task: <code>complete</code></a></h4>
+<h4 id="completing-a-task-code-complete-code"><a class="link" href="#completing-a-task-code-complete-code">3.2.5. Completing a Task: <code>complete</code></a></h4>
 <div class="paragraph">
 <p>Completes task(s) in the task manager<br>
 Format: <code>complete INDEX</code> or <code>complete t/LABEL</code><br>
@@ -162,7 +274,7 @@ condition:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="listing-tasks-code-list-code"><a class="link" href="#listing-tasks-code-list-code">1.2.6. Listing Tasks: <code>list</code></a></h4>
+<h4 id="listing-tasks-code-list-code"><a class="link" href="#listing-tasks-code-list-code">3.2.6. Listing Tasks: <code>list</code></a></h4>
 <div class="paragraph">
 <p>Shows a list of all tasks.</p>
 </div>
@@ -204,49 +316,93 @@ condition:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="search-for-tasks-by-keyword-code-find-code"><a class="link" href="#search-for-tasks-by-keyword-code-find-code">1.2.7. Search for Tasks by Keyword: <code>find</code></a></h4>
+<h4 id="search-for-tasks-by-keyword-code-find-code"><a class="link" href="#search-for-tasks-by-keyword-code-find-code">3.2.7. Search for Tasks by Keyword: <code>find</code></a></h4>
 <div class="paragraph">
 <p>Format: <code>find KEYWORD</code><br>
 +Example: <code>find complete</code></p>
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="gamification"><a class="link" href="#gamification">3.3. Gamification</a></h3>
+<div class="sect3">
+<h4 id="display-achievements-across-a-time-period-code-achievements-code"><a class="link" href="#display-achievements-across-a-time-period-code-achievements-code">3.3.1. Display achievements across a time period: <code>achievements</code></a></h4>
+<div class="paragraph">
+<p>Displays the cumulative achievements of a user across a specified time period on the GUI.<br>
+Such achievements include current level, xp earned and number of tasks completed across that time period.<br>
+Format: <code>achievements TIME_SPAN</code>, a valid TIME_SPAN may take the vale of <code>all-time</code>, <code>today</code>, or <code>this week</code>.</p>
+</div>
+<div class="paragraph">
+<p>+Example: <code>achievements all-time</code><br>
++Example: <code>achievements today</code><br>
++Example: <code>achievements this week</code><br>
+-Example: <code>achievements all time</code><br>
+-Example: <code>achievements TODAY</code></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="command-summary"><a class="link" href="#command-summary">2. Command Summary</a></h2>
+<h2 id="faq"><a class="link" href="#faq">4. FAQ</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Q</strong>: How do I transfer my data to another Computer?<br>
+<strong>A</strong>: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous WatchOver folder.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="command-summary"><a class="link" href="#command-summary">5. Command Summary</a></h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p>System Commands
-<code>help</code>
-<code>undo</code>
-<code>redo</code>
-<code>history</code>
-<code>exit</code></p>
+<p>System Commands</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Help</strong> : <code>help</code></p>
+</li>
+<li>
+<p><strong>Undo</strong> : <code>undo</code></p>
+</li>
+<li>
+<p><strong>Redo</strong> : <code>redo</code></p>
+</li>
+<li>
+<p><strong>History</strong> : <code>history</code></p>
+</li>
+<li>
+<p><strong>Exit</strong> : <code>exit</code></p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p>Task Management</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>add n/TASK_NAME t/DUE_DATE p/PRIORITY_VALUE [d/detailed description] [l/LABEL]</code></p>
+<p><strong>Add</strong> : <code>add n/TASK_NAME t/DUE_DATE p/PRIORITY_VALUE [d/detailed description] [l/LABEL]</code></p>
 </li>
 <li>
-<p><code>delete INDEX</code></p>
+<p><strong>Delete</strong> : <code>delete INDEX</code></p>
 </li>
 <li>
-<p><code>edit INDEX [t/DUE_DATE] [p/PRIORITY_VALUE] [d/detailed description] [l/LABEL]</code></p>
+<p><strong>Edit</strong> : <code>edit INDEX [t/DUE_DATE] [p/PRIORITY_VALUE] [d/detailed description] [l/LABEL]</code></p>
 </li>
 <li>
-<p><code>complete INDEX</code> or <code>complete l/LABEL</code></p>
+<p><strong>Complete</strong> : <code>complete INDEX</code> or <code>complete l/LABEL</code></p>
 </li>
 <li>
-<p><code>list</code></p>
+<p><strong>List</strong> : <code>list</code></p>
 </li>
 <li>
-<p><code>find KEYWORD</code></p>
+<p><strong>Find</strong> : <code>find KEYWORD</code></p>
+</li>
+<li>
+<p><strong>Achievements</strong> : <code>achievements TIME_SPAN</code></p>
 </li>
 </ul>
 </div>
@@ -254,4 +410,4 @@ condition:</p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-30 11:41:35 SRET</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-01 14:17:54 SRET</div></div></div></body></html>
