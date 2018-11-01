@@ -1148,11 +1148,17 @@ Optionally, you can set up AppVeyor as a second CI (see UsingAppVeyor.adoc).</p>
 <h4 id="3-1-1-structural-overview"><a class="link" href="#3-1-1-structural-overview">3.1.1. Structural Overview</a></h4>
 <div class="paragraph">
 <p>The achievement mechanism is facilitated by <code>AchievementRecord</code>. TaskManager is now composed of a <code>UniqueTaskList</code> as
-well as an <code>AchievementRecord</code>. It stores the achievement information of the user internally with an <code>Xp</code> field and a
-<code>Level</code> field.<br>
+well as an <code>AchievementRecord</code>.<br>
 <br>
-When the task manager application runs for the first time, it is initialized at 0 xp and level 1, xp and level
-information in <code>AchievementRecord</code> are updated subsequently when tasks are completed.<br>
+<code>AchievementRecord</code> stores the achievement information of the user internally. These information include
+the current <code>Xp</code>, current <code>Level</code>, total number of tasks completed, as well as the xp earned and number of tasks
+completed by the user today and this week. To facilitate the tracking of the time-based achievements(xp earned and number of
+tasks completed by today and this week), <code>AchievementRecord</code> also stores the dates when the time-based achievement fields should
+be reset.<br>
+<br>
+<code>AchievementRecord</code> also contains a field <code>displayOption</code> that specifies which set of achievement information should be
+displayed on UI. The field is updated through the <code>achievements all-time</code>, <code>achievements today</code> or
+<code>achievement this week</code> commands.<br>
 <br>
 The storage of the <code>AchievementRecord</code> is facilitated by <code>XmlAdaptedAchievementRecord</code> which is saved together with
 the list of <code>XmlAdaptedTask</code> in the <code>SerializableTaskManager</code>.<br>
@@ -1170,11 +1176,19 @@ Integration of AchievementRecord in Model component:</p>
 <div class="paragraph">
 <p>An <code>updateTaskStatus</code> method is implemented in <code>ModelManager</code> and exposed in the <code>Model</code> interface, this method is
 called in the execution of complete command. Upon completion of a task, the status of task is updated to COMPLETED,
-along with that, the <code>AchievementRecord</code> is also updated with higher Xp. <code>AchievementRecord</code> implements the operations
-<code>updateXp</code>, <code>getMatchingLevel</code> and <code>updateLevelWithXp</code> to update xp, recalculate the level corresponding to the
-new Xp value and update level information.<br>
+along with that, the <code>AchievementRecord</code> is also updated with the new xp. Current xp, number of tasks completed
+increases, current level is recalculated and updated to match current xp. As the time based achievement fields should
+be reset every day or week, checks are performed and the fields are reset if necessary. Xp earned and number of tasks
+completed today and this week is then increased as well.<br>
 <br>
-Sequence diagram of the achievement mechanism:</p>
+An <code>updateAchievementDisplayOption</code> method is implemented in <code>ModelManager</code> and exposed in the <code>Model</code> interface, which
+is called in the execution of the achievements command. Before the <code>displayOption</code> field of the <code>AchievementRecord</code> is
+updated, checks are perform to reset the time based achievement fields if necessary as well to ensure that they are up
+to date. The <code>displayOption</code> is then updated, an <code>AchievementsUpdatedEvent</code> is posted to notify UI, who then display
+the set of achievement information as specified by user&#8217;s command.<br></p>
+</div>
+<div class="paragraph">
+<p>Sequence diagram of the achievement mechanism:</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1187,11 +1201,11 @@ Sequence diagram of the achievement mechanism:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Activity diagram of updating of xp and level:</p>
+<p>Activity diagram of the update of time-based achievement fields:</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/AchievementActivity.png" alt="AchievementActivity" width="1200">
+<img src="images/AchievementActivity.png" alt="AchievementActivity" width="500">
 </div>
 </div>
 </div>
@@ -1203,9 +1217,9 @@ When a task is marked as complete, both the <code>UniqueTaskList</code> and the 
 to reflect the new status of the task and the new xp and level information. A <code>TaskManagerChangedEvent</code> is then posted
 to <code>EventsCenter</code> and handled by both Storage and UI components to save the changes and feedback to user.<br>
 <br>
-On top of the <code>TaskManagerChangedEvent</code>, an <code>AchievementLevelChangedEvent</code> would be posted by the Model component as
-well, if the user levels up with the newly added xp. This event will be handled by UI component to display a
-congratulatory message to user. (to be implemented in v1.3)</p>
+On top of the <code>TaskManagerChangedEvent</code>, an <code>AchievementsUpdatedEvent</code> is posted by the Model component every time
+the <code>AchievementRecord</code> is update(on task completion or change of display option). This event is handled by the
+<code>AchievementPanel</code> UI component which then update the achievement information displayed.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1245,6 +1259,47 @@ information is handled by <code>AchievementRecord</code> independently.</p>
 <p>Cons: Logic is duplicated twice. For example, we would need to implement a <code>VersionedAchievementRecord</code> besides
 the current <code>VersionedTaskManager</code> to support undo/redo. A lot of overhead will result from the communication
 between <code>TaskManager</code> and <code>AchievementRecord</code> as well.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Aspect: Managing display option of <code>AchievementRecord</code>.<br></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Alternative 1 (current choice): Use and additional field <code>displayOption</code> in <code>AchievementRecord</code> to keep track of
+display option. The field is updated when user uses the <code>achievements all-time</code>, <code>achievements today</code> or <code>achievement
+this week</code> commands to specify their choices.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: As the display option is saved inside the <code>AchievementRecord</code> of <code>TaskManager</code>, undo/redo of the
+achievements command is easily supported. <code>AchievementPanel</code> UI component can simple decide which set of
+achievements to display based on the current value of the <code>displayOption</code> field.</p>
+</li>
+<li>
+<p>Cons: <code>AchievementRecord</code> needs to save the display option besides the achievement information, this breaks the
+Single Responsibility Principle.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Alternative 2: Use <code>AchievementPanel</code> UI component to save and manage the update of display option.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Follows Single Responsibility Principle. <code>AchievementRecord</code> handles only achievement information. Greater
+cohesion as the display of achievements is handled by the <code>AchievementPanel</code> UI component alone.</p>
+</li>
+<li>
+<p>Cons: <code>AchievementPanel</code> needs to save the states of the <code>displayOption</code> to support undo/redo. Undo/redo of
+the achievements command needs to be implemented and handled separately from all other commands, breaks
+abstraction.</p>
 </li>
 </ul>
 </div>
@@ -1974,4 +2029,4 @@ Suggested path for new programmers:</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-01 20:45:11 SRET</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-01 20:53:51 SRET</div></div></div></body></html>
