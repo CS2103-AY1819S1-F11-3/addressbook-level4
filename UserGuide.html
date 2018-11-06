@@ -33,6 +33,7 @@
 <li><a href="#listing-tasks-code-list-code">3.2.6. Listing Tasks: <code>list</code></a></li>
 <li><a href="#search-for-tasks-by-keyword-code-find-code">3.2.7. Search for Tasks by Keyword: <code>find</code></a></li>
 <li><a href="#selecting-a-person-code-select-code">3.2.8. Selecting a person : <code>select</code></a></li>
+<li><a href="#listing-tasks-by-topological-order-code-topoorder-code">3.2.9. Listing Tasks by topological order: <code>topoorder</code></a></li>
 </ul>
 </li>
 <li><a href="#gamification">3.3. Gamification</a>
@@ -194,7 +195,7 @@ Format:</p>
 <p><code>add n/TASK_NAME l/DUE_DATE t/PRIORITY_VALUE [d/detailed description] [l/LABEL]</code></p>
 </div>
 <div class="paragraph">
-<p>Date Format: <code>yyyy-mm-dd</code> or <code>yyyy-mm-dd hhmm</code>. A missing <code>hhmm</code> field will cause time to
+<p>Date Format: <code>dd-mm-yy hhmm</code> or <code>dd-mm-yy hhmm</code>. A missing <code>hhmm</code> field will cause time to
 be interpreted as the start of the day, i.e <code>00:00</code>.</p>
 </div>
 <div class="paragraph">
@@ -424,6 +425,12 @@ Selects the 1st task in the results of the <code>find</code> command.</p>
 </ul>
 </div>
 </div>
+<div class="sect3">
+<h4 id="listing-tasks-by-topological-order-code-topoorder-code"><a class="link" href="#listing-tasks-by-topological-order-code-topoorder-code">3.2.9. Listing Tasks by topological order: <code>topoorder</code></a></h4>
+<div class="paragraph">
+<p>Shows a list of uncompleted tasks by their topological order. (In the CLI window).</p>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="gamification"><a class="link" href="#gamification">3.3. Gamification</a></h3>
@@ -558,4 +565,4 @@ comes back from the future.
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-06 09:38:28 SRET</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-06 12:01:12 SRET</div></div></div></body></html>
