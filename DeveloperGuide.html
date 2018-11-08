@@ -1072,7 +1072,7 @@ date comparison. The precision of time for tasks is to the minute, that is the <
 accurate to the minute.</p>
 </div>
 <div class="paragraph">
-<p>A check on whether any of the tasks are overdue is done before the execution of every command/</p>
+<p>A check on whether any of the tasks are overdue is done before the execution of every command.</p>
 </div>
 <div class="sect4">
 <h5 id="design-considerations-6"><a class="link" href="#design-considerations-6">Design Considerations</a></h5>
@@ -1116,20 +1116,38 @@ the number of commands that a person uses likely occurs at a higher rate than th
 </div>
 <div class="sect2">
 <h3 id="list"><a class="link" href="#list">4.7. List</a></h3>
+<div class="sect3">
+<h4 id="current-implementation-7"><a class="link" href="#current-implementation-7">4.7.1. Current Implementation</a></h4>
 <div class="paragraph">
-<p>The functionality of the default <code>list</code> command is as expected (and documented), that is all tasks are listed.
-The date filters are dependent on the due date of the task, and the current date.</p>
+<p>The <code>list</code> command accepts filters that either filter based on the due date of the tasks (relative to the
+ current date) or the dependencies of the task. This is done using predicates that are given to filter the task list.</p>
 </div>
+<div class="sect4">
+<h5 id="date"><a class="link" href="#date">Date</a></h5>
 <div class="paragraph">
 <p>The Current Date is retrieved using Java&#8217;s <code>Calendar</code>, and is adjusted to be the end of the day, week, or month
-depending on the <code>ListCommand</code> 's option. A predicate is then created to check if a given <code>Task</code> is before this date.
-This predicate is passed as an argument to update filtered Tasks.</p>
+depending on the <code>ListCommand</code> 's option. A predicate is then created to check if a given <code>Task</code> is before this date.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="dependency"><a class="link" href="#dependency">Dependency</a></h5>
+<div class="paragraph">
+<p>The dependency of a task is checked using its instance of the <code>Dependency</code> object. A caveat
+is that the tasks represented in the <code>Dependency</code> are stored as hashes, requiring the use of a <code>Model</code> to
+fetch the task associated to that hashcode, in order to check its completion status.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ListCommandSequenceDiagram.png" alt="ListCommandSequenceDiagram" width="1200">
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="game-manager"><a class="link" href="#game-manager">4.8. Game Manager</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-7"><a class="link" href="#current-implementation-7">4.8.1. Current Implementation</a></h4>
+<h4 id="current-implementation-8"><a class="link" href="#current-implementation-8">4.8.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The GameManager class is responsible for the gamification aspects of WatchOver.</p>
 </div>
@@ -2422,4 +2440,4 @@ Expected: The most recent window size and location is retained.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-08 23:18:56 SRET</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-08 23:27:20 SRET</div></div></div></body></html>
