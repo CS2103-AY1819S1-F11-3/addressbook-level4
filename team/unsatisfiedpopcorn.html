@@ -30,29 +30,74 @@
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Major enhancement</strong>: added <strong>the ability to undo/redo previous commands</strong></p>
+<p><strong>Major enhancement</strong>: added the ability to <strong>complete a task as identified by
+index</strong>, <strong>complete a batch of tasks as identified by a label</strong>.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.</p>
+<p>Complete a task as identified by index</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What it does: allows the user to complete task in the task manager</p>
 </li>
 <li>
-<p>Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.</p>
-</li>
-<li>
-<p>Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.</p>
-</li>
-<li>
-<p>Credits: <em>{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}</em></p>
+<p>Justification: This feature provides on of the core functionality of task
+managers, marking a task as complete.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Minor enhancement</strong>: added a history command that allows the user to navigate to previous commands using up/down keys.</p>
+<p>Complete a batch of tasks as identified by a label</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What it does: allows the user to complete a batch of task identified by
+a label in the task manager atomically.</p>
 </li>
 <li>
-<p><strong>Code contributed</strong>: [<a href="https://github.com">Functional code</a>] [<a href="https://github.com">Test code</a>] <em>{give links to collated code files}</em></p>
+<p>Justification: This feature allows for the user to convenient complete
+multiple tasks at one go through the simple use of labels.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>This present to them
+a better user experience than monotonously completing tasks one by one.</p>
+</li>
+<li>
+<p>Furthermore, as this operation is atomic to the user, if he makes a mistake in
+completing the tasks he need only use the undo command once to revert changes
+to the batch of tasks. He need not painstakingly undo them one by one.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Highlights: This enhancement required careful design considerations due to the
+creation of two flavours of the complete command. Moreover, the atomicity
+required from this feature required a model rollback operation that it does not
+currently support. Moreover, this implementation was challenging as it required
+changes to other components of the application.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Converting <code>CompleteCommand</code> into an abstract class in order to support the
+polymorphic behaviour of the two flavour of completion. Additionally, this helps
+keeps code organised neatly by following the Single Responsibility Principle.</p>
+</li>
+<li>
+<p>Implementing a rollback operation for the model, which could possibly be
+used to provide better data integrity of the application in future development.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p><strong>Other contributions</strong>:</p>
@@ -63,7 +108,8 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Managed releases <code>v1.3</code> - <code>v1.5rc</code> (3 releases) on GitHub</p>
+<p>Published releases <code>v1.1</code>, <code>v1.3</code> (2 releases) on GitHub
+TODO: Update</p>
 </li>
 </ul>
 </div>
@@ -86,7 +132,8 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Did cosmetic tweaks to existing contents of the User Guide: <a href="https://github.com">#14</a></p>
+<p>Did cosmetic tweaks to existing contents of the User Guide: <a href="https://github.com">#14</a>
+TODO: End Update</p>
 </li>
 </ul>
 </div>
@@ -96,7 +143,18 @@
 <div class="ulist">
 <ul>
 <li>
-<p>PRs reviewed (with non-trivial review comments): <a href="https://github.com">#12</a>, <a href="https://github.com">#32</a>, <a href="https://github.com">#19</a>, <a href="https://github.com">#42</a></p>
+<p>PRs reviewed (with non-trivial review comments):
+<a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/31">#31</a>,
+<a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/36">#36</a>,
+<a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/37">#37</a>,
+<a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/41">#41</a>,
+<a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/70">#70</a>,
+<a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/75">#75</a>,
+<a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/78">#78</a>,
+<a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/84">#84</a>,
+<a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/114">#114</a>,
+<a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/144">#144</a>
+TODO: Update</p>
 </li>
 <li>
 <p>Contributed to forum discussions (examples:  <a href="https://github.com">1</a>, <a href="https://github.com">2</a>, <a href="https://github.com">3</a>, <a href="https://github.com">4</a>)</p>
@@ -105,7 +163,8 @@
 <p>Reported bugs and suggestions for other teams in the class (examples:  <a href="https://github.com">1</a>, <a href="https://github.com">2</a>, <a href="https://github.com">3</a>)</p>
 </li>
 <li>
-<p>Some parts of the history feature I added was adopted by several other class mates (<a href="https://github.com">1</a>, <a href="https://github.com">2</a>)</p>
+<p>Some parts of the history feature I added was adopted by several other class mates (<a href="https://github.com">1</a>, <a href="https://github.com">2</a>)
+TODO: End Update</p>
 </li>
 </ul>
 </div>
@@ -115,10 +174,10 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Integrated a third party library (Natty) to the project (<a href="https://github.com">#42</a>)</p>
+<p>Integrated Travis CI to the team repo</p>
 </li>
 <li>
-<p>Integrated a new Github plugin (CircleCI) to the team repo</p>
+<p>Integrated Coveralls to the team repo</p>
 </li>
 </ul>
 </div>
@@ -127,9 +186,6 @@
 </div>
 </li>
 </ul>
-</div>
-<div class="paragraph">
-<p><em>{you can add/remove categories in the list above}</em></p>
 </div>
 </div>
 </div>
@@ -146,6 +202,68 @@
 </tr>
 </tbody>
 </table>
+<div class="sect3">
+<h4 id="completing-a-task-code-complete-code"><a class="link" href="#completing-a-task-code-complete-code">Completing a Task: <code>complete</code></a></h4>
+<div class="paragraph">
+<p>Completes task(s) in the task manager<br>
+Format: <code>complete INDEX</code> or <code>complete t/LABEL</code><br>
++Example:<br>
+<code>complete 1</code><br>
+<code>complete l/urgent</code><br>
+-Example:<br>
+<code>complete 1 l/urgent</code> (Behavior is not clear)</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Completion via label is case-insensitive</p>
+</li>
+<li>
+<p>You can complete multiple tasks at once through the use of the format complete <code>l/LABEL</code></p>
+</li>
+<li>
+<p>Note that the label needs to be valid. Validity for a label, <code>x</code>, is defined by the following
+condition:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Has at least one task which is labelled <code>x</code> and status is not "COMPLETED"</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>On completion of tasks that leads to a level-up, the levelling up would be reported.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="completing-a-task-code-complete-code-2"><a class="link" href="#completing-a-task-code-complete-code-2">Completing a Task: <code>complete</code></a></h4>
+
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="features-to-be-included-by-v2-0"><a class="link" href="#features-to-be-included-by-v2-0">Features to be included by v2.0</a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><code>Complete</code> displays a organic random congratulatory message upon task completion.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Current implementation displays a generic standard congratulatory message/message of positive affirmation.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Completed Tasks should be automatically hidden from view.</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -161,6 +279,300 @@
 </tr>
 </tbody>
 </table>
+<div class="sect2">
+<h3 id="3-2-batch-completion-via-label-feature"><a class="link" href="#3-2-batch-completion-via-label-feature">3.2. Batch Completion via Label feature</a></h3>
+<div class="sect3">
+<h4 id="3-2-1-current-implementation"><a class="link" href="#3-2-1-current-implementation">3.2.1. Current Implementation</a></h4>
+<div class="paragraph">
+<p>The batch completion mechanism is facilitated by <code>CompleteLabelCommand</code>.
+It extends <code>CompleteCommand</code> and encapsulates the internal logic of finding task and completing multiple
+tasks atomically.</p>
+</div>
+<div class="paragraph">
+<p>Additionally, in order to facilitate the finding of task and completing tasks atomically, the
+following auxiliary classes have been created / extended as a result:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>LabelMatchesKeywordPredicate</code>&#8201;&#8212;&#8201;Extension of the functional interface <code>Predicate&lt;E&gt;</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>This class is required to encapsulate the logic of determining if a task has a <code>Label</code> matching
+the desired <code>Label</code> (case-insensitive).</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Updated</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Model</code>&#8201;&#8212;&#8201;Extends with a rollback() method</p>
+</li>
+<li>
+<p><code>ModelManager</code>&#8201;&#8212;&#8201;Extends with a rollback() method</p>
+</li>
+<li>
+<p><code>VersionedTaskManager</code>&#8201;&#8212;&#8201;Implements a rollback() method</p>
+</li>
+<li>
+<p><code>CompleteCommandParser</code>&#8201;&#8212;&#8201;Extended to parse two different formats, <code>Index</code> and <code>Label</code> based
+commands</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These are the methods in the CompleteCommand class supporting the batch completion:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>#completeAllTasksReturnStringOfTasks(Model)</code></p>
+</li>
+<li>
+<p><code>#completeOneTaskReturnStringOfTasks(Task, Model)</code></p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The <code>CompleteLabelCommand</code> class inherits from the <code>CompleteCommand</code> class. It takes in a
+<code>Task&lt;Predicate&gt;</code> while another subclass of <code>CompleteCommand</code>, <code>CompleteIndexCommand</code>
+takes in an <code>Index</code> to support polymorphic behavior for both a single operation and batch operation.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.</p>
+</div>
+<div class="paragraph">
+<p><em>Premise: The application has several tasks tagged with the label: many.</em></p>
+</div>
+<div class="paragraph">
+<p>Step 1. The user executes <code>complete l/many</code> command to complete all the tasks labelled <code>many</code>.</p>
+</div>
+<div class="paragraph">
+<p>Step 1.1. The argument <code>String</code> is passed to  the <code>CompleteCommandParser</code>, which checks to see
+if the user&#8217;s input contains a label, then calls <code>CompleteCommandParser#parseLabel(&#8230;&#8203;)</code>. As a
+result a new <code>CompleteCommand</code> instance containing a  <code>LabelMatchesKeywordPredicate</code> which
+will only test true against a <code>Task</code> containing a <code>Label::many</code>.</p>
+</div>
+<div class="paragraph">
+<p>Step 1.2. A chain of event triggers, ultimately calling <code>CompleteCommand#execute(&#8230;&#8203;)</code> for the
+created instance. Subsequently <code>CompleteCommand#completeAllTasksReturnStringOfTasks(&#8230;&#8203;)</code> is
+called which handles the logic for updating all valid completable tasks matching the predicate.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/CompleteViaLabelOnFail.png" alt="CompleteViaLabelOnFail" width="1200">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If a command fails its execution, it will call <code>Model#rollbackTaskManager()</code>, so
+all current changes will be reset to the latest commit / state in <code>taskManagerStateList</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/CompleteViaLabelOnSuccess.png" alt="CompleteViaLabelOnSuccess" width="1200">
+</div>
+</div>
+<div class="paragraph">
+<p>Step 1.2.1 If all tasks are updated successful, <code>Model#commit()</code> will be called.</p>
+</div>
+<div class="paragraph">
+<p>Step 2. The user sees all tasks previously displayed on the screen which matches the label change
+it&#8217;s status to <code>COMPLETED</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="3-2-2-design-considerations"><a class="link" href="#3-2-2-design-considerations">3.2.2. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="3-2-2-1-aspect-implementation-of-atomicity"><a class="link" href="#3-2-2-1-aspect-implementation-of-atomicity">3.2.2.1. Aspect: Implementation of atomicity</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Calling <code>Model#rollback()</code> when an exception is caught,
+otherwise <code>Model#commit()</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: This implementation defensively codes for scenarios where CommandExceptions are thrown, thus
+ensuring that there are no partially-done batch operation resulting in harder to debug state.</p>
+</li>
+<li>
+<p>Cons: Increases coupling of components.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Doing a check on all tasks and only proceeding to update the model and
+commit if deemed that all tasks can be completed successfully else throw an exception.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Reduces coupling.</p>
+</li>
+<li>
+<p>Cons: Unable to handle unforeseen failure to complete, resulting in a partially committed
+batch operation.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="3-2-2-2-aspect-handling-different-completecommand-behaviour"><a class="link" href="#3-2-2-2-aspect-handling-different-completecommand-behaviour">3.2.2.2. Aspect: Handling different CompleteCommand behaviour</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1:</strong> Overloading the constructors and implementing the logic for
+both behaviours within.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Groups possibly tightly coupled code together into a single class; thus reducing
+coupling.</p>
+</li>
+<li>
+<p>Cons: Possibly goes against the Separations of Concerns principle.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2 (current choice)</strong> Implementing <code>CompleteCommand</code> as an abstract class. Each class would then inherit
+and implement the abstract methods, providing different polymorphic behaviours for <code>CompleteCommand</code>. Currently, the
+two different behaviours implemented are: completion via index and completion via label.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Clear separation of concern, respecting the Single Responsibility Principle.</p>
+</li>
+<li>
+<p>Cons: Harder to initially design properly.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Alternative 2 was considered for <code>CompleteCommandParser</code>. However in this case, it is hard to determine whether
+the argument is meant for <code>CompleteLabelCommand</code> or <code>CompleteIndexCommand</code> until actually parsing, As such, it could be
+viewed that the job of figuring out what to parse the argument as is subsumed under the concerned of parsing. Thus
+<code>CompleteCommandParser</code> is viewed to still respect the Single Responsibility Principle, and it&#8217;s separation may result in
+a high amount of coupling.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="3-2-2-3-aspect-representation-of-predicate-to-be-stored-by-completecommand"><a class="link" href="#3-2-2-3-aspect-representation-of-predicate-to-be-stored-by-completecommand">3.2.2.3. Aspect: Representation of predicate to be stored by CompleteCommand</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> As an explicit implemented class
+<code>LabelMatchesKeywordPredicate</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Notion of equality can be overloaded. This allows for proper checking of equality in every class composing the
+<code>LabelMatchesKeywordPredicate</code>. In sum, it allows for the checking of structural equality rather than just referential
+equality.</p>
+</li>
+<li>
+<p>Cons: Creation of an extra class requires more understanding by developers to pick up the
+quirks as opposed to commonly recognised <em>Alternative 2</em></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Declaration of predicate as an anonymous function</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easily understood by developers who are familiar with Functional Interfaces being Single
+Abstract Methods.</p>
+</li>
+<li>
+<p>Cons: Inability to properly check for equality.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="3-3-model-rollback-feature"><a class="link" href="#3-3-model-rollback-feature">3.3. Model Rollback feature</a></h3>
+<div class="sect3">
+<h4 id="3-3-1-current-implementation"><a class="link" href="#3-3-1-current-implementation">3.3.1. Current Implementation</a></h4>
+<div class="paragraph">
+<p>Allows for any uncommitted changes to be discarded.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Model</code>&#8201;&#8212;&#8201;Extends with a <code>rollback()</code> method</p>
+</li>
+<li>
+<p><code>ModelManager</code>&#8201;&#8212;&#8201;Extends with a <code>rollback()</code> method</p>
+</li>
+<li>
+<p><code>VersionedTaskManager</code>&#8201;&#8212;&#8201;Implements a <code>rollback()</code> method</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>When <code>VersionedTaskManager#Rollback()</code> is called, the current data is reset to the state of the
+latest commit. Internally, <code>VersionedTaskManager#resetDate(&#8230;&#8203;)</code> is called to reset the data to
+the latest commit, also the <code>currentStatePointer</code> is set to point at the index of the latest
+commit in <code>taskManagerStateList</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/RollbackModelSequenceDiagram.png" alt="RollbackModelSequenceDiagram" width="1200">
+</div>
+</div>
+<div class="paragraph">
+<p><em>Internal calls of <code>VersionedTaskManager.resetData(&#8230;&#8203;)</code> has been omitted for brevity</em></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -171,4 +583,4 @@
 <p><em>{Optionally, you may include other projects in your portfolio.}</em></p>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-07 23:27:07 SRET</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-08 16:50:28 SRET</div></div></div></body></html>
