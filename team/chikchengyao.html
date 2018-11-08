@@ -146,6 +146,31 @@ Format: <code>mode GAME_MODE</code>, where a valid <code>GAME_MODE</code> can be
 <img src="../images/GameManagerSequenceDiagram.png" alt="GameManagerSequenceDiagram" width="1200">
 </div>
 </div>
+<div class="paragraph">
+<p>A GameManager object is owned by a TaskManager, available to be called by its other methods. <strong>Any calls from anywhere
+requiring XP evaluation must be passed through the current GameManager</strong>.</p>
+</div>
+<div class="paragraph">
+<p>The GameManager, in turn, owns a GameMode object. GameMode is implemented as an abstract class, and specific
+implementations of game modes must extend the abstract GameMode. The GameMode handles the actual appraisal of tasks
+for XP, delegated from the GameManager.</p>
+</div>
+<div class="paragraph">
+<p>The GameMode has access to the information of the Task being completed. Based on any detail of the Task, the GameMode
+can decide how much to award. The default FlatMode awards based on <code>Status</code> of the task, where <code>IN_PROGRESS</code> tasks are
+awarded a full amount of XP whereas <code>OVERDUE</code> tasks are awarded somewhat less.</p>
+</div>
+<div class="paragraph">
+<p>GameModes take in parameters determining the characteristics of the mode during construction, if necessary. For
+example, in the <code>FlatMode()</code> constructor, arguments can be specified for how much XP a completed task should obtain,
+as well as how much XP an overdue task should obtain.</p>
+</div>
+<div class="paragraph">
+<p>One key limitation of this implementation is that the start date of the task cannot be determined, as only the due
+date is tracked. As a result the Decreasing mode interpolates the drop over a fixed period, rather than tailoring it
+to each task by measuring how long the user took to complete the task relative to how distant the start and due dates
+are. This limitation might be overcome if a creation date is implemented as a field in Task.</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
@@ -161,7 +186,7 @@ Format: <code>mode GAME_MODE</code>, where a valid <code>GAME_MODE</code> can be
 <p>Pros: It is modular and isolated from the rest of the logic, resulting in higher maintainability.</p>
 </li>
 <li>
-<p>Cons: Verbose.</p>
+<p>Cons: Less flexibility, and will apply flatly across all tasks, with no window for individual variation.</p>
 </li>
 </ul>
 </div>
@@ -174,7 +199,21 @@ Format: <code>mode GAME_MODE</code>, where a valid <code>GAME_MODE</code> can be
 <p>Pros: XP awards is primarily used when completing tasks. Placing code here would have relevant code closer together.</p>
 </li>
 <li>
-<p>Cons: It is not directly linked to the process of completing a task, and hence should be a separate class.</p>
+<p>Cons: It is not modular, resulting in higher coupling and lower maintainability.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 3:</strong> Embedding XP calculation logic inside each individual task.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: This would allow users to set different modes for each individual task, rather than having a one-size-fits-all
+policy apply to all tasks.</p>
+</li>
+<li>
+<p>Cons: Difficult for user to edit the modes of all tasks at one shot. Additionally, it has the potential to get messy.</p>
 </li>
 </ul>
 </div>
@@ -185,4 +224,4 @@ Format: <code>mode GAME_MODE</code>, where a valid <code>GAME_MODE</code> can be
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-09 00:17:15 SRET</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-09 07:37:38 SRET</div></div></div></body></html>
