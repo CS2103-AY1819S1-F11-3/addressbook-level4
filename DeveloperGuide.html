@@ -1,90 +1,91 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>Developer Guide</title><link rel="stylesheet" href="stylesheets/gh-pages.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="seedu-header"><nav class="navbar navbar-lg navbar-light bg-lighter"><div class="container"><a class="navbar-brand" href="https://se-edu.github.io/"><img src="images/SeEduLogo.png" alt="SE-EDU"></a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level1">AB-1</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level2">AB-2</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level3">AB-3</a></li><li class="nav-item"><a class="nav-link active" href="index.html">AB-4</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/collate">Collate</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/se-book">Book</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/learningresources">Resources</a></li></ul></div></nav></div><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="index.html">WatchOver</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link active" href="DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link" href="LearningOutcomes.html">LOs</a></li><li class="nav-item"><a class="nav-link" href="AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/CS2103-AY1819S1-F11-3/main.git"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>Developer Guide</h1><div id="toc" class="toc"><div id="toctitle"></div><ul class="sectlevel1">
-<li><a href="#disclaimer">Disclaimer</a></li>
-<li><a href="#1-setting-up">1. Setting up</a>
+<li><a href="#disclaimer">1. Disclaimer</a></li>
+<li><a href="#setting-up">2. Setting up</a>
 <ul class="sectlevel2">
-<li><a href="#1-1-prerequisites">1.1. Prerequisites</a></li>
-<li><a href="#1-2-setting-up-the-project-in-your-computer">1.2. Setting up the project in your computer</a></li>
-<li><a href="#1-3-verifying-the-setup">1.3. Verifying the setup</a></li>
-<li><a href="#1-4-configurations-to-do-before-writing-code">1.4. Configurations to do before writing code</a></li>
+<li><a href="#prerequisites">2.1. Prerequisites</a></li>
+<li><a href="#setting-up-the-project-in-your-computer">2.2. Setting up the project in your computer</a></li>
+<li><a href="#verifying-the-setup">2.3. Verifying the setup</a></li>
+<li><a href="#configurations-to-do-before-writing-code">2.4. Configurations to do before writing code</a></li>
 </ul>
 </li>
-<li><a href="#2-design">2. Design</a>
+<li><a href="#design">3. Design</a>
 <ul class="sectlevel2">
-<li><a href="#2-1-command-component">2.1 Command Component</a></li>
+<li><a href="#undo-redo-feature">3.1. Undo/Redo feature</a></li>
 </ul>
 </li>
-<li><a href="#3-implementation">3. Implementation</a>
+<li><a href="#implementation">4. Implementation</a>
 <ul class="sectlevel2">
-<li><a href="#3-1-achievement-mechanism">3.1. Achievement mechanism</a></li>
-<li><a href="#3-2-batch-completion-via-label-feature">3.2. Batch Completion via Label feature</a></li>
-<li><a href="#3-3-model-rollback-feature">3.3. Model Rollback feature</a></li>
-<li><a href="#3-4-dependency-feature-modelling">3.4. Dependency Feature Modelling</a></li>
-<li><a href="#3-5-modelling-dependency-validity">3.5 Modelling Dependency Validity</a></li>
-<li><a href="#3-6-monitoring-time">3.6 Monitoring time</a></li>
-<li><a href="#3-7-list">3.7 List</a></li>
-<li><a href="#3-8-game-manager">3.8 Game Manager</a></li>
-<li><a href="#3-9-logging">3.9. Logging</a></li>
-<li><a href="#3-10-configuration">3.10. Configuration</a></li>
+<li><a href="#achievement-mechanism">4.1. Achievement mechanism</a></li>
+<li><a href="#batch-completion-via-label-feature">4.2. Batch Completion via Label feature</a></li>
+<li><a href="#model-rollback-feature">4.3. Model Rollback feature</a></li>
+<li><a href="#dependency-feature-modelling">4.4. Dependency Feature Modelling</a></li>
+<li><a href="#modelling-dependency-validity">4.5. Modelling Dependency Validity</a></li>
+<li><a href="#monitoring-time">4.6. Monitoring time</a></li>
+<li><a href="#list">4.7. List</a></li>
+<li><a href="#game-manager">4.8. Game Manager</a></li>
+<li><a href="#logging">4.9. Logging</a></li>
+<li><a href="#configuration">4.10. Configuration</a></li>
 </ul>
 </li>
-<li><a href="#4-documentation">4. Documentation</a>
+<li><a href="#documentation">5. Documentation</a>
 <ul class="sectlevel2">
-<li><a href="#4-1-editing-documentation">4.1. Editing Documentation</a></li>
-<li><a href="#4-2-publishing-documentation">4.2. Publishing Documentation</a></li>
-<li><a href="#4-3-converting-documentation-to-pdf-format">4.3. Converting Documentation to PDF format</a></li>
-<li><a href="#4-4-site-wide-documentation-settings">4.4. Site-wide Documentation Settings</a></li>
-<li><a href="#4-5-per-file-documentation-settings">4.5. Per-file Documentation Settings</a></li>
-<li><a href="#4-6-site-template">4.6. Site Template</a></li>
+<li><a href="#editing-documentation">5.1. Editing Documentation</a></li>
+<li><a href="#publishing-documentation">5.2. Publishing Documentation</a></li>
+<li><a href="#converting-documentation-to-pdf-format">5.3. Converting Documentation to PDF format</a></li>
+<li><a href="#site-wide-documentation-settings">5.4. Site-wide Documentation Settings</a></li>
+<li><a href="#per-file-documentation-settings">5.5. Per-file Documentation Settings</a></li>
+<li><a href="#site-template">5.6. Site Template</a></li>
 </ul>
 </li>
-<li><a href="#5-testing">5. Testing</a>
+<li><a href="#testing">6. Testing</a>
 <ul class="sectlevel2">
-<li><a href="#5-1-running-tests">5.1. Running Tests</a></li>
-<li><a href="#5-2-types-of-tests">5.2. Types of tests</a></li>
-<li><a href="#5-3-troubleshooting-testing">5.3. Troubleshooting Testing</a></li>
+<li><a href="#running-tests">6.1. Running Tests</a></li>
+<li><a href="#types-of-tests">6.2. Types of tests</a></li>
+<li><a href="#troubleshooting-testing">6.3. Troubleshooting Testing</a></li>
 </ul>
 </li>
-<li><a href="#6-dev-ops">6. Dev Ops</a>
+<li><a href="#dev-ops">7. Dev Ops</a>
 <ul class="sectlevel2">
-<li><a href="#6-1-build-automation">6.1. Build Automation</a></li>
-<li><a href="#6-2-continuous-integration">6.2. Continuous Integration</a></li>
-<li><a href="#6-3-coverage-reporting">6.3. Coverage Reporting</a></li>
-<li><a href="#6-4-documentation-previews">6.4. Documentation Previews</a></li>
-<li><a href="#6-5-making-a-release">6.5. Making a Release</a></li>
-<li><a href="#6-6-managing-dependencies">6.6. Managing Dependencies</a></li>
+<li><a href="#build-automation">7.1. Build Automation</a></li>
+<li><a href="#continuous-integration">7.2. Continuous Integration</a></li>
+<li><a href="#coverage-reporting">7.3. Coverage Reporting</a></li>
+<li><a href="#documentation-previews">7.4. Documentation Previews</a></li>
+<li><a href="#making-a-release">7.5. Making a Release</a></li>
+<li><a href="#managing-dependencies">7.6. Managing Dependencies</a></li>
 </ul>
 </li>
-<li><a href="#appendix-a-target-user-profile">Appendix A: Target User Profile</a>
-<ul class="sectlevel3">
-<li><a href="#setting-up-ci">Setting up CI</a></li>
-</ul>
-</li>
-<li><a href="#appendix-b-value-proposition">Appendix B: Value proposition</a></li>
-<li><a href="#appendix-c-user-stories">Appendix C: User Stories</a></li>
-<li><a href="#appendix-d-use-cases">Appendix D: Use cases</a>
+<li><a href="#target-user-profile">Appendix A: Target User Profile</a></li>
+<li><a href="#appendix-b-value-proposition">Appendix B: Appendix B: Value proposition</a></li>
+<li><a href="#appendix-c-user-stories">Appendix C: Appendix C: User Stories</a></li>
+<li><a href="#use-cases">Appendix D: Use cases</a>
 <ul class="sectlevel2">
-<li><a href="#use-case-display-welcome-screen">Use case: Display Welcome Screen</a></li>
-<li><a href="#use-case-display-motivational-quote-mq-on-task-completion">Use case: Display Motivational Quote (MQ) on task completion</a></li>
-<li><a href="#use-case-list-task">Use case: List Task</a></li>
-<li><a href="#use-case-add-task">Use case: Add task</a></li>
-<li><a href="#use-case-add-dependency-for-task">Use case: Add dependency for task</a></li>
-<li><a href="#use-case-remove-dependency-for-task">Use case: Remove dependency for task</a></li>
-<li><a href="#use-case-delete-task">Use case: Delete task</a></li>
-<li><a href="#use-case-viewing-command-history">Use case: Viewing Command History</a></li>
-<li><a href="#use-case-undoing-last-command">Use case: Undoing Last Command</a></li>
-<li><a href="#use-case-redoing-last-command">Use case: Redoing Last Command</a></li>
-<li><a href="#use-case-completing-task-single">Use case: Completing Task (Single)</a></li>
-<li><a href="#use-case-completing-task-batch-via-code-label-code">Use case: Completing Task (Batch via <code>Label</code>)</a></li>
-<li><a href="#use-case-display-statistics">Use case: Display Statistics</a></li>
-<li><a href="#use-case-failing-to-complete-task">Use case: Failing to complete task</a></li>
+<li><a href="#use-case-display-welcome-screen">D.1. Use case: Display Welcome Screen</a></li>
+<li><a href="#use-case-display-motivational-quote-mq-on-task-completion">D.2. Use case: Display Motivational Quote (MQ) on task completion</a></li>
+<li><a href="#use-case-list-task">D.3. Use case: List Task</a></li>
+<li><a href="#use-case-add-task">D.4. Use case: Add task</a></li>
+<li><a href="#use-case-add-dependency-for-task">D.5. Use case: Add dependency for task</a></li>
+<li><a href="#use-case-remove-dependency-for-task">D.6. Use case: Remove dependency for task</a></li>
+<li><a href="#use-case-delete-task">D.7. Use case: Delete task</a></li>
+<li><a href="#use-case-viewing-command-history">D.8. Use case: Viewing Command History</a></li>
+<li><a href="#use-case-undoing-last-command">D.9. Use case: Undoing Last Command</a></li>
+<li><a href="#use-case-redoing-last-command">D.10. Use case: Redoing Last Command</a></li>
+<li><a href="#use-case-completing-task-single">D.11. Use case: Completing Task (Single)</a></li>
+<li><a href="#use-case-completing-task-batch-via-code-label-code">D.12. Use case: Completing Task (Batch via <code>Label</code>)</a></li>
+<li><a href="#use-case-display-statistics">D.13. Use case: Display Statistics</a></li>
+<li><a href="#use-case-failing-to-complete-task">D.14. Use case: Failing to complete task</a></li>
 </ul>
 </li>
-<li><a href="#appendix-e-non-functional-requirements">Appendix E: Non-functional requirements</a></li>
-<li><a href="#appendix-f-glossary">Appendix F: Glossary</a></li>
+<li><a href="#non-functional-requirements">Appendix E: Non-functional requirements</a></li>
+<li><a href="#glossary">Appendix F: Glossary</a></li>
+<li><a href="#instructions-for-manual-testing">Appendix G: Instructions for Manual Testing</a>
+<ul class="sectlevel2">
+<li><a href="#launch-and-shutdown">G.1. Launch and Shutdown</a></li>
+</ul>
+</li>
 </ul></div></div><div id="content"><div class="sect1">
-<h2 id="disclaimer"><a class="link" href="#disclaimer">Disclaimer</a></h2>
+<h2 id="disclaimer"><a class="link" href="#disclaimer">1. Disclaimer</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This guide was adapted from relevant parts of the developer guide from AB4 (<a href="https://github.com/nus-cs2103-AY1819S1/addressbook-level4" class="bare">https://github.com/nus-cs2103-AY1819S1/addressbook-level4</a>). This project and AB4 are distributed under the MIT license.</p>
@@ -92,10 +93,10 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="1-setting-up"><a class="link" href="#1-setting-up">1. Setting up</a></h2>
+<h2 id="setting-up"><a class="link" href="#setting-up">2. Setting up</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="1-1-prerequisites"><a class="link" href="#1-1-prerequisites">1.1. Prerequisites</a></h3>
+<h3 id="prerequisites"><a class="link" href="#prerequisites">2.1. Prerequisites</a></h3>
 <div class="paragraph">
 <p>JDK 9 or later</p>
 </div>
@@ -109,7 +110,7 @@ Do not disable them. If you have disabled them, go to File &gt; Settings &gt; Pl
 </div>
 </div>
 <div class="sect2">
-<h3 id="1-2-setting-up-the-project-in-your-computer"><a class="link" href="#1-2-setting-up-the-project-in-your-computer">1.2. Setting up the project in your computer</a></h3>
+<h3 id="setting-up-the-project-in-your-computer"><a class="link" href="#setting-up-the-project-in-your-computer">2.2. Setting up the project in your computer</a></h3>
 <div class="paragraph">
 <p>Fork this repo, and clone the fork to your computer</p>
 </div>
@@ -155,7 +156,7 @@ This will generate all resources required by the application and tests.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="1-3-verifying-the-setup"><a class="link" href="#1-3-verifying-the-setup">1.3. Verifying the setup</a></h3>
+<h3 id="verifying-the-setup"><a class="link" href="#verifying-the-setup">2.3. Verifying the setup</a></h3>
 <div class="paragraph">
 <p>Run the seedu.address.MainApp and try a few commands</p>
 </div>
@@ -164,9 +165,9 @@ This will generate all resources required by the application and tests.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="1-4-configurations-to-do-before-writing-code"><a class="link" href="#1-4-configurations-to-do-before-writing-code">1.4. Configurations to do before writing code</a></h3>
+<h3 id="configurations-to-do-before-writing-code"><a class="link" href="#configurations-to-do-before-writing-code">2.4. Configurations to do before writing code</a></h3>
 <div class="sect3">
-<h4 id="1-4-1-configuring-the-coding-style"><a class="link" href="#1-4-1-configuring-the-coding-style">1.4.1. Configuring the coding style</a></h4>
+<h4 id="configuring-the-coding-style"><a class="link" href="#configuring-the-coding-style">2.4.1. Configuring the coding style</a></h4>
 <div class="paragraph">
 <p>This project follows oss-generic coding standards. IntelliJ’s default style is mostly compliant with ours but it uses a different import order from ours. To rectify,</p>
 </div>
@@ -190,7 +191,7 @@ This will generate all resources required by the application and tests.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="1-4-2-updating-documentation-to-match-your-fork"><a class="link" href="#1-4-2-updating-documentation-to-match-your-fork">1.4.2. Updating documentation to match your fork</a></h4>
+<h4 id="updating-documentation-to-match-your-fork"><a class="link" href="#updating-documentation-to-match-your-fork">2.4.2. Updating documentation to match your fork</a></h4>
 <div class="paragraph">
 <p>After forking the repo, the documentation will still have the SE-EDU branding and refer to the se-edu/addressbook-level4 repo.</p>
 </div>
@@ -205,7 +206,7 @@ This will generate all resources required by the application and tests.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="1-4-3-setting-up-ci"><a class="link" href="#1-4-3-setting-up-ci">1.4.3. Setting up CI</a></h4>
+<h4 id="setting-up-ci"><a class="link" href="#setting-up-ci">2.4.3. Setting up CI</a></h4>
 <div class="paragraph">
 <p>Set up Travis to perform Continuous Integration (CI) for your fork. See UsingTravis.adoc to learn how to set it up.</p>
 </div>
@@ -221,7 +222,7 @@ Optionally, you can set up AppVeyor as a second CI (see UsingAppVeyor.adoc).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="1-4-4-getting-started-with-coding"><a class="link" href="#1-4-4-getting-started-with-coding">1.4.4. Getting started with coding</a></h4>
+<h4 id="getting-started-with-coding"><a class="link" href="#getting-started-with-coding">2.4.4. Getting started with coding</a></h4>
 <div class="paragraph">
 <p>When you are ready to start coding,</p>
 </div>
@@ -236,17 +237,213 @@ Optionally, you can set up AppVeyor as a second CI (see UsingAppVeyor.adoc).</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="2-design"><a class="link" href="#2-design">2. Design</a></h2>
+<h2 id="design"><a class="link" href="#design">3. Design</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="2-1-command-component"><a class="link" href="#2-1-command-component">2.1 Command Component</a></h3>
+<h3 id="undo-redo-feature"><a class="link" href="#undo-redo-feature">3.1. Undo/Redo feature</a></h3>
+<div class="sect3">
+<h4 id="current-implementation"><a class="link" href="#current-implementation">3.1.1. Current Implementation</a></h4>
 <div class="paragraph">
-<p>Command was implemented using a template model pattern. The reason for this implementation is because there is shared codes
+<p>The undo/redo mechanism is facilitated by <code>VersionedAddressBook</code>.
+It extends <code>AddressBook</code> with an undo/redo history, stored internally as an <code>addressBookStateList</code> and <code>currentStatePointer</code>.
+Additionally, it implements the following operations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VersionedAddressBook#commit()</code>&#8201;&#8212;&#8201;Saves the current address book state in its history.</p>
+</li>
+<li>
+<p><code>VersionedAddressBook#undo()</code>&#8201;&#8212;&#8201;Restores the previous address book state from its history.</p>
+</li>
+<li>
+<p><code>VersionedAddressBook#redo()</code>&#8201;&#8212;&#8201;Restores a previously undone address book state from its history.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These operations are exposed in the <code>Model</code> interface as <code>Model#commitAddressBook()</code>, <code>Model#undoAddressBook()</code> and <code>Model#redoAddressBook()</code> respectively.</p>
+</div>
+<div class="paragraph">
+<p>Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.</p>
+</div>
+<div class="paragraph">
+<p>Step 1. The user launches the application for the first time. The <code>VersionedAddressBook</code> will be initialized with the initial address book state, and the <code>currentStatePointer</code> pointing to that single address book state.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/UndoRedoStartingStateListDiagram.png" alt="UndoRedoStartingStateListDiagram" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>Step 2. The user executes <code>delete 5</code> command to delete the 5th person in the address book. The <code>delete</code> command calls <code>Model#commitAddressBook()</code>, causing the modified state of the address book after the <code>delete 5</code> command executes to be saved in the <code>addressBookStateList</code>, and the <code>currentStatePointer</code> is shifted to the newly inserted address book state.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/UndoRedoNewCommand1StateListDiagram.png" alt="UndoRedoNewCommand1StateListDiagram" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>Step 3. The user executes <code>add n/David &#8230;&#8203;</code> to add a new person. The <code>add</code> command also calls <code>Model#commitAddressBook()</code>, causing another modified address book state to be saved into the <code>addressBookStateList</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/UndoRedoNewCommand2StateListDiagram.png" alt="UndoRedoNewCommand2StateListDiagram" width="800">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If a command fails its execution, it will not call <code>Model#commitAddressBook()</code>, so the address book state will not be saved into the <code>addressBookStateList</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the <code>undo</code> command. The <code>undo</code> command will call <code>Model#undoAddressBook()</code>, which will shift the <code>currentStatePointer</code> once to the left, pointing it to the previous address book state, and restores the address book to that state.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/UndoRedoExecuteUndoStateListDiagram.png" alt="UndoRedoExecuteUndoStateListDiagram" width="800">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If the <code>currentStatePointer</code> is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The <code>undo</code> command uses <code>Model#canUndoAddressBook()</code> to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how the undo operation works:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/UndoRedoSequenceDiagram.png" alt="UndoRedoSequenceDiagram" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>redo</code> command does the opposite&#8201;&#8212;&#8201;it calls <code>Model#redoAddressBook()</code>, which shifts the <code>currentStatePointer</code> once to the right, pointing to the previously undone state, and restores the address book to that state.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If the <code>currentStatePointer</code> is at index <code>addressBookStateList.size() - 1</code>, pointing to the latest address book state, then there are no undone address book states to restore. The <code>redo</code> command uses <code>Model#canRedoAddressBook()</code> to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Step 5. The user then decides to execute the command <code>list</code>. Commands that do not modify the address book, such as <code>list</code>, will usually not call <code>Model#commitAddressBook()</code>, <code>Model#undoAddressBook()</code> or <code>Model#redoAddressBook()</code>. Thus, the <code>addressBookStateList</code> remains unchanged.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/UndoRedoNewCommand3StateListDiagram.png" alt="UndoRedoNewCommand3StateListDiagram" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>Step 6. The user executes <code>clear</code>, which calls <code>Model#commitAddressBook()</code>. Since the <code>currentStatePointer</code> is not pointing at the end of the <code>addressBookStateList</code>, all address book states after the <code>currentStatePointer</code> will be purged. We designed it this way because it no longer makes sense to redo the <code>add n/David &#8230;&#8203;</code> command. This is the behavior that most modern desktop applications follow.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/UndoRedoNewCommand4StateListDiagram.png" alt="UndoRedoNewCommand4StateListDiagram" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>The following activity diagram summarizes what happens when a user executes a new command:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/UndoRedoActivityDiagram.png" alt="UndoRedoActivityDiagram" width="650">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">3.1.2. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-how-undo-redo-executes"><a class="link" href="#aspect-how-undo-redo-executes">Aspect: How undo &amp; redo executes</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Saves the entire address book.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to implement.</p>
+</li>
+<li>
+<p>Cons: May have performance issues in terms of memory usage.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Individual command knows how to undo/redo by itself.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Will use less memory (e.g. for <code>delete</code>, just save the person being deleted).</p>
+</li>
+<li>
+<p>Cons: We must ensure that the implementation of each individual command are correct.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-data-structure-to-support-the-undo-redo-commands"><a class="link" href="#aspect-data-structure-to-support-the-undo-redo-commands">Aspect: Data structure to support the undo/redo commands</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Use a list to store the history of address book states.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.</p>
+</li>
+<li>
+<p>Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both <code>HistoryManager</code> and <code>VersionedAddressBook</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Use <code>HistoryManager</code> for undo/redo</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.</p>
+</li>
+<li>
+<p>Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as <code>HistoryManager</code> now needs to do two different things.
+=== Command Component
+Command was implemented using a template model pattern. The reason for this implementation is because there is shared codes
 and invariants among all the execution of the command classes (i.e. there is a call if tasks are overdue at every call to execute).
 The common patterns in execution are implemented in the <code>execute</code> function of the command class which is declared final.
 Concrete implementations of each execute function is implemented in the <code>executePrimitive</code> function of each subclass of command.
 The implementation for executePrimitive fill the "variant" portion of the model template. Note that execute primitive is implemented as a
 abstract method in command.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>Simplified class diagram for the command component:</p>
@@ -259,16 +456,18 @@ abstract method in command.</p>
 </div>
 </div>
 </div>
+</div>
+</div>
 <div class="sect1">
-<h2 id="3-implementation"><a class="link" href="#3-implementation">3. Implementation</a></h2>
+<h2 id="implementation"><a class="link" href="#implementation">4. Implementation</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This section describes some noteworthy details on how certain features are implemented.</p>
 </div>
 <div class="sect2">
-<h3 id="3-1-achievement-mechanism"><a class="link" href="#3-1-achievement-mechanism">3.1. Achievement mechanism</a></h3>
+<h3 id="achievement-mechanism"><a class="link" href="#achievement-mechanism">4.1. Achievement mechanism</a></h3>
 <div class="sect3">
-<h4 id="3-1-1-structural-overview"><a class="link" href="#3-1-1-structural-overview">3.1.1. Structural Overview</a></h4>
+<h4 id="structural-overview"><a class="link" href="#structural-overview">4.1.1. Structural Overview</a></h4>
 <div class="paragraph">
 <p>The achievement mechanism is facilitated by <code>AchievementRecord</code>. TaskManager is now composed of a <code>UniqueTaskList</code> as
 well as an <code>AchievementRecord</code>.<br>
@@ -295,7 +494,7 @@ Integration of AchievementRecord in Model component:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="3-1-2-basic-mechanism"><a class="link" href="#3-1-2-basic-mechanism">3.1.2. Basic Mechanism</a></h4>
+<h4 id="basic-mechanism"><a class="link" href="#basic-mechanism">4.1.2. Basic Mechanism</a></h4>
 <div class="paragraph">
 <p>An <code>updateTaskStatus</code> method is implemented in <code>ModelManager</code> and exposed in the <code>Model</code> interface, this method is
 called in the execution of complete command. Upon completion of a task, the status of task is updated to COMPLETED,
@@ -333,7 +532,7 @@ the set of achievement information as specified by user&#8217;s command.<br></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="3-1-3-event-driven-interaction-with-other-components"><a class="link" href="#3-1-3-event-driven-interaction-with-other-components">3.1.3. Event-driven Interaction with other components</a></h4>
+<h4 id="event-driven-interaction-with-other-components"><a class="link" href="#event-driven-interaction-with-other-components">4.1.3. Event-driven Interaction with other components</a></h4>
 <div class="paragraph">
 <p>The achievement mechanism follows the event-driven interaction of model component with Storage and UI components.
 When a task is marked as complete, both the <code>UniqueTaskList</code> and the <code>AchievementRecord</code> of the task manager is updated
@@ -346,7 +545,7 @@ the <code>AchievementRecord</code> is update(on task completion or change of dis
 </div>
 </div>
 <div class="sect3">
-<h4 id="3-1-4-design-considerations"><a class="link" href="#3-1-4-design-considerations">3.1.4. Design Considerations</a></h4>
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">4.1.4. Design Considerations</a></h4>
 <div class="paragraph">
 <p>Aspect: Associations Among <code>TaskManager</code>,<code>UniqueTaskList</code> and <code>AchievementRecord</code><br></p>
 </div>
@@ -432,9 +631,9 @@ abstraction.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="3-2-batch-completion-via-label-feature"><a class="link" href="#3-2-batch-completion-via-label-feature">3.2. Batch Completion via Label feature</a></h3>
+<h3 id="batch-completion-via-label-feature"><a class="link" href="#batch-completion-via-label-feature">4.2. Batch Completion via Label feature</a></h3>
 <div class="sect3">
-<h4 id="3-2-1-current-implementation"><a class="link" href="#3-2-1-current-implementation">3.2.1. Current Implementation</a></h4>
+<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">4.2.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The batch completion mechanism is facilitated by <code>CompleteLabelCommand</code>.
 It extends <code>CompleteCommand</code> and encapsulates the internal logic of finding task and completing multiple
@@ -558,9 +757,9 @@ it&#8217;s status to <code>COMPLETED</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="3-2-2-design-considerations"><a class="link" href="#3-2-2-design-considerations">3.2.2. Design Considerations</a></h4>
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">4.2.2. Design Considerations</a></h4>
 <div class="sect4">
-<h5 id="3-2-2-1-aspect-implementation-of-atomicity"><a class="link" href="#3-2-2-1-aspect-implementation-of-atomicity">3.2.2.1. Aspect: Implementation of atomicity</a></h5>
+<h5 id="aspect-implementation-of-atomicity"><a class="link" href="#aspect-implementation-of-atomicity">Aspect: Implementation of atomicity</a></h5>
 <div class="ulist">
 <ul>
 <li>
@@ -597,7 +796,7 @@ batch operation.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="3-2-2-2-aspect-handling-different-completecommand-behaviour"><a class="link" href="#3-2-2-2-aspect-handling-different-completecommand-behaviour">3.2.2.2. Aspect: Handling different CompleteCommand behaviour</a></h5>
+<h5 id="aspect-handling-different-completecommand-behaviour"><a class="link" href="#aspect-handling-different-completecommand-behaviour">Aspect: Handling different CompleteCommand behaviour</a></h5>
 <div class="ulist">
 <ul>
 <li>
@@ -650,7 +849,7 @@ a high amount of coupling.
 </div>
 </div>
 <div class="sect4">
-<h5 id="3-2-2-3-aspect-representation-of-predicate-to-be-stored-by-completecommand"><a class="link" href="#3-2-2-3-aspect-representation-of-predicate-to-be-stored-by-completecommand">3.2.2.3. Aspect: Representation of predicate to be stored by CompleteCommand</a></h5>
+<h5 id="aspect-representation-of-predicate-to-be-stored-by-completecommand"><a class="link" href="#aspect-representation-of-predicate-to-be-stored-by-completecommand">Aspect: Representation of predicate to be stored by CompleteCommand</a></h5>
 <div class="ulist">
 <ul>
 <li>
@@ -690,9 +889,9 @@ Abstract Methods.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="3-3-model-rollback-feature"><a class="link" href="#3-3-model-rollback-feature">3.3. Model Rollback feature</a></h3>
+<h3 id="model-rollback-feature"><a class="link" href="#model-rollback-feature">4.3. Model Rollback feature</a></h3>
 <div class="sect3">
-<h4 id="3-3-1-current-implementation"><a class="link" href="#3-3-1-current-implementation">3.3.1. Current Implementation</a></h4>
+<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">4.3.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>Allows for any uncommitted changes to be discarded.</p>
 </div>
@@ -726,9 +925,9 @@ commit in <code>taskManagerStateList</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="3-4-dependency-feature-modelling"><a class="link" href="#3-4-dependency-feature-modelling">3.4. Dependency Feature Modelling</a></h3>
+<h3 id="dependency-feature-modelling"><a class="link" href="#dependency-feature-modelling">4.4. Dependency Feature Modelling</a></h3>
 <div class="sect3">
-<h4 id="3-4-1-current-implementation"><a class="link" href="#3-4-1-current-implementation">3.4.1. Current Implementation</a></h4>
+<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">4.4.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The dependency mechanism is facilitated by an embedded dependency object. This object internally represents dependency with
 a hashset that contains the hashcode of the object that the task is dependent upon.</p>
@@ -740,7 +939,7 @@ a hashset that contains the hashcode of the object that the task is dependent up
 </div>
 </div>
 <div class="sect3">
-<h4 id="3-4-2-design-considerations"><a class="link" href="#3-4-2-design-considerations">3.4.2 Design Considerations</a></h4>
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">4.4.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-modelling-of-the-embedded-dependency-object"><a class="link" href="#aspect-modelling-of-the-embedded-dependency-object">Aspect: Modelling of the embedded dependency object.</a></h5>
 <div class="ulist">
@@ -793,16 +992,16 @@ other tasks that depends on A has to be recreated.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="3-5-modelling-dependency-validity"><a class="link" href="#3-5-modelling-dependency-validity">3.5 Modelling Dependency Validity</a></h3>
+<h3 id="modelling-dependency-validity"><a class="link" href="#modelling-dependency-validity">4.5. Modelling Dependency Validity</a></h3>
 <div class="sect3">
-<h4 id="3-5-1-current-implementation"><a class="link" href="#3-5-1-current-implementation">3.5.1 Current Implementation</a></h4>
+<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">4.5.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The dependency graph is the graph representing the dependencies between the task objects. A graph model needs to be created
 so useful functions can be implemented such as cyclic and topological sort.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="3-5-2-design-considerations"><a class="link" href="#3-5-2-design-considerations">3.5.2 Design Considerations</a></h4>
+<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">4.5.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-real-time-graph-or-graph-instantiated-on-function-call"><a class="link" href="#aspect-real-time-graph-or-graph-instantiated-on-function-call">Aspect: Real-time graph or graph instantiated on function call.</a></h5>
 <div class="ulist">
@@ -863,9 +1062,9 @@ A topological sort can also be performed on the graph to order tasks by the numb
 </div>
 </div>
 <div class="sect2">
-<h3 id="3-6-monitoring-time"><a class="link" href="#3-6-monitoring-time">3.6 Monitoring time</a></h3>
+<h3 id="monitoring-time"><a class="link" href="#monitoring-time">4.6. Monitoring time</a></h3>
 <div class="sect3">
-<h4 id="3-6-1-current-implementation"><a class="link" href="#3-6-1-current-implementation">3.6.1 Current Implementation</a></h4>
+<h4 id="current-implementation-6"><a class="link" href="#current-implementation-6">4.6.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>Time is of key importance when dealing with the <code>TaskManager</code>. We implement and represent time using the ubiquitous
 <code>Date</code> class in Java. The class <code>DueDate</code> internally uses the <code>Date</code> class, and harnesses built in capabilities such as
@@ -876,7 +1075,7 @@ accurate to the minute.</p>
 <p>A check on whether any of the tasks are overdue is done before the execution of every command/</p>
 </div>
 <div class="sect4">
-<h5 id="3-6-2-design-considerations"><a class="link" href="#3-6-2-design-considerations">3.6.2 Design Considerations</a></h5>
+<h5 id="design-considerations-6"><a class="link" href="#design-considerations-6">Design Considerations</a></h5>
 <div class="sect5">
 <h6 id="aspect-implementing-the-check-on-whether-a-task-is-overdue"><a class="link" href="#aspect-implementing-the-check-on-whether-a-task-is-overdue">Aspect: Implementing the check on whether a task is overdue</a></h6>
 <div class="ulist">
@@ -916,7 +1115,7 @@ the number of commands that a person uses likely occurs at a higher rate than th
 </div>
 </div>
 <div class="sect2">
-<h3 id="3-7-list"><a class="link" href="#3-7-list">3.7 List</a></h3>
+<h3 id="list"><a class="link" href="#list">4.7. List</a></h3>
 <div class="paragraph">
 <p>The functionality of the default <code>list</code> command is as expected (and documented), that is all tasks are listed.
 The date filters are dependent on the due date of the task, and the current date.</p>
@@ -928,9 +1127,9 @@ This predicate is passed as an argument to update filtered Tasks.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="3-8-game-manager"><a class="link" href="#3-8-game-manager">3.8 Game Manager</a></h3>
+<h3 id="game-manager"><a class="link" href="#game-manager">4.8. Game Manager</a></h3>
 <div class="sect3">
-<h4 id="3-8-1-current-implementation"><a class="link" href="#3-8-1-current-implementation">3.8.1 Current Implementation</a></h4>
+<h4 id="current-implementation-7"><a class="link" href="#current-implementation-7">4.8.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The GameManager class is responsible for the gamification aspects of WatchOver.</p>
 </div>
@@ -941,9 +1140,9 @@ This predicate is passed as an argument to update filtered Tasks.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="3-8-2-design-considerations"><a class="link" href="#3-8-2-design-considerations">3.8.2 Design Considerations</a></h4>
+<h4 id="design-considerations-7"><a class="link" href="#design-considerations-7">4.8.2. Design Considerations</a></h4>
 <div class="sect4">
-<h5 id="3-8-2-1-aspect-location-of-implementation"><a class="link" href="#3-8-2-1-aspect-location-of-implementation">3.8.2.1 Aspect: Location of Implementation</a></h5>
+<h5 id="aspect-location-of-implementation"><a class="link" href="#aspect-location-of-implementation">Aspect: Location of Implementation</a></h5>
 <div class="ulist">
 <ul>
 <li>
@@ -978,7 +1177,7 @@ This predicate is passed as an argument to update filtered Tasks.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="3-9-logging"><a class="link" href="#3-9-logging">3.9. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">4.9. Logging</a></h3>
 <div class="paragraph">
 <p>We are using java.util.logging package for logging. The LogsCenter class is used to manage the logging levels and logging destinations.</p>
 </div>
@@ -1008,7 +1207,7 @@ This predicate is passed as an argument to update filtered Tasks.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="3-10-configuration"><a class="link" href="#3-10-configuration">3.10. Configuration</a></h3>
+<h3 id="configuration"><a class="link" href="#configuration">4.10. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: config.json).</p>
 </div>
@@ -1016,7 +1215,7 @@ This predicate is passed as an argument to update filtered Tasks.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="4-documentation"><a class="link" href="#4-documentation">4. Documentation</a></h2>
+<h2 id="documentation"><a class="link" href="#documentation">5. Documentation</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>We use asciidoc for writing documentation.</p>
@@ -1025,19 +1224,19 @@ This predicate is passed as an argument to update filtered Tasks.</p>
 <p>We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.</p>
 </div>
 <div class="sect2">
-<h3 id="4-1-editing-documentation"><a class="link" href="#4-1-editing-documentation">4.1. Editing Documentation</a></h3>
+<h3 id="editing-documentation"><a class="link" href="#editing-documentation">5.1. Editing Documentation</a></h3>
 <div class="paragraph">
 <p>See UsingGradle.adoc to learn how to render .adoc files locally to preview the end result of your edits. Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your .adoc files in real-time.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="4-2-publishing-documentation"><a class="link" href="#4-2-publishing-documentation">4.2. Publishing Documentation</a></h3>
+<h3 id="publishing-documentation"><a class="link" href="#publishing-documentation">5.2. Publishing Documentation</a></h3>
 <div class="paragraph">
 <p>See UsingTravis.adoc to learn how to deploy GitHub Pages using Travis.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="4-3-converting-documentation-to-pdf-format"><a class="link" href="#4-3-converting-documentation-to-pdf-format">4.3. Converting Documentation to PDF format</a></h3>
+<h3 id="converting-documentation-to-pdf-format"><a class="link" href="#converting-documentation-to-pdf-format">5.3. Converting Documentation to PDF format</a></h3>
 <div class="paragraph">
 <p>We use Google Chrome for converting documentation to PDF format, as Chrome’s PDF engine preserves hyperlinks used in webpages.</p>
 </div>
@@ -1062,7 +1261,7 @@ Figure 10. Saving documentation as PDF files in Chrome</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="4-4-site-wide-documentation-settings"><a class="link" href="#4-4-site-wide-documentation-settings">4.4. Site-wide Documentation Settings</a></h3>
+<h3 id="site-wide-documentation-settings"><a class="link" href="#site-wide-documentation-settings">5.4. Site-wide Documentation Settings</a></h3>
 <div class="paragraph">
 <p>The build.gradle file specifies some project-specific asciidoc attributes which affects how all documentation files within this project are rendered.</p>
 </div>
@@ -1098,11 +1297,11 @@ site-name</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="4-5-per-file-documentation-settings"><a class="link" href="#4-5-per-file-documentation-settings">4.5. Per-file Documentation Settings</a></h3>
+<h3 id="per-file-documentation-settings"><a class="link" href="#per-file-documentation-settings">5.5. Per-file Documentation Settings</a></h3>
 
 </div>
 <div class="sect2">
-<h3 id="4-6-site-template"><a class="link" href="#4-6-site-template">4.6. Site Template</a></h3>
+<h3 id="site-template"><a class="link" href="#site-template">5.6. Site Template</a></h3>
 <div class="paragraph">
 <p>The files in docs/stylesheets are the CSS stylesheets of the site. You can modify them to change some properties of the site’s design.</p>
 </div>
@@ -1116,10 +1315,10 @@ site-name</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="5-testing"><a class="link" href="#5-testing">5. Testing</a></h2>
+<h2 id="testing"><a class="link" href="#testing">6. Testing</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="5-1-running-tests"><a class="link" href="#5-1-running-tests">5.1. Running Tests</a></h3>
+<h3 id="running-tests"><a class="link" href="#running-tests">6.1. Running Tests</a></h3>
 <div class="paragraph">
 <p>There are three ways to run tests.</p>
 </div>
@@ -1151,12 +1350,12 @@ Method 3: Using Gradle (headless)</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="5-2-types-of-tests"><a class="link" href="#5-2-types-of-tests">5.2. Types of tests</a></h3>
+<h3 id="types-of-tests"><a class="link" href="#types-of-tests">6.2. Types of tests</a></h3>
 <div class="paragraph">
 <p>We have two types of tests:</p>
 </div>
 <div class="sect3">
-<h4 id="gui-tests"><a class="link" href="#gui-tests">GUI Tests</a></h4>
+<h4 id="gui-tests"><a class="link" href="#gui-tests">6.2.1. GUI Tests</a></h4>
 <div class="paragraph">
 <p>These are tests involving the GUI. They include:</p>
 </div>
@@ -1168,7 +1367,7 @@ Method 3: Using Gradle (headless)</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="non-gui-tests"><a class="link" href="#non-gui-tests">Non-GUI Tests</a></h4>
+<h4 id="non-gui-tests"><a class="link" href="#non-gui-tests">6.2.2. Non-GUI Tests</a></h4>
 <div class="paragraph">
 <p>These are tests not involving the GUI. They include,</p>
 </div>
@@ -1187,7 +1386,7 @@ e.g. seedu.address.logic.LogicManagerTest</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="5-3-troubleshooting-testing"><a class="link" href="#5-3-troubleshooting-testing">5.3. Troubleshooting Testing</a></h3>
+<h3 id="troubleshooting-testing"><a class="link" href="#troubleshooting-testing">6.3. Troubleshooting Testing</a></h3>
 <div class="paragraph">
 <p>Problem: HelpWindowTest fails with a NullPointerException.</p>
 </div>
@@ -1201,34 +1400,34 @@ e.g. seedu.address.logic.LogicManagerTest</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="6-dev-ops"><a class="link" href="#6-dev-ops">6. Dev Ops</a></h2>
+<h2 id="dev-ops"><a class="link" href="#dev-ops">7. Dev Ops</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="6-1-build-automation"><a class="link" href="#6-1-build-automation">6.1. Build Automation</a></h3>
+<h3 id="build-automation"><a class="link" href="#build-automation">7.1. Build Automation</a></h3>
 <div class="paragraph">
 <p>See UsingGradle.adoc to learn how to use Gradle for build automation.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="6-2-continuous-integration"><a class="link" href="#6-2-continuous-integration">6.2. Continuous Integration</a></h3>
+<h3 id="continuous-integration"><a class="link" href="#continuous-integration">7.2. Continuous Integration</a></h3>
 <div class="paragraph">
 <p>We use Travis CI and AppVeyor to perform Continuous Integration on our projects. See UsingTravis.adoc and UsingAppVeyor.adoc for more details.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="6-3-coverage-reporting"><a class="link" href="#6-3-coverage-reporting">6.3. Coverage Reporting</a></h3>
+<h3 id="coverage-reporting"><a class="link" href="#coverage-reporting">7.3. Coverage Reporting</a></h3>
 <div class="paragraph">
 <p>We use Coveralls to track the code coverage of our projects. See UsingCoveralls.adoc for more details.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="6-4-documentation-previews"><a class="link" href="#6-4-documentation-previews">6.4. Documentation Previews</a></h3>
+<h3 id="documentation-previews"><a class="link" href="#documentation-previews">7.4. Documentation Previews</a></h3>
 <div class="paragraph">
 <p>When a pull request has changes to asciidoc files, you can use Netlify to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See UsingNetlify.adoc for more details.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="6-5-making-a-release"><a class="link" href="#6-5-making-a-release">6.5. Making a Release</a></h3>
+<h3 id="making-a-release"><a class="link" href="#making-a-release">7.5. Making a Release</a></h3>
 <div class="paragraph">
 <p>Here are the steps to create a new release.</p>
 </div>
@@ -1246,7 +1445,7 @@ e.g. seedu.address.logic.LogicManagerTest</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="6-6-managing-dependencies"><a class="link" href="#6-6-managing-dependencies">6.6. Managing Dependencies</a></h3>
+<h3 id="managing-dependencies"><a class="link" href="#managing-dependencies">7.6. Managing Dependencies</a></h3>
 <div class="paragraph">
 <p>A project often depends on third-party libraries. For example, Address Book depends on the Jackson library for XML parsing. Managing these dependencies can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives.
 a. Include those libraries in the repo (this bloats the repo size)
@@ -1266,7 +1465,7 @@ Suggested path for new programmers:</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="appendix-a-target-user-profile"><a class="link" href="#appendix-a-target-user-profile">Appendix A: Target User Profile</a></h2>
+<h2 id="target-user-profile"><a class="link" href="#target-user-profile">Appendix A: Target User Profile</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Tech savvy students who need to keep their tasks organized and motivate themselves to complete them.</p>
@@ -1277,8 +1476,6 @@ Suggested path for new programmers:</p>
 <div class="paragraph">
 <p>Attributable to our target demographic are the following qualities:</p>
 </div>
-<div class="sect3">
-<h4 id="setting-up-ci"><a class="link" href="#setting-up-ci">Setting up CI</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1297,9 +1494,8 @@ Suggested path for new programmers:</p>
 </div>
 </div>
 </div>
-</div>
 <div class="sect1">
-<h2 id="appendix-b-value-proposition"><a class="link" href="#appendix-b-value-proposition">Appendix B: Value proposition</a></h2>
+<h2 id="appendix-b-value-proposition"><a class="link" href="#appendix-b-value-proposition">Appendix B: Appendix B: Value proposition</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>By offering a gamified experience, we hope to be able to improve the user experience and keep users motivated in completing their tasks.</p>
@@ -1307,7 +1503,7 @@ Suggested path for new programmers:</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="appendix-c-user-stories"><a class="link" href="#appendix-c-user-stories">Appendix C: User Stories</a></h2>
+<h2 id="appendix-c-user-stories"><a class="link" href="#appendix-c-user-stories">Appendix C: Appendix C: User Stories</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely to have) - *</p>
@@ -1473,15 +1669,15 @@ my progress and evaluate how I am doing.</p></td>
 </div>
 </div>
 <div class="sect1">
-<h2 id="appendix-d-use-cases"><a class="link" href="#appendix-d-use-cases">Appendix D: Use cases</a></h2>
+<h2 id="use-cases"><a class="link" href="#use-cases">Appendix D: Use cases</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Only features that require more than a few steps to implement will be shown.</p>
 </div>
 <div class="sect2">
-<h3 id="use-case-display-welcome-screen"><a class="link" href="#use-case-display-welcome-screen">Use case: Display Welcome Screen</a></h3>
+<h3 id="use-case-display-welcome-screen"><a class="link" href="#use-case-display-welcome-screen">D.1. Use case: Display Welcome Screen</a></h3>
 <div class="sect3">
-<h4 id="mss"><a class="link" href="#mss">MSS</a></h4>
+<h4 id="mss"><a class="link" href="#mss">D.1.1. MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1500,7 +1696,7 @@ my progress and evaluate how I am doing.</p></td>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions"><a class="link" href="#extensions">Extensions</a></h4>
+<h4 id="extensions"><a class="link" href="#extensions">D.1.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1542,9 +1738,9 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-display-motivational-quote-mq-on-task-completion"><a class="link" href="#use-case-display-motivational-quote-mq-on-task-completion">Use case: Display Motivational Quote (MQ) on task completion</a></h3>
+<h3 id="use-case-display-motivational-quote-mq-on-task-completion"><a class="link" href="#use-case-display-motivational-quote-mq-on-task-completion">D.2. Use case: Display Motivational Quote (MQ) on task completion</a></h3>
 <div class="sect3">
-<h4 id="mss-2"><a class="link" href="#mss-2">MSS</a></h4>
+<h4 id="mss-2"><a class="link" href="#mss-2">D.2.1. MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1560,7 +1756,7 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-2"><a class="link" href="#extensions-2">Extensions</a></h4>
+<h4 id="extensions-2"><a class="link" href="#extensions-2">D.2.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1581,9 +1777,9 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-list-task"><a class="link" href="#use-case-list-task">Use case: List Task</a></h3>
+<h3 id="use-case-list-task"><a class="link" href="#use-case-list-task">D.3. Use case: List Task</a></h3>
 <div class="sect3">
-<h4 id="mss-3"><a class="link" href="#mss-3">MSS</a></h4>
+<h4 id="mss-3"><a class="link" href="#mss-3">D.3.1. MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1599,7 +1795,7 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-3"><a class="link" href="#extensions-3">Extensions</a></h4>
+<h4 id="extensions-3"><a class="link" href="#extensions-3">D.3.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1620,9 +1816,9 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-add-task"><a class="link" href="#use-case-add-task">Use case: Add task</a></h3>
+<h3 id="use-case-add-task"><a class="link" href="#use-case-add-task">D.4. Use case: Add task</a></h3>
 <div class="sect3">
-<h4 id="mss-4"><a class="link" href="#mss-4">MSS</a></h4>
+<h4 id="mss-4"><a class="link" href="#mss-4">D.4.1. MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1638,7 +1834,7 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-4"><a class="link" href="#extensions-4">Extensions</a></h4>
+<h4 id="extensions-4"><a class="link" href="#extensions-4">D.4.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1676,9 +1872,9 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-add-dependency-for-task"><a class="link" href="#use-case-add-dependency-for-task">Use case: Add dependency for task</a></h3>
+<h3 id="use-case-add-dependency-for-task"><a class="link" href="#use-case-add-dependency-for-task">D.5. Use case: Add dependency for task</a></h3>
 <div class="sect3">
-<h4 id="mss-5"><a class="link" href="#mss-5">MSS</a></h4>
+<h4 id="mss-5"><a class="link" href="#mss-5">D.5.1. MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1694,7 +1890,7 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-5"><a class="link" href="#extensions-5">Extensions</a></h4>
+<h4 id="extensions-5"><a class="link" href="#extensions-5">D.5.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1732,9 +1928,9 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-remove-dependency-for-task"><a class="link" href="#use-case-remove-dependency-for-task">Use case: Remove dependency for task</a></h3>
+<h3 id="use-case-remove-dependency-for-task"><a class="link" href="#use-case-remove-dependency-for-task">D.6. Use case: Remove dependency for task</a></h3>
 <div class="sect3">
-<h4 id="mss-6"><a class="link" href="#mss-6">MSS</a></h4>
+<h4 id="mss-6"><a class="link" href="#mss-6">D.6.1. MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1750,7 +1946,7 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-6"><a class="link" href="#extensions-6">Extensions</a></h4>
+<h4 id="extensions-6"><a class="link" href="#extensions-6">D.6.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1771,9 +1967,9 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-delete-task"><a class="link" href="#use-case-delete-task">Use case: Delete task</a></h3>
+<h3 id="use-case-delete-task"><a class="link" href="#use-case-delete-task">D.7. Use case: Delete task</a></h3>
 <div class="sect3">
-<h4 id="mss-7"><a class="link" href="#mss-7">MSS</a></h4>
+<h4 id="mss-7"><a class="link" href="#mss-7">D.7.1. MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1789,7 +1985,7 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-7"><a class="link" href="#extensions-7">Extensions</a></h4>
+<h4 id="extensions-7"><a class="link" href="#extensions-7">D.7.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1827,9 +2023,9 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-viewing-command-history"><a class="link" href="#use-case-viewing-command-history">Use case: Viewing Command History</a></h3>
+<h3 id="use-case-viewing-command-history"><a class="link" href="#use-case-viewing-command-history">D.8. Use case: Viewing Command History</a></h3>
 <div class="sect3">
-<h4 id="mss-8"><a class="link" href="#mss-8">MSS</a></h4>
+<h4 id="mss-8"><a class="link" href="#mss-8">D.8.1. MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1845,7 +2041,7 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-8"><a class="link" href="#extensions-8">Extensions</a></h4>
+<h4 id="extensions-8"><a class="link" href="#extensions-8">D.8.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1866,9 +2062,9 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-undoing-last-command"><a class="link" href="#use-case-undoing-last-command">Use case: Undoing Last Command</a></h3>
+<h3 id="use-case-undoing-last-command"><a class="link" href="#use-case-undoing-last-command">D.9. Use case: Undoing Last Command</a></h3>
 <div class="sect3">
-<h4 id="mss-9"><a class="link" href="#mss-9">MSS</a></h4>
+<h4 id="mss-9"><a class="link" href="#mss-9">D.9.1. MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1884,7 +2080,7 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-9"><a class="link" href="#extensions-9">Extensions</a></h4>
+<h4 id="extensions-9"><a class="link" href="#extensions-9">D.9.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1905,9 +2101,9 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-redoing-last-command"><a class="link" href="#use-case-redoing-last-command">Use case: Redoing Last Command</a></h3>
+<h3 id="use-case-redoing-last-command"><a class="link" href="#use-case-redoing-last-command">D.10. Use case: Redoing Last Command</a></h3>
 <div class="sect3">
-<h4 id="mss-10"><a class="link" href="#mss-10">MSS</a></h4>
+<h4 id="mss-10"><a class="link" href="#mss-10">D.10.1. MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1923,7 +2119,7 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-10"><a class="link" href="#extensions-10">Extensions</a></h4>
+<h4 id="extensions-10"><a class="link" href="#extensions-10">D.10.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1944,9 +2140,9 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-completing-task-single"><a class="link" href="#use-case-completing-task-single">Use case: Completing Task (Single)</a></h3>
+<h3 id="use-case-completing-task-single"><a class="link" href="#use-case-completing-task-single">D.11. Use case: Completing Task (Single)</a></h3>
 <div class="sect3">
-<h4 id="mss-11"><a class="link" href="#mss-11">MSS</a></h4>
+<h4 id="mss-11"><a class="link" href="#mss-11">D.11.1. MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1959,7 +2155,7 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-11"><a class="link" href="#extensions-11">Extensions</a></h4>
+<h4 id="extensions-11"><a class="link" href="#extensions-11">D.11.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1987,9 +2183,9 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-completing-task-batch-via-code-label-code"><a class="link" href="#use-case-completing-task-batch-via-code-label-code">Use case: Completing Task (Batch via <code>Label</code>)</a></h3>
+<h3 id="use-case-completing-task-batch-via-code-label-code"><a class="link" href="#use-case-completing-task-batch-via-code-label-code">D.12. Use case: Completing Task (Batch via <code>Label</code>)</a></h3>
 <div class="sect3">
-<h4 id="mss-12"><a class="link" href="#mss-12">MSS</a></h4>
+<h4 id="mss-12"><a class="link" href="#mss-12">D.12.1. MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2002,7 +2198,7 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-12"><a class="link" href="#extensions-12">Extensions</a></h4>
+<h4 id="extensions-12"><a class="link" href="#extensions-12">D.12.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2031,9 +2227,9 @@ pre-completed state and no points are earned.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-display-statistics"><a class="link" href="#use-case-display-statistics">Use case: Display Statistics</a></h3>
+<h3 id="use-case-display-statistics"><a class="link" href="#use-case-display-statistics">D.13. Use case: Display Statistics</a></h3>
 <div class="sect3">
-<h4 id="mss-13"><a class="link" href="#mss-13">MSS</a></h4>
+<h4 id="mss-13"><a class="link" href="#mss-13">D.13.1. MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2046,7 +2242,7 @@ pre-completed state and no points are earned.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-13"><a class="link" href="#extensions-13">Extensions</a></h4>
+<h4 id="extensions-13"><a class="link" href="#extensions-13">D.13.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2067,9 +2263,9 @@ pre-completed state and no points are earned.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-failing-to-complete-task"><a class="link" href="#use-case-failing-to-complete-task">Use case: Failing to complete task</a></h3>
+<h3 id="use-case-failing-to-complete-task"><a class="link" href="#use-case-failing-to-complete-task">D.14. Use case: Failing to complete task</a></h3>
 <div class="sect3">
-<h4 id="mss-14"><a class="link" href="#mss-14">MSS</a></h4>
+<h4 id="mss-14"><a class="link" href="#mss-14">D.14.1. MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2082,7 +2278,7 @@ pre-completed state and no points are earned.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-14"><a class="link" href="#extensions-14">Extensions</a></h4>
+<h4 id="extensions-14"><a class="link" href="#extensions-14">D.14.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2101,7 +2297,7 @@ pre-completed state and no points are earned.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="appendix-e-non-functional-requirements"><a class="link" href="#appendix-e-non-functional-requirements">Appendix E: Non-functional requirements</a></h2>
+<h2 id="non-functional-requirements"><a class="link" href="#non-functional-requirements">Appendix E: Non-functional requirements</a></h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
@@ -2131,7 +2327,7 @@ pre-completed state and no points are earned.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="appendix-f-glossary"><a class="link" href="#appendix-f-glossary">Appendix F: Glossary</a></h2>
+<h2 id="glossary"><a class="link" href="#glossary">Appendix F: Glossary</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A glossary serves to ensure that all stakeholders have a common understanding of the noteworthy terms, abbreviation, acronyms etc.</p>
@@ -2171,4 +2367,59 @@ pre-completed state and no points are earned.</p>
 </tbody>
 </table>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-08 18:45:45 SRET</div></div></div></body></html>
+</div>
+<div class="sect1">
+<h2 id="instructions-for-manual-testing"><a class="link" href="#instructions-for-manual-testing">Appendix G: Instructions for Manual Testing</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Given below are instructions to test the app manually.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+These instructions only provide a starting point for testers to work on; testers are expected to do more <em>exploratory</em> testing.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="launch-and-shutdown"><a class="link" href="#launch-and-shutdown">G.1. Launch and Shutdown</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Initial launch</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Download the jar file and copy into an empty folder</p>
+</li>
+<li>
+<p>Double-click the jar file<br>
+Expected: Shows the GUI with a set of sample tasks. The window size may not be optimum.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Saving window preferences</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Resize the window to an optimum size. Move the window to a different location. Close the window.</p>
+</li>
+<li>
+<p>Re-launch the app by double-clicking the jar file.<br>
+Expected: The most recent window size and location is retained.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-08 20:32:11 SRET</div></div></div></body></html>

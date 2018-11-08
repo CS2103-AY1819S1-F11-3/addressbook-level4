@@ -178,9 +178,9 @@ comes back from the future.
 </tbody>
 </table>
 <div class="sect2">
-<h3 id="3-1-achievement-mechanism"><a class="link" href="#3-1-achievement-mechanism">3.1. Achievement mechanism</a></h3>
+<h3 id="achievement-mechanism"><a class="link" href="#achievement-mechanism">Achievement mechanism</a></h3>
 <div class="sect3">
-<h4 id="3-1-1-structural-overview"><a class="link" href="#3-1-1-structural-overview">3.1.1. Structural Overview</a></h4>
+<h4 id="structural-overview"><a class="link" href="#structural-overview">Structural Overview</a></h4>
 <div class="paragraph">
 <p>The achievement mechanism is facilitated by <code>AchievementRecord</code>. TaskManager is now composed of a <code>UniqueTaskList</code> as
 well as an <code>AchievementRecord</code>.<br>
@@ -207,7 +207,7 @@ Integration of AchievementRecord in Model component:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="3-1-2-basic-mechanism"><a class="link" href="#3-1-2-basic-mechanism">3.1.2. Basic Mechanism</a></h4>
+<h4 id="basic-mechanism"><a class="link" href="#basic-mechanism">Basic Mechanism</a></h4>
 <div class="paragraph">
 <p>An <code>updateTaskStatus</code> method is implemented in <code>ModelManager</code> and exposed in the <code>Model</code> interface, this method is
 called in the execution of complete command. Upon completion of a task, the status of task is updated to COMPLETED,
@@ -245,7 +245,7 @@ the set of achievement information as specified by user&#8217;s command.<br></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="3-1-3-event-driven-interaction-with-other-components"><a class="link" href="#3-1-3-event-driven-interaction-with-other-components">3.1.3. Event-driven Interaction with other components</a></h4>
+<h4 id="event-driven-interaction-with-other-components"><a class="link" href="#event-driven-interaction-with-other-components">Event-driven Interaction with other components</a></h4>
 <div class="paragraph">
 <p>The achievement mechanism follows the event-driven interaction of model component with Storage and UI components.
 When a task is marked as complete, both the <code>UniqueTaskList</code> and the <code>AchievementRecord</code> of the task manager is updated
@@ -258,7 +258,7 @@ the <code>AchievementRecord</code> is update(on task completion or change of dis
 </div>
 </div>
 <div class="sect3">
-<h4 id="3-1-4-design-considerations"><a class="link" href="#3-1-4-design-considerations">3.1.4. Design Considerations</a></h4>
+<h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
 <div class="paragraph">
 <p>Aspect: Associations Among <code>TaskManager</code>,<code>UniqueTaskList</code> and <code>AchievementRecord</code><br></p>
 </div>
@@ -344,4 +344,4 @@ abstraction.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-08 18:45:45 SRET</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-08 20:32:11 SRET</div></div></div></body></html>

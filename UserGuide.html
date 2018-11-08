@@ -28,11 +28,10 @@
 <li><a href="#adding-a-task-code-add-code">3.2.1. Adding a Task: <code>add</code></a></li>
 <li><a href="#deleting-a-task-code-delete-code">3.2.2. Deleting a Task: <code>delete</code></a></li>
 <li><a href="#editing-a-task-code-edit-code">3.2.3. Editing a Task: <code>edit</code></a></li>
-<li><a href="#adding-removing-a-dependency-to-a-task-code-dependency-code">3.2.4. Adding/Removing a dependency to a Task: <code>dependency</code></a></li>
-<li><a href="#completing-a-task-code-complete-code">3.2.5. Completing a Task: <code>complete</code></a></li>
-<li><a href="#search-for-tasks-by-keyword-code-find-code">3.2.6. Search for Tasks by Keyword: <code>find</code></a></li>
-<li><a href="#selecting-a-person-code-select-code">3.2.7. Selecting a person : <code>select</code></a></li>
-<li><a href="#listing-tasks-by-topological-order-code-topoorder-code">3.2.8. Listing Tasks by topological order: <code>topoorder</code></a></li>
+<li><a href="#completing-a-task-code-complete-code">3.2.4. Completing a Task: <code>complete</code></a></li>
+<li><a href="#search-for-tasks-by-keyword-code-find-code">3.2.5. Search for Tasks by Keyword: <code>find</code></a></li>
+<li><a href="#selecting-a-person-code-select-code">3.2.6. Selecting a person : <code>select</code></a></li>
+<li><a href="#listing-tasks-by-topological-order-code-topoorder-code">3.2.7. Listing Tasks by topological order: <code>topoorder</code></a></li>
 </ul>
 </li>
 <li><a href="#gamification">3.3. Gamification</a>
@@ -194,7 +193,7 @@ Format: <code>exit</code></p>
 Format:</p>
 </div>
 <div class="paragraph">
-<p><code>add n/TASK_NAME l/DUE_DATE t/PRIORITY_VALUE [d/detailed description] [l/LABEL]</code></p>
+<p><code>add n/TASK_NAME t/DUE_DATE p/PRIORITY_VALUE [d/detailed description] [l/LABEL]</code></p>
 </div>
 <div class="paragraph">
 <p>Date Format: <code>dd-mm-yy hhmm</code> or <code>dd-mm-yy hhmm</code>. A missing <code>hhmm</code> field will cause time to
@@ -250,11 +249,9 @@ Format:<br>
 +Example:<br>
 <code>edit 1 t/18-12-19 d/a updated detailed description of what needs to be done</code><br>
 -Example:<br>
-<code>edit complete milestone t/2018.09.18 d/a updated detailed description of what needs to be done</code></p>
+<code>edit complete milestone t/2018.09.18 d/a updated detailed description of what needs to be done</code><br>
+==== Adding/Removing a dependency to a Task: <code>dependency</code></p>
 </div>
-</div>
-<div class="sect3">
-<h4 id="adding-removing-a-dependency-to-a-task-code-dependency-code"><a class="link" href="#adding-removing-a-dependency-to-a-task-code-dependency-code">3.2.4. Adding/Removing a dependency to a Task: <code>dependency</code></a></h4>
 <div class="paragraph">
 <p>Adds/removes a dependency of a task dependant to the task dependee (toggling task dependency)<br>
 Format:<br>
@@ -271,7 +268,7 @@ Format:<br>
 </div>
 </div>
 <div class="sect3">
-<h4 id="completing-a-task-code-complete-code"><a class="link" href="#completing-a-task-code-complete-code">3.2.5. Completing a Task: <code>complete</code></a></h4>
+<h4 id="completing-a-task-code-complete-code"><a class="link" href="#completing-a-task-code-complete-code">3.2.4. Completing a Task: <code>complete</code></a></h4>
 <div class="paragraph">
 <p>Completes task(s) in the task manager<br>
 Format: <code>complete INDEX</code> or <code>complete t/LABEL</code><br>
@@ -350,7 +347,7 @@ condition:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="search-for-tasks-by-keyword-code-find-code"><a class="link" href="#search-for-tasks-by-keyword-code-find-code">3.2.6. Search for Tasks by Keyword: <code>find</code></a></h4>
+<h4 id="search-for-tasks-by-keyword-code-find-code"><a class="link" href="#search-for-tasks-by-keyword-code-find-code">3.2.5. Search for Tasks by Keyword: <code>find</code></a></h4>
 <div class="paragraph">
 <p>Finds tasks whose names contain any of the given keywords.<br>
 Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
@@ -385,7 +382,7 @@ Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="selecting-a-person-code-select-code"><a class="link" href="#selecting-a-person-code-select-code">3.2.7. Selecting a person : <code>select</code></a></h4>
+<h4 id="selecting-a-person-code-select-code"><a class="link" href="#selecting-a-person-code-select-code">3.2.6. Selecting a person : <code>select</code></a></h4>
 <div class="paragraph">
 <p>Selects the task identified by the index number used in the displayed task list.<br>
 Format: <code>select INDEX</code></p>
@@ -426,7 +423,7 @@ Selects the 1st task in the results of the <code>find</code> command.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="listing-tasks-by-topological-order-code-topoorder-code"><a class="link" href="#listing-tasks-by-topological-order-code-topoorder-code">3.2.8. Listing Tasks by topological order: <code>topoorder</code></a></h4>
+<h4 id="listing-tasks-by-topological-order-code-topoorder-code"><a class="link" href="#listing-tasks-by-topological-order-code-topoorder-code">3.2.7. Listing Tasks by topological order: <code>topoorder</code></a></h4>
 <div class="paragraph">
 <p>Shows a list of uncompleted tasks by their topological order. (In the CLI window).</p>
 </div>
@@ -565,4 +562,4 @@ comes back from the future.
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-08 18:45:45 SRET</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-08 20:32:11 SRET</div></div></div></body></html>
