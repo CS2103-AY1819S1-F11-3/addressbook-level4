@@ -184,7 +184,7 @@ used to provide better data integrity of the application in future development.<
 <div class="paragraph">
 <p>Completes task(s) in the task manager<br>
 Format: <code>complete INDEX</code> or <code>complete t/LABEL</code><br>
-+Example:<br>
++Examples:<br>
 <code>complete 1</code><br>
 <code>complete l/urgent</code><br>
 -Example:<br>
@@ -194,6 +194,9 @@ Format: <code>complete INDEX</code> or <code>complete t/LABEL</code><br>
 <ul>
 <li>
 <p>Completion via label is case-insensitive</p>
+</li>
+<li>
+<p>You are unable to complete tasks if they have unfulfilled dependencies.</p>
 </li>
 <li>
 <p>You can complete multiple tasks at once through the use of the format complete <code>l/LABEL</code></p>
@@ -214,32 +217,78 @@ condition:</p>
 </li>
 </ul>
 </div>
+<div class="sect4">
+<h5 id="extended-examples"><a class="link" href="#extended-examples">Extended Examples</a></h5>
+<div class="paragraph">
+<p><em>WatchOver utilises a sophisticated dependency checking feature to reduce the
+amount of accidental completion of tasks. For example, you need to <code>finish your tutorial</code> before
+you can <code>submit tutorial</code>. In order to better understand this feature, below are some
+extended examples to showcase dependency checking with <code>Complete</code>.</em></p>
 </div>
-<div class="sect3">
-<h4 id="completing-a-task-code-complete-code-2"><a class="link" href="#completing-a-task-code-complete-code-2">Completing a Task: <code>complete</code></a></h4>
-
+<div class="paragraph">
+<p>Premise, there are 5 tasks, where <code>Task X</code> is dependent on <code>Task Y</code>, <code>Task Y</code>
+is dependent of <code>Task Z</code>, and <code>Task A</code> is dependent on <code>Task X</code>.
+<code>Task Z</code> is already completed.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>add n/Task X t/02-12-18 1330 p/5 d/X l/setOne
+add n/Task Y t/02-12-18 1330 p/5 d/X l/setOne
+add n/Task Z t/02-12-18 1330 p/5 d/X l/setOne
+add n/Task A t/02-12-18 1330 p/5 d/X l/setTwo
+add n/Task B t/02-12-18 1330 p/5 d/X l/setTwo
+dependency 1 2
+dependency 2 3
+complete 3
+dependency 4 1</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><em>Task X is referred to via index 1,
+Task Y is referred to via index 2,
+Task Z is referred to via index 3,
+Task A is referred to via index 4,
+Task B is referred to via index 5</em></p>
+</div>
+<div class="paragraph">
+<p>+Example:<br>
+<code>complete 2</code><br>
+Explanation: The completion of <code>Task Y</code> is valid as all its dependencies are completed.<br>
++Example:<br>
+<code>complete l/setOne</code><br>
+Explanation: Order of tasks completed in a batch completion does not matter as long as there are no unfulfilled dependencies after all tasks are completed.</p>
+</div>
+<div class="paragraph">
+<p>-Example:
+<code>complete 1</code>
+Explanation: <code>Task X</code> is dependent on <code>Task Y</code> which is not completed yet.
+-Example:
+<code>complete l/setTwo</code>
+Explanation: <code>Task A</code> is dependent on <code>Task X</code> which will not be completed after the batch completion.</p>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="features-to-be-included-by-v2-0"><a class="link" href="#features-to-be-included-by-v2-0">Features to be included by v2.0</a></h2>
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><code>Complete</code> displays a organic random congratulatory message upon task completion.</p>
+<div class="sect2">
+<h3 id="code-complete-code-displays-a-organic-random-congratulatory-message-upon-task-completion"><a class="link" href="#code-complete-code-displays-a-organic-random-congratulatory-message-upon-task-completion"><code>Complete</code> displays a organic random congratulatory message upon task completion.</a></h3>
 <div class="ulist">
 <ul>
 <li>
 <p>Current implementation displays a generic standard congratulatory message/message of positive affirmation.</p>
-</li>
-</ul>
-</div>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p>Completed Tasks should be automatically hidden from view.</p>
 </li>
 </ul>
+</div>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
@@ -551,4 +600,4 @@ commit in <code>taskManagerStateList</code>.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-10 21:02:50 SRET</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-10 22:27:05 SRET</div></div></div></body></html>
