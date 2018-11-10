@@ -61,20 +61,15 @@
 <li><a href="#appendix-c-user-stories">Appendix C: Appendix C: User Stories</a></li>
 <li><a href="#use-cases">Appendix D: Use cases</a>
 <ul class="sectlevel2">
-<li><a href="#use-case-display-welcome-screen">D.1. Use case: Display Welcome Screen</a></li>
-<li><a href="#use-case-display-motivational-quote-mq-on-task-completion">D.2. Use case: Display Motivational Quote (MQ) on task completion</a></li>
-<li><a href="#use-case-list-task">D.3. Use case: List Task</a></li>
-<li><a href="#use-case-add-task">D.4. Use case: Add task</a></li>
-<li><a href="#use-case-add-dependency-for-task">D.5. Use case: Add dependency for task</a></li>
-<li><a href="#use-case-remove-dependency-for-task">D.6. Use case: Remove dependency for task</a></li>
-<li><a href="#use-case-delete-task">D.7. Use case: Delete task</a></li>
-<li><a href="#use-case-viewing-command-history">D.8. Use case: Viewing Command History</a></li>
-<li><a href="#use-case-undoing-last-command">D.9. Use case: Undoing Last Command</a></li>
-<li><a href="#use-case-redoing-last-command">D.10. Use case: Redoing Last Command</a></li>
-<li><a href="#use-case-completing-task-single">D.11. Use case: Completing Task (Single)</a></li>
-<li><a href="#use-case-completing-task-batch-via-code-label-code">D.12. Use case: Completing Task (Batch via <code>Label</code>)</a></li>
-<li><a href="#use-case-display-statistics">D.13. Use case: Display Statistics</a></li>
-<li><a href="#use-case-failing-to-complete-task">D.14. Use case: Failing to complete task</a></li>
+<li><a href="#use-case-list-task">D.1. Use case: List Task</a></li>
+<li><a href="#use-case-add-task">D.2. Use case: Add task</a></li>
+<li><a href="#use-case-add-dependency-for-task">D.3. Use case: Add dependency for task</a></li>
+<li><a href="#use-case-remove-dependency-for-task">D.4. Use case: Remove dependency for task</a></li>
+<li><a href="#use-case-delete-task">D.5. Use case: Delete task</a></li>
+<li><a href="#use-case-undoing-last-command">D.6. Use case: Undoing Last Command</a></li>
+<li><a href="#use-case-redoing-last-command">D.7. Use case: Redoing Last Command</a></li>
+<li><a href="#use-case-completing-task-single">D.8. Use case: Completing Task (Single)</a></li>
+<li><a href="#use-case-completing-task-batch-via-code-label-code">D.9. Use case: Completing Task (Batch via <code>Label</code>)</a></li>
 </ul>
 </li>
 <li><a href="#non-functional-requirements">Appendix E: Non-functional requirements</a></li>
@@ -1732,111 +1727,9 @@ my progress and evaluate how I am doing.</p></td>
 <p>Only features that require more than a few steps to implement will be shown.</p>
 </div>
 <div class="sect2">
-<h3 id="use-case-display-welcome-screen"><a class="link" href="#use-case-display-welcome-screen">D.1. Use case: Display Welcome Screen</a></h3>
+<h3 id="use-case-list-task"><a class="link" href="#use-case-list-task">D.1. Use case: List Task</a></h3>
 <div class="sect3">
 <h4 id="mss"><a class="link" href="#mss">D.1.1. MSS</a></h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>User logs in successfully</p>
-</li>
-<li>
-<p>Application fetches QOTD and shows it.</p>
-</li>
-<li>
-<p>Application then displays <strong>10</strong> tasks sorted by ascending deadline.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="extensions"><a class="link" href="#extensions">D.1.2. Extensions</a></h4>
-<div class="ulist">
-<ul>
-<li>
-<p>3a. There are less than <strong>10</strong> tasks available</p>
-<div class="ulist">
-<ul>
-<li>
-<p>3a1. Let the number of tasks available be <code>n</code>, then <code>n</code> tasks will be shown.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>3b. There are multiple tasks with the same deadline.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>3b1. Tie will be broken by the lexicographic order of Task name</p>
-</li>
-<li>
-<p>3b2. If multiple tasks have the same lexicographic order, the outputted task will be
-non-deterministic</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="use-case-display-motivational-quote-mq-on-task-completion"><a class="link" href="#use-case-display-motivational-quote-mq-on-task-completion">D.2. Use case: Display Motivational Quote (MQ) on task completion</a></h3>
-<div class="sect3">
-<h4 id="mss-2"><a class="link" href="#mss-2">D.2.1. MSS</a></h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>User marks task as complete.</p>
-</li>
-<li>
-<p>Application shows MQ.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="extensions-2"><a class="link" href="#extensions-2">D.2.2. Extensions</a></h4>
-<div class="ulist">
-<ul>
-<li>
-<p>1a. User marks multiple tasks as complete.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>1a1. Application still shows only one MQ.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="use-case-list-task"><a class="link" href="#use-case-list-task">D.3. Use case: List Task</a></h3>
-<div class="sect3">
-<h4 id="mss-3"><a class="link" href="#mss-3">D.3.1. MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1852,7 +1745,7 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-3"><a class="link" href="#extensions-3">D.3.2. Extensions</a></h4>
+<h4 id="extensions"><a class="link" href="#extensions">D.1.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1873,9 +1766,9 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-add-task"><a class="link" href="#use-case-add-task">D.4. Use case: Add task</a></h3>
+<h3 id="use-case-add-task"><a class="link" href="#use-case-add-task">D.2. Use case: Add task</a></h3>
 <div class="sect3">
-<h4 id="mss-4"><a class="link" href="#mss-4">D.4.1. MSS</a></h4>
+<h4 id="mss-2"><a class="link" href="#mss-2">D.2.1. MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1891,7 +1784,7 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-4"><a class="link" href="#extensions-4">D.4.2. Extensions</a></h4>
+<h4 id="extensions-2"><a class="link" href="#extensions-2">D.2.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1929,9 +1822,9 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-add-dependency-for-task"><a class="link" href="#use-case-add-dependency-for-task">D.5. Use case: Add dependency for task</a></h3>
+<h3 id="use-case-add-dependency-for-task"><a class="link" href="#use-case-add-dependency-for-task">D.3. Use case: Add dependency for task</a></h3>
 <div class="sect3">
-<h4 id="mss-5"><a class="link" href="#mss-5">D.5.1. MSS</a></h4>
+<h4 id="mss-3"><a class="link" href="#mss-3">D.3.1. MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1947,7 +1840,7 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-5"><a class="link" href="#extensions-5">D.5.2. Extensions</a></h4>
+<h4 id="extensions-3"><a class="link" href="#extensions-3">D.3.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1985,9 +1878,9 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-remove-dependency-for-task"><a class="link" href="#use-case-remove-dependency-for-task">D.6. Use case: Remove dependency for task</a></h3>
+<h3 id="use-case-remove-dependency-for-task"><a class="link" href="#use-case-remove-dependency-for-task">D.4. Use case: Remove dependency for task</a></h3>
 <div class="sect3">
-<h4 id="mss-6"><a class="link" href="#mss-6">D.6.1. MSS</a></h4>
+<h4 id="mss-4"><a class="link" href="#mss-4">D.4.1. MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2003,7 +1896,7 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-6"><a class="link" href="#extensions-6">D.6.2. Extensions</a></h4>
+<h4 id="extensions-4"><a class="link" href="#extensions-4">D.4.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2024,9 +1917,9 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-delete-task"><a class="link" href="#use-case-delete-task">D.7. Use case: Delete task</a></h3>
+<h3 id="use-case-delete-task"><a class="link" href="#use-case-delete-task">D.5. Use case: Delete task</a></h3>
 <div class="sect3">
-<h4 id="mss-7"><a class="link" href="#mss-7">D.7.1. MSS</a></h4>
+<h4 id="mss-5"><a class="link" href="#mss-5">D.5.1. MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2042,7 +1935,7 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-7"><a class="link" href="#extensions-7">D.7.2. Extensions</a></h4>
+<h4 id="extensions-5"><a class="link" href="#extensions-5">D.5.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2080,48 +1973,9 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-viewing-command-history"><a class="link" href="#use-case-viewing-command-history">D.8. Use case: Viewing Command History</a></h3>
+<h3 id="use-case-undoing-last-command"><a class="link" href="#use-case-undoing-last-command">D.6. Use case: Undoing Last Command</a></h3>
 <div class="sect3">
-<h4 id="mss-8"><a class="link" href="#mss-8">D.8.1. MSS</a></h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>User requests to view command history.</p>
-</li>
-<li>
-<p>Application displays command history.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="extensions-8"><a class="link" href="#extensions-8">D.8.2. Extensions</a></h4>
-<div class="ulist">
-<ul>
-<li>
-<p>1a. Command history is empty.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>1a1. Application informs user that there is no command history.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="use-case-undoing-last-command"><a class="link" href="#use-case-undoing-last-command">D.9. Use case: Undoing Last Command</a></h3>
-<div class="sect3">
-<h4 id="mss-9"><a class="link" href="#mss-9">D.9.1. MSS</a></h4>
+<h4 id="mss-6"><a class="link" href="#mss-6">D.6.1. MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2137,7 +1991,7 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-9"><a class="link" href="#extensions-9">D.9.2. Extensions</a></h4>
+<h4 id="extensions-6"><a class="link" href="#extensions-6">D.6.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2158,9 +2012,9 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-redoing-last-command"><a class="link" href="#use-case-redoing-last-command">D.10. Use case: Redoing Last Command</a></h3>
+<h3 id="use-case-redoing-last-command"><a class="link" href="#use-case-redoing-last-command">D.7. Use case: Redoing Last Command</a></h3>
 <div class="sect3">
-<h4 id="mss-10"><a class="link" href="#mss-10">D.10.1. MSS</a></h4>
+<h4 id="mss-7"><a class="link" href="#mss-7">D.7.1. MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2176,7 +2030,7 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-10"><a class="link" href="#extensions-10">D.10.2. Extensions</a></h4>
+<h4 id="extensions-7"><a class="link" href="#extensions-7">D.7.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2197,9 +2051,9 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-completing-task-single"><a class="link" href="#use-case-completing-task-single">D.11. Use case: Completing Task (Single)</a></h3>
+<h3 id="use-case-completing-task-single"><a class="link" href="#use-case-completing-task-single">D.8. Use case: Completing Task (Single)</a></h3>
 <div class="sect3">
-<h4 id="mss-11"><a class="link" href="#mss-11">D.11.1. MSS</a></h4>
+<h4 id="mss-8"><a class="link" href="#mss-8">D.8.1. MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2212,7 +2066,7 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-11"><a class="link" href="#extensions-11">D.11.2. Extensions</a></h4>
+<h4 id="extensions-8"><a class="link" href="#extensions-8">D.8.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2240,9 +2094,9 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-completing-task-batch-via-code-label-code"><a class="link" href="#use-case-completing-task-batch-via-code-label-code">D.12. Use case: Completing Task (Batch via <code>Label</code>)</a></h3>
+<h3 id="use-case-completing-task-batch-via-code-label-code"><a class="link" href="#use-case-completing-task-batch-via-code-label-code">D.9. Use case: Completing Task (Batch via <code>Label</code>)</a></h3>
 <div class="sect3">
-<h4 id="mss-12"><a class="link" href="#mss-12">D.12.1. MSS</a></h4>
+<h4 id="mss-9"><a class="link" href="#mss-9">D.9.1. MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2255,7 +2109,7 @@ non-deterministic</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-12"><a class="link" href="#extensions-12">D.12.2. Extensions</a></h4>
+<h4 id="extensions-9"><a class="link" href="#extensions-9">D.9.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2280,74 +2134,6 @@ pre-completed state and no points are earned.</p>
 </div>
 </li>
 </ul>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="use-case-display-statistics"><a class="link" href="#use-case-display-statistics">D.13. Use case: Display Statistics</a></h3>
-<div class="sect3">
-<h4 id="mss-13"><a class="link" href="#mss-13">D.13.1. MSS</a></h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>User requests for statistics.</p>
-</li>
-<li>
-<p>Application fetches data and displays statistics.</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="extensions-13"><a class="link" href="#extensions-13">D.13.2. Extensions</a></h4>
-<div class="ulist">
-<ul>
-<li>
-<p>2a. There are no statistics.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>2a1. Application displays a flavour text explaining that the user needs to complete a task first to get statistics.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="use-case-failing-to-complete-task"><a class="link" href="#use-case-failing-to-complete-task">D.14. Use case: Failing to complete task</a></h3>
-<div class="sect3">
-<h4 id="mss-14"><a class="link" href="#mss-14">D.14.1. MSS</a></h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>User fails to complete tasks on time</p>
-</li>
-<li>
-<p>Application displays points lost and current current points to user.</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="extensions-14"><a class="link" href="#extensions-14">D.14.2. Extensions</a></h4>
-<div class="ulist">
-<ul>
-<li>
-<p>2a. User loses enough points that it level down.</p>
-</li>
-<li>
-<p>2a1. Application displays a warning message, current points, and points lost to user.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Use case ends.</p>
 </div>
 </div>
 </div>
@@ -2479,4 +2265,4 @@ Expected: The most recent window size and location is retained.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-10 00:19:49 SRET</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-10 19:40:52 SRET</div></div></div></body></html>
