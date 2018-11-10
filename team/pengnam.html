@@ -10,7 +10,8 @@
 <h2 id="overview"><a class="link" href="#overview">Overview</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.</p>
+<p>AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.</p>
 </div>
 </div>
 </div>
@@ -20,24 +21,39 @@
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Major enhancement</strong>: Dependency and Time</p>
+<p><strong>Major enhancement</strong>: Time and completion dependency</p>
 <div class="ulist">
 <ul>
 <li>
-<p>What it does: Users can add dependencies between tasks to ensure that the right tasks are completed in order.
-The UI will display the earliest DueDate among all tasks that a task is dependent on (includes task dependees of task dependees).
-The time of the earliest due date among all its children and grand children is displayed in the UI.</p>
+<p>What it does:
+Users can add dependencies between tasks:
+1) to ensure that the right tasks are completed in order 2)
+the earliest due date among all tasks that are dependent on a given task is displayed for that given task (an effective due date)</p>
 </li>
 <li>
 <p>Justification:
-A useful information to look at when deciding how to prioritise tasks is looking at not just the due date of a task, but
-the earliest due date among all tasks that it depends on.</p>
+Some tasks are have complicated dependencies with other subtasks, and the user might want to ensure that they complete the
+tasks in the right order.
+A useful information to have when deciding how to prioritise tasks is not just to look at the due date of a task but
+also the earliest due date among all tasks that depend on the task.</p>
 </li>
 <li>
-<p>Highlights:
-There were significant design choices that needed to be made to specify dependencies.
-Modelling Time and checks associated with time involved design pattern choices.
-Both are elaborated in the Developer guide.</p>
+<p>Highlights:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>There were significant design choices that needed to be made to specify dependencies given that tasks are immutable. (i.e.
+Assume that there are two tasks, task A and task B, where task A is dependent on task B. If I was to edit task B, taskA
+has to be recreated as the dependencies on task A has to reflect the dependency on the new task B object).</p>
+</li>
+<li>
+<p>Modelling the notion of time and how it is related and associated with time involved design pattern choices.</p>
+</li>
+<li>
+<p>Both are elaborated in the Developer guide.</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -56,6 +72,7 @@ Both are elaborated in the Developer guide.</p>
 <li>
 <p><strong>List of major PRs</strong>:
 <a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/75">Dependency feature</a>
+<a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/130">Dependency toggle</a>
 <a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/144">Flag overdue</a>
 <a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/48">DueDate modelling</a>
 <a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/84">Dependency validity</a></p>
@@ -65,7 +82,71 @@ Both are elaborated in the Developer guide.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Project management:</p>
+<p><strong>Minor Enhancements:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Minor Enhancement 1: Time-based status update</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What it does:
+The Task Manager needs to update the status field accordingly when a task is completed or deleted.</p>
+</li>
+<li>
+<p>Justification:
+The status needs to be accordingly responsive. i.e. If I was to update a task that is IN-PROGRESS to a new due date that
+is before current time, the status of the task needs to be flagged as OVERDUE. If I decide to update an overdue task with
+a new due date that is after current time, the status of the task needs to be adjusted to IN-PROGRESS.</p>
+</li>
+<li>
+<p>Highlights:
+<strong><strong></strong></strong> Appropriate dependencies objects have to be adjusted accordingly after edits/task completion because Tasks are designed
+to be immutable.
+<strong><strong></strong></strong> This check has to be triggered at every command hence a significant design pattern had to be adopted for an elegant
+and clean solution.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Minor Enhancement 2: Topological sort (<code>topoorder</code> command)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What it does:
+User can display a list of tasks in order of their topology</p>
+</li>
+<li>
+<p>Justification:
+Aids the user in prioritising which task to complete.</p>
+</li>
+<li>
+<p>Highlights:
+<a href="https://github.com/CS2103-AY1819S1-F11-3/main/blob/master/src/main/java/seedu/address/model/DependencyGraph.java">Topological sort implementation</a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Bugs found in other team&#8217;s code:</strong>
+Bugs not due to inaccurate documentation are listed here. Some are relatively major and difficult to find.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/CS2103-AY1819S1-W17-4/main/issues/195">Non-unique tasks</a></p>
+</li>
+<li>
+<p><a href="https://github.com/CS2103-AY1819S1-W17-4/main/issues/241#issuecomment-437561699">Files with changed names</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Project Management:</strong></p>
 <div class="ulist">
 <ul>
 <li>
@@ -107,10 +188,11 @@ Both are elaborated in the Developer guide.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Updated the GUI color scheme (Pull requests <a href="https://github.com">#33</a>, <a href="https://github.com">#34</a>)</p>
+<p>Enhanced the GUI by allowing it to display time until completion
+<a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/219">#219</a></p>
 </li>
 <li>
-<p>Did a significant anount of initial refactoring for team:
+<p>Did a significant amount of initial refactoring for the team:
 <a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/41">#41</a>,
 <a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/47">#47</a>,
 <a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/48">#48</a>,
@@ -127,7 +209,7 @@ Both are elaborated in the Developer guide.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Did cosmetic tweaks to existing contents of the Developer Guide: <a href="https://github.com">#14</a></p>
+<p>Did cosmetic tweaks to existing contents of the Developer Guide:</p>
 </li>
 <li>
 <p>Actively maintained the Developer Guide:
@@ -142,17 +224,18 @@ Both are elaborated in the Developer guide.</p>
 <div class="ulist">
 <ul>
 <li>
+<p>Reported bug on module website
+(examples:  <a href="https://github.com/nus-cs2103-AY1819S1/cs2103-website/issues/3">#3</a>,
+<a href="https://github.com/nus-cs2103-AY1819S1/cs2103-website/issues/2">#2</a>)</p>
+</li>
+<li>
 <p>PRs reviewed (with non-trivial review comments):
 <a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/76">#76 (Batch complete command)</a>,
 <a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/95">#95 (list filter)</a>,
 <a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/154">#154 (list filter)</a>,
 <a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/67">#67 (Complete command)</a>
-<a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/213">#213 (Tests for achievements)</a></p>
-</li>
-<li>
-<p>Reported bug on module website
-(examples:  <a href="https://github.com/nus-cs2103-AY1819S1/cs2103-website/issues/3">#3</a>,
-<a href="https://github.com/nus-cs2103-AY1819S1/cs2103-website/issues/2">#2</a>)</p>
+<a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/213">#213 (Tests for achievements)</a>
+<a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/241">#241 (Task UI)</a></p>
 </li>
 </ul>
 </div>
@@ -190,7 +273,7 @@ Both are elaborated in the Developer guide.</p>
 <div class="sect3">
 <h4 id="adding-removing-a-dependency-to-a-task-code-dependency-code"><a class="link" href="#adding-removing-a-dependency-to-a-task-code-dependency-code">Adding/Removing a dependency to a Task: <code>dependency</code></a></h4>
 <div class="paragraph">
-<p>Adds/removes a dependency of a task dependant to the task dependee (toggling task dependency)<br>
+<p>Adds/removes a dependency of a task dependant to the task dependee. The dependency is added if it already exists, or removed if it does not.<br>
 Format:<br>
 <code>dependency INDEX_DEPENDANT INDEX_DEPENDEE</code></p>
 </div>
@@ -207,7 +290,62 @@ Format:<br>
 <div class="sect3">
 <h4 id="listing-tasks-by-topological-order-code-topoorder-code"><a class="link" href="#listing-tasks-by-topological-order-code-topoorder-code">Listing Tasks by topological order: <code>topoorder</code></a></h4>
 <div class="paragraph">
-<p>Shows a list of uncompleted tasks by their topological order. (In the CLI window).</p>
+<p>Shows a list of uncompleted tasks by their topological order in the CLI window.</p>
+</div>
+<div class="paragraph">
+<p>It defines a possible valid sequence of tasks to tackle given existing task dependency
+ constraints.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>topoorder</code></p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Topological order is a linear ordering of vertices such that for every vertex u to vertex v,
+u comes before v in the ordering. (Source: <a href="https://en.wikipedia.org/wiki/Topological_sorting">wikipedia</a>)</p>
+</div>
+<div class="paragraph">
+<p>In the context of our application, it is a linear ordering of <code>Task</code> s such that if <code>Task</code> A is dependent to <code>Task</code> B,
+B comes before A in the ordering.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="imageblock">
+<div class="content">
+<img src="../images/TopologicalOrdering.png" alt="TopologicalOrdering" width="300">
+</div>
+</div>
+<div class="paragraph">
+<p><em>Diagram of a possible dependency graph</em></p>
+</div>
+<div class="paragraph">
+<p>A topological order of this graph is: [A, B, C]</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect3">
@@ -270,13 +408,38 @@ due date or tasks with the same name and priority value.
 </tr>
 </tbody>
 </table>
+<div class="sect4">
+<h5 id="command-component"><a class="link" href="#command-component">Command Component</a></h5>
+<div class="paragraph">
+<p>Command is refactored to be implemented using a <a href="https://en.wikipedia.org/wiki/Template_method_pattern">template method pattern</a>.
+ The rationale is that there are shared codes and invariants among all the executions of the command classes such as the
+ method to update the status of tasks to overdue if their due date is past current time.</p>
+</div>
+<div class="paragraph">
+<p>The common patterns in execution are implemented in the <code>execute</code> function of the command class which is declared final.
+Concrete implementations of each execute function is implemented in the <code>executePrimitive</code> function of each subclass of command.
+The implementation for executePrimitive fill the "variant" portion of the model template. Note that execute primitive is implemented as a
+abstract method in command.</p>
+</div>
+<div class="paragraph">
+<p>Simplified class diagram for the command component:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/CommandComponentClassDiagram.png" alt="CommandComponentClassDiagram" width="1200">
+</div>
+</div>
+</div>
 <div class="sect2">
 <h3 id="dependency-feature-modelling"><a class="link" href="#dependency-feature-modelling">Dependency Feature Modelling</a></h3>
 <div class="sect3">
 <h4 id="current-implementation"><a class="link" href="#current-implementation">Current Implementation</a></h4>
 <div class="paragraph">
-<p>The dependency mechanism is facilitated by an embedded dependency object. This object internally represents dependency with
+<p>The dependency mechanism is facilitated by an embedded <code>Dependencies</code> object. This object internally represents dependencies with
 a hashset that contains the hashcode of the object that the task is dependent upon.</p>
+</div>
+<div class="paragraph">
+<p>Sequence Diagram of the dependencies command</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -291,34 +454,56 @@ a hashset that contains the hashcode of the object that the task is dependent up
 <div class="ulist">
 <ul>
 <li>
-<p><strong> Alternative 1(current choice):</strong> Add a new string of the hashcode into the hashset.</p>
+<p><strong> Alternative 1(current choice):</strong> Dependencies specified by unique hashcodes of tasks</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Simple to implement. There is no task creation propogation when task dependency is added. (refer to alternative 2).
-Easy to reform the dependency graph.</p>
+<p>Pros:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Simple to implement.</p>
 </li>
 <li>
-<p>Cons: Some functions such as UI display might require a details of the dependee task. Additional complexity incurred when
+<p>There is no task creation propogation when task dependency is added. (refer to alternative 2).</p>
+</li>
+<li>
+<p>Easy to reform the dependency graph.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Cons: Some functions such as UI display might require details of the dependee task. Additional complexity incurred when
 finding details of the dependee task given its hashcode.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong> Alternative 2: </strong>Add (a reference to) the dependant Task object into the hashset.</p>
+<p><strong> Alternative 2: </strong>Dependencies specified by (references to) the Tasks objects themselves</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: It allows an easy reference to the task object. Allows creation of a real-time dependency graph, which is referenced
+<p>Pros:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>It allows an easy reference to the task object.</p>
+</li>
+<li>
+<p>Allows for the implementation of a real-time dependency graph, which is referenced
 to rather than recreated every time a topological sort or a cyclical check is needed.</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p>Cons: Introduces unnecessary complications.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>When saving to storage, the hashcodes needs to be retrieved. But when retrieving from storage, the parser needs to first load the dependencies
+<p>[Assumption: <strong>In storage</strong>, Task dependencies are specified by hashcodes of task] When retrieving data from storage, the parser needs to first load the dependencies
 as a set of hashcodes, and can only perform the tasks reference once all tasks are instantiated from storage.</p>
 </li>
 <li>
@@ -360,7 +545,7 @@ so useful functions can be implemented such as cyclic and topological sort.</p>
 <p>Pros: Graph does not have to be updated or maintained.</p>
 </li>
 <li>
-<p>Cons: Slight increase in latency, but mitigated by the fact that it is likely that a typical user won&#8217;t
+<p>Cons: Slight increase in latency, but mitigated by the fact that a typical user won&#8217;t
 have an extremely large amount of tasks.</p>
 </li>
 </ul>
@@ -374,7 +559,8 @@ have an extremely large amount of tasks.</p>
 <p>Pros: Slightly faster speed for dependency related commands.</p>
 </li>
 <li>
-<p>Cons: Upkeep of graph is slightly more complex to implement, only for a slightly shorter run-time</p>
+<p>Cons: Upkeep of graph is slightly complex to implement especially with the immutable nature of the Tasks with the only
+benefit being a slightly shorter run-time</p>
 </li>
 </ul>
 </div>
@@ -383,7 +569,7 @@ have an extremely large amount of tasks.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="aspect-task-dependency-modelled-as-a-graph"><a class="link" href="#aspect-task-dependency-modelled-as-a-graph">Aspect: Task dependency modelled as a graph</a></h5>
+<h5 id="aspect-task-dependencies-modelled-with-a-graph"><a class="link" href="#aspect-task-dependencies-modelled-with-a-graph">Aspect: Task dependencies modelled with a graph</a></h5>
 <div class="ulist">
 <ul>
 <li>
@@ -391,10 +577,19 @@ have an extremely large amount of tasks.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: With a graph, major problems with task dependency can be identified. The most major problem is
+<p>Pros:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>With a graph, major problems with task dependency can be identified. The biggest problem is
 cyclic dependency, which is when a set of tasks have a dependency to each other and hence they cannot be completed because they
-depend on each other.
-A topological sort can also be performed on the graph to order tasks by the number of dependencies.</p>
+depend on each other.</p>
+</li>
+<li>
+<p>A topological sort can also be performed on the graph to order tasks by the number of dependencies.</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p>Cons: nil</p>
@@ -408,4 +603,4 @@ A topological sort can also be performed on the graph to order tasks by the numb
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-10 23:31:11 SRET</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-11 00:23:04 SRET</div></div></div></body></html>

@@ -11,13 +11,13 @@
 </ul>
 </li>
 <li><a href="#design">3. Design</a>
-<ul class="sectlevel2">
-<li><a href="#undo-redo-feature">3.1. Undo/Redo feature</a></li>
+<ul class="sectlevel4">
+<li><a href="#command-component">Command Component</a></li>
 </ul>
 </li>
 <li><a href="#implementation">4. Implementation</a>
 <ul class="sectlevel2">
-<li><a href="#achievement-mechanism">4.1. Achievement mechanism</a></li>
+<li><a href="#undo-redo-feature">4.1. Undo/Redo feature</a></li>
 <li><a href="#batch-completion-via-label-feature">4.2. Batch Completion via Label feature</a></li>
 <li><a href="#model-rollback-feature">4.3. Model Rollback feature</a></li>
 <li><a href="#dependency-feature-modelling">4.4. Dependency Feature Modelling</a></li>
@@ -176,7 +176,7 @@ This will generate all resources required by the application and tests.</p>
 <p>Click on the Imports tab to set the order</p>
 </div>
 <div class="paragraph">
-<p>For Class count to use import with '<strong>' and Names count to use static import with '</strong>': Set to 999 to prevent IntelliJ from contracting the import statements</p>
+<p>For Class count to use import with '*' and Names count to use static import with '*': Set to 999 to prevent IntelliJ from contracting the import statements</p>
 </div>
 <div class="paragraph">
 <p>For Import Layout: The order is import static all other imports, import java.<strong>, import javax.</strong>, import org.<strong>, import com.</strong>, import all other imports. Add a &lt;blank line&gt; between each import</p>
@@ -234,10 +234,40 @@ Optionally, you can set up AppVeyor as a second CI (see UsingAppVeyor.adoc).</p>
 <div class="sect1">
 <h2 id="design"><a class="link" href="#design">3. Design</a></h2>
 <div class="sectionbody">
+<div class="sect4">
+<h5 id="command-component"><a class="link" href="#command-component">Command Component</a></h5>
+<div class="paragraph">
+<p>Command is refactored to be implemented using a <a href="https://en.wikipedia.org/wiki/Template_method_pattern">template method pattern</a>.
+ The rationale is that there are shared codes and invariants among all the executions of the command classes such as the
+ method to update the status of tasks to overdue if their due date is past current time.</p>
+</div>
+<div class="paragraph">
+<p>The common patterns in execution are implemented in the <code>execute</code> function of the command class which is declared final.
+Concrete implementations of each execute function is implemented in the <code>executePrimitive</code> function of each subclass of command.
+The implementation for executePrimitive fill the "variant" portion of the model template. Note that execute primitive is implemented as a
+abstract method in command.</p>
+</div>
+<div class="paragraph">
+<p>Simplified class diagram for the command component:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/CommandComponentClassDiagram.png" alt="CommandComponentClassDiagram" width="1200">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="implementation"><a class="link" href="#implementation">4. Implementation</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section describes some noteworthy details on how certain features are implemented.</p>
+</div>
 <div class="sect2">
-<h3 id="undo-redo-feature"><a class="link" href="#undo-redo-feature">3.1. Undo/Redo feature</a></h3>
+<h3 id="undo-redo-feature"><a class="link" href="#undo-redo-feature">4.1. Undo/Redo feature</a></h3>
 <div class="sect3">
-<h4 id="current-implementation"><a class="link" href="#current-implementation">3.1.1. Current Implementation</a></h4>
+<h4 id="current-implementation"><a class="link" href="#current-implementation">4.1.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The undo/redo mechanism is facilitated by <code>VersionedAddressBook</code>.
 It extends <code>AddressBook</code> with an undo/redo history, stored internally as an <code>addressBookStateList</code> and <code>currentStatePointer</code>.
@@ -367,7 +397,7 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations"><a class="link" href="#design-considerations">3.1.2. Design Considerations</a></h4>
+<h4 id="design-considerations"><a class="link" href="#design-considerations">4.1.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-undo-redo-executes"><a class="link" href="#aspect-how-undo-redo-executes">Aspect: How undo &amp; redo executes</a></h5>
 <div class="ulist">
@@ -427,42 +457,17 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </li>
 <li>
 <p>Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as <code>HistoryManager</code> now needs to do two different things.
-=== Command Component
-Command was implemented using a template model pattern. The reason for this implementation is because there is shared codes
-and invariants among all the execution of the command classes (i.e. there is a call if tasks are overdue at every call to execute).
-The common patterns in execution are implemented in the <code>execute</code> function of the command class which is declared final.
-Concrete implementations of each execute function is implemented in the <code>executePrimitive</code> function of each subclass of command.
-The implementation for executePrimitive fill the "variant" portion of the model template. Note that execute primitive is implemented as a
-abstract method in command.</p>
+=== Achievement mechanism</p>
 </li>
 </ul>
 </div>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>Simplified class diagram for the command component:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/CommandComponentClassDiagram.png" alt="CommandComponentClassDiagram" width="1200">
 </div>
 </div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="implementation"><a class="link" href="#implementation">4. Implementation</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This section describes some noteworthy details on how certain features are implemented.</p>
-</div>
-<div class="sect2">
-<h3 id="achievement-mechanism"><a class="link" href="#achievement-mechanism">4.1. Achievement mechanism</a></h3>
 <div class="sect3">
-<h4 id="structural-overview"><a class="link" href="#structural-overview">4.1.1. Structural Overview</a></h4>
+<h4 id="structural-overview"><a class="link" href="#structural-overview">4.1.3. Structural Overview</a></h4>
 <div class="paragraph">
 <p>The achievement mechanism is facilitated by <code>AchievementRecord</code>. TaskManager is now composed of a <code>UniqueTaskList</code> as
 well as an <code>AchievementRecord</code>.<br>
@@ -489,7 +494,7 @@ Integration of AchievementRecord in Model component:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="basic-mechanism"><a class="link" href="#basic-mechanism">4.1.2. Basic Mechanism</a></h4>
+<h4 id="basic-mechanism"><a class="link" href="#basic-mechanism">4.1.4. Basic Mechanism</a></h4>
 <div class="paragraph">
 <p>An <code>updateTaskStatus</code> method is implemented in <code>ModelManager</code> and exposed in the <code>Model</code> interface, this method is
 called in the execution of complete command. Upon completion of a task, the status of task is updated to COMPLETED,
@@ -527,7 +532,7 @@ the set of achievement information as specified by user&#8217;s command.<br></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="event-driven-interaction-with-other-components"><a class="link" href="#event-driven-interaction-with-other-components">4.1.3. Event-driven Interaction with other components</a></h4>
+<h4 id="event-driven-interaction-with-other-components"><a class="link" href="#event-driven-interaction-with-other-components">4.1.5. Event-driven Interaction with other components</a></h4>
 <div class="paragraph">
 <p>The achievement mechanism follows the event-driven interaction of model component with Storage and UI components.
 When a task is marked as complete, both the <code>UniqueTaskList</code> and the <code>AchievementRecord</code> of the task manager is updated
@@ -540,7 +545,7 @@ the <code>AchievementRecord</code> is update(on task completion or change of dis
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">4.1.4. Design Considerations</a></h4>
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">4.1.6. Design Considerations</a></h4>
 <div class="paragraph">
 <p>Aspect: Associations Among <code>TaskManager</code>,<code>UniqueTaskList</code> and <code>AchievementRecord</code><br></p>
 </div>
@@ -924,8 +929,11 @@ commit in <code>taskManagerStateList</code>.</p>
 <div class="sect3">
 <h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">4.4.1. Current Implementation</a></h4>
 <div class="paragraph">
-<p>The dependency mechanism is facilitated by an embedded dependency object. This object internally represents dependency with
+<p>The dependency mechanism is facilitated by an embedded <code>Dependencies</code> object. This object internally represents dependencies with
 a hashset that contains the hashcode of the object that the task is dependent upon.</p>
+</div>
+<div class="paragraph">
+<p>Sequence Diagram of the dependencies command</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -940,34 +948,56 @@ a hashset that contains the hashcode of the object that the task is dependent up
 <div class="ulist">
 <ul>
 <li>
-<p><strong> Alternative 1(current choice):</strong> Add a new string of the hashcode into the hashset.</p>
+<p><strong> Alternative 1(current choice):</strong> Dependencies specified by unique hashcodes of tasks</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Simple to implement. There is no task creation propogation when task dependency is added. (refer to alternative 2).
-Easy to reform the dependency graph.</p>
+<p>Pros:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Simple to implement.</p>
 </li>
 <li>
-<p>Cons: Some functions such as UI display might require a details of the dependee task. Additional complexity incurred when
+<p>There is no task creation propogation when task dependency is added. (refer to alternative 2).</p>
+</li>
+<li>
+<p>Easy to reform the dependency graph.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Cons: Some functions such as UI display might require details of the dependee task. Additional complexity incurred when
 finding details of the dependee task given its hashcode.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong> Alternative 2: </strong>Add (a reference to) the dependant Task object into the hashset.</p>
+<p><strong> Alternative 2: </strong>Dependencies specified by (references to) the Tasks objects themselves</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: It allows an easy reference to the task object. Allows creation of a real-time dependency graph, which is referenced
+<p>Pros:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>It allows an easy reference to the task object.</p>
+</li>
+<li>
+<p>Allows for the implementation of a real-time dependency graph, which is referenced
 to rather than recreated every time a topological sort or a cyclical check is needed.</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p>Cons: Introduces unnecessary complications.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>When saving to storage, the hashcodes needs to be retrieved. But when retrieving from storage, the parser needs to first load the dependencies
+<p>[Assumption: <strong>In storage</strong>, Task dependencies are specified by hashcodes of task] When retrieving data from storage, the parser needs to first load the dependencies
 as a set of hashcodes, and can only perform the tasks reference once all tasks are instantiated from storage.</p>
 </li>
 <li>
@@ -1009,7 +1039,7 @@ so useful functions can be implemented such as cyclic and topological sort.</p>
 <p>Pros: Graph does not have to be updated or maintained.</p>
 </li>
 <li>
-<p>Cons: Slight increase in latency, but mitigated by the fact that it is likely that a typical user won&#8217;t
+<p>Cons: Slight increase in latency, but mitigated by the fact that a typical user won&#8217;t
 have an extremely large amount of tasks.</p>
 </li>
 </ul>
@@ -1023,7 +1053,8 @@ have an extremely large amount of tasks.</p>
 <p>Pros: Slightly faster speed for dependency related commands.</p>
 </li>
 <li>
-<p>Cons: Upkeep of graph is slightly more complex to implement, only for a slightly shorter run-time</p>
+<p>Cons: Upkeep of graph is slightly complex to implement especially with the immutable nature of the Tasks with the only
+benefit being a slightly shorter run-time</p>
 </li>
 </ul>
 </div>
@@ -1032,7 +1063,7 @@ have an extremely large amount of tasks.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="aspect-task-dependency-modelled-as-a-graph"><a class="link" href="#aspect-task-dependency-modelled-as-a-graph">Aspect: Task dependency modelled as a graph</a></h5>
+<h5 id="aspect-task-dependencies-modelled-with-a-graph"><a class="link" href="#aspect-task-dependencies-modelled-with-a-graph">Aspect: Task dependencies modelled with a graph</a></h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1040,10 +1071,19 @@ have an extremely large amount of tasks.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: With a graph, major problems with task dependency can be identified. The most major problem is
+<p>Pros:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>With a graph, major problems with task dependency can be identified. The biggest problem is
 cyclic dependency, which is when a set of tasks have a dependency to each other and hence they cannot be completed because they
-depend on each other.
-A topological sort can also be performed on the graph to order tasks by the number of dependencies.</p>
+depend on each other.</p>
+</li>
+<li>
+<p>A topological sort can also be performed on the graph to order tasks by the number of dependencies.</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p>Cons: nil</p>
@@ -2265,4 +2305,4 @@ Expected: The most recent window size and location is retained.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-10 23:31:11 SRET</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-11 00:23:04 SRET</div></div></div></body></html>
