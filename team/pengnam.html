@@ -20,33 +20,27 @@
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Major enhancement 1</strong>: added functionality to edit, track dependencies in the task manager.</p>
+<p><strong>Major enhancement</strong>: Dependency and Time</p>
 <div class="ulist">
 <ul>
 <li>
-<p>What it does: Users can add dependencies between tasks to ensure that the right tasks are completed in order. Users can order tasks by their dependencies.</p>
+<p>What it does: Users can add dependencies between tasks to ensure that the right tasks are completed in order.
+The UI will display the earliest DueDate among all tasks that a task is dependent on (includes task dependees of task dependees).
+The time of the earliest due date among all its children and grand children is displayed in the UI.</p>
 </li>
 <li>
-<p>Justification: This feature improves the product significantly because a user can better priorities</p>
+<p>Justification:
+A useful information to look at when deciding how to prioritise tasks is looking at not just the due date of a task, but
+the earliest due date among all tasks that it depends on.</p>
 </li>
 <li>
-<p>Highlights: There were significant design choices that needed to be made to specify dependencies (elaborated in Developer Guide).</p>
+<p>Highlights:
+There were significant design choices that needed to be made to specify dependencies.
+Modelling Time and checks associated with time involved design pattern choices.
+Both are elaborated in the Developer guide.</p>
 </li>
 </ul>
 </div>
-</li>
-<li>
-<p><strong>Major enhancement 2</strong>: added time based features in task manager</p>
-<div class="ulist">
-<ul>
-<li>
-<p>What it does: Users can track in real-time what features are completed and what are not completed based on the</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Minor enhancement</strong>: added a history command that allows the user to navigate to previous commands using up/down keys.</p>
 </li>
 <li>
 <p><strong>Code contributed</strong>:</p>
@@ -59,6 +53,13 @@
 </div>
 <div class="ulist">
 <ul>
+<li>
+<p><strong>List of major PRs</strong>:
+<a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/75">Dependency feature</a>
+<a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/144">Flag overdue</a>
+<a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/48">DueDate modelling</a>
+<a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/84">Dependency validity</a></p>
+</li>
 <li>
 <p><strong>Other contributions</strong>:</p>
 <div class="ulist">
@@ -109,7 +110,14 @@
 <p>Updated the GUI color scheme (Pull requests <a href="https://github.com">#33</a>, <a href="https://github.com">#34</a>)</p>
 </li>
 <li>
-<p>Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests <a href="https://github.com">#36</a>, <a href="https://github.com">#38</a>)</p>
+<p>Did a significant anount of initial refactoring for team:
+<a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/41">#41</a>,
+<a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/47">#47</a>,
+<a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/48">#48</a>,
+<a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/50">#50</a>,
+<a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/51">#51</a>,
+<a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/54">#54</a>,
+<a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/66">#66</a>,</p>
 </li>
 </ul>
 </div>
@@ -119,7 +127,12 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Did cosmetic tweaks to existing contents of the User Guide: <a href="https://github.com">#14</a></p>
+<p>Did cosmetic tweaks to existing contents of the Developer Guide: <a href="https://github.com">#14</a></p>
+</li>
+<li>
+<p>Actively maintained the Developer Guide:
+<a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/171">#171</a>
+<a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/216">#216</a></p>
 </li>
 </ul>
 </div>
@@ -133,7 +146,8 @@
 <a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/76">#76 (Batch complete command)</a>,
 <a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/95">#95 (list filter)</a>,
 <a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/154">#154 (list filter)</a>,
-<a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/67">#67 (Complete command)</a></p>
+<a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/67">#67 (Complete command)</a>
+<a href="https://github.com/CS2103-AY1819S1-F11-3/main/pull/213">#213 (Tests for achievements)</a></p>
 </li>
 <li>
 <p>Reported bug on module website
@@ -206,7 +220,7 @@ Format:</p>
 <p><code>add n/TASK_NAME t/DUE_DATE p/PRIORITY_VALUE [d/detailed description] [l/LABEL]</code></p>
 </div>
 <div class="paragraph">
-<p>Date Format: <code>dd-MM-yy</code> or <code>dd-MM-yy HHmm</code>. A missing <code>HHmm</code> field will cause time to
+<p>Date Format: <code>dd-MM-yy</code> or <code>dd-MM-yy HHmm</code> or <code>dd-MM-yyyy</code> or <code>dd-MM-yyyy HHmm</code>. A missing <code>HHmm</code> field will cause time to
 be interpreted as the start of the day, i.e <code>00:00</code>.</p>
 </div>
 <div class="paragraph">
@@ -394,4 +408,4 @@ A topological sort can also be performed on the graph to order tasks by the numb
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-10 19:40:53 SRET</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-10 21:02:50 SRET</div></div></div></body></html>
