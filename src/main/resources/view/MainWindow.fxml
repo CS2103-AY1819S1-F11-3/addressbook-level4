@@ -55,8 +55,11 @@
             <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
-          <VBox minWidth="400">
-            <StackPane fx:id="taskViewPlaceholder" minHeight="300" prefHeight="300" maxHeight="300">
+          <VBox minWidth="600">
+            <StackPane fx:id="taskViewPlaceholder" minHeight="400" prefHeight="400" maxHeight="500">
+              <padding>
+                <Insets top="150"/>
+              </padding>
             </StackPane>
             <GridPane fx:id="achievementPlaceholder" prefWidth="340" minHeight="100" prefHeight="100">
               <padding>
