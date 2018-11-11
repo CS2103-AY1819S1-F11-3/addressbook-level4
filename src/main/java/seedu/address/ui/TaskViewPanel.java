@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import static seedu.address.ui.TaskCard.truncateLabelName;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -79,7 +80,7 @@ public class TaskViewPanel extends UiPart<Region> {
             tags.getChildren().setAll(task
                     .getLabels()
                     .stream()
-                    .map(t -> new Label(t.labelName))
+                    .map(t -> new Label(truncateLabelName(t.labelName)))
                     .collect(Collectors.toList()));
         }
     }
