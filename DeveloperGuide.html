@@ -63,14 +63,15 @@
 <li><a href="#use-cases">Appendix D: Use cases</a>
 <ul class="sectlevel2">
 <li><a href="#use-case-list-task">D.1. Use case: List Task</a></li>
-<li><a href="#use-case-add-task">D.2. Use case: Add task</a></li>
-<li><a href="#use-case-add-dependency-for-task">D.3. Use case: Add dependency for task</a></li>
-<li><a href="#use-case-remove-dependency-for-task">D.4. Use case: Remove dependency for task</a></li>
-<li><a href="#use-case-delete-task">D.5. Use case: Delete task</a></li>
-<li><a href="#use-case-undoing-last-command">D.6. Use case: Undoing Last Command</a></li>
-<li><a href="#use-case-redoing-last-command">D.7. Use case: Redoing Last Command</a></li>
-<li><a href="#use-case-completing-task-single">D.8. Use case: Completing Task (Single)</a></li>
-<li><a href="#use-case-completing-task-batch-via-code-label-code">D.9. Use case: Completing Task (Batch via <code>Label</code>)</a></li>
+<li><a href="#use-case-viewing-command-history">D.2. Use case: Viewing Command History</a></li>
+<li><a href="#use-case-add-task">D.3. Use case: Add task</a></li>
+<li><a href="#use-case-add-dependency-for-task">D.4. Use case: Add dependency for task</a></li>
+<li><a href="#use-case-remove-dependency-for-task">D.5. Use case: Remove dependency for task</a></li>
+<li><a href="#use-case-delete-task">D.6. Use case: Delete task</a></li>
+<li><a href="#use-case-undoing-last-command">D.7. Use case: Undoing Last Command</a></li>
+<li><a href="#use-case-redoing-last-command">D.8. Use case: Redoing Last Command</a></li>
+<li><a href="#use-case-completing-task-single">D.9. Use case: Completing Task (Single)</a></li>
+<li><a href="#use-case-completing-task-batch-via-code-label-code">D.10. Use case: Completing Task (Batch via <code>Label</code>)</a></li>
 </ul>
 </li>
 <li><a href="#non-functional-requirements">Appendix E: Non-functional requirements</a></li>
@@ -1810,9 +1811,42 @@ my progress and evaluate how I am doing.</p></td>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-add-task"><a class="link" href="#use-case-add-task">D.2. Use case: Add task</a></h3>
+<h3 id="use-case-viewing-command-history"><a class="link" href="#use-case-viewing-command-history">D.2. Use case: Viewing Command History</a></h3>
 <div class="sect3">
 <h4 id="mss-2"><a class="link" href="#mss-2">D.2.1. MSS</a></h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User requests to view command history.</p>
+</li>
+<li>
+<p>Application displays command history.
+ Use case ends.
+==== Extensions</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1a. Command history is empty.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1a1. Application informs user that there is no command history.
+Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="use-case-add-task"><a class="link" href="#use-case-add-task">D.3. Use case: Add task</a></h3>
+<div class="sect3">
+<h4 id="mss-3"><a class="link" href="#mss-3">D.3.1. MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1828,7 +1862,7 @@ my progress and evaluate how I am doing.</p></td>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-2"><a class="link" href="#extensions-2">D.2.2. Extensions</a></h4>
+<h4 id="extensions-2"><a class="link" href="#extensions-2">D.3.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1866,9 +1900,9 @@ my progress and evaluate how I am doing.</p></td>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-add-dependency-for-task"><a class="link" href="#use-case-add-dependency-for-task">D.3. Use case: Add dependency for task</a></h3>
+<h3 id="use-case-add-dependency-for-task"><a class="link" href="#use-case-add-dependency-for-task">D.4. Use case: Add dependency for task</a></h3>
 <div class="sect3">
-<h4 id="mss-3"><a class="link" href="#mss-3">D.3.1. MSS</a></h4>
+<h4 id="mss-4"><a class="link" href="#mss-4">D.4.1. MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1884,7 +1918,7 @@ my progress and evaluate how I am doing.</p></td>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-3"><a class="link" href="#extensions-3">D.3.2. Extensions</a></h4>
+<h4 id="extensions-3"><a class="link" href="#extensions-3">D.4.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1922,9 +1956,9 @@ my progress and evaluate how I am doing.</p></td>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-remove-dependency-for-task"><a class="link" href="#use-case-remove-dependency-for-task">D.4. Use case: Remove dependency for task</a></h3>
+<h3 id="use-case-remove-dependency-for-task"><a class="link" href="#use-case-remove-dependency-for-task">D.5. Use case: Remove dependency for task</a></h3>
 <div class="sect3">
-<h4 id="mss-4"><a class="link" href="#mss-4">D.4.1. MSS</a></h4>
+<h4 id="mss-5"><a class="link" href="#mss-5">D.5.1. MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1940,7 +1974,7 @@ my progress and evaluate how I am doing.</p></td>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-4"><a class="link" href="#extensions-4">D.4.2. Extensions</a></h4>
+<h4 id="extensions-4"><a class="link" href="#extensions-4">D.5.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1961,9 +1995,9 @@ my progress and evaluate how I am doing.</p></td>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-delete-task"><a class="link" href="#use-case-delete-task">D.5. Use case: Delete task</a></h3>
+<h3 id="use-case-delete-task"><a class="link" href="#use-case-delete-task">D.6. Use case: Delete task</a></h3>
 <div class="sect3">
-<h4 id="mss-5"><a class="link" href="#mss-5">D.5.1. MSS</a></h4>
+<h4 id="mss-6"><a class="link" href="#mss-6">D.6.1. MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1979,7 +2013,7 @@ my progress and evaluate how I am doing.</p></td>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-5"><a class="link" href="#extensions-5">D.5.2. Extensions</a></h4>
+<h4 id="extensions-5"><a class="link" href="#extensions-5">D.6.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2017,9 +2051,9 @@ my progress and evaluate how I am doing.</p></td>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-undoing-last-command"><a class="link" href="#use-case-undoing-last-command">D.6. Use case: Undoing Last Command</a></h3>
+<h3 id="use-case-undoing-last-command"><a class="link" href="#use-case-undoing-last-command">D.7. Use case: Undoing Last Command</a></h3>
 <div class="sect3">
-<h4 id="mss-6"><a class="link" href="#mss-6">D.6.1. MSS</a></h4>
+<h4 id="mss-7"><a class="link" href="#mss-7">D.7.1. MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2035,7 +2069,7 @@ my progress and evaluate how I am doing.</p></td>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-6"><a class="link" href="#extensions-6">D.6.2. Extensions</a></h4>
+<h4 id="extensions-6"><a class="link" href="#extensions-6">D.7.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2056,9 +2090,9 @@ my progress and evaluate how I am doing.</p></td>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-redoing-last-command"><a class="link" href="#use-case-redoing-last-command">D.7. Use case: Redoing Last Command</a></h3>
+<h3 id="use-case-redoing-last-command"><a class="link" href="#use-case-redoing-last-command">D.8. Use case: Redoing Last Command</a></h3>
 <div class="sect3">
-<h4 id="mss-7"><a class="link" href="#mss-7">D.7.1. MSS</a></h4>
+<h4 id="mss-8"><a class="link" href="#mss-8">D.8.1. MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2074,7 +2108,7 @@ my progress and evaluate how I am doing.</p></td>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-7"><a class="link" href="#extensions-7">D.7.2. Extensions</a></h4>
+<h4 id="extensions-7"><a class="link" href="#extensions-7">D.8.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2095,9 +2129,9 @@ my progress and evaluate how I am doing.</p></td>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-completing-task-single"><a class="link" href="#use-case-completing-task-single">D.8. Use case: Completing Task (Single)</a></h3>
+<h3 id="use-case-completing-task-single"><a class="link" href="#use-case-completing-task-single">D.9. Use case: Completing Task (Single)</a></h3>
 <div class="sect3">
-<h4 id="mss-8"><a class="link" href="#mss-8">D.8.1. MSS</a></h4>
+<h4 id="mss-9"><a class="link" href="#mss-9">D.9.1. MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2110,7 +2144,7 @@ my progress and evaluate how I am doing.</p></td>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-8"><a class="link" href="#extensions-8">D.8.2. Extensions</a></h4>
+<h4 id="extensions-8"><a class="link" href="#extensions-8">D.9.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2138,9 +2172,9 @@ my progress and evaluate how I am doing.</p></td>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-completing-task-batch-via-code-label-code"><a class="link" href="#use-case-completing-task-batch-via-code-label-code">D.9. Use case: Completing Task (Batch via <code>Label</code>)</a></h3>
+<h3 id="use-case-completing-task-batch-via-code-label-code"><a class="link" href="#use-case-completing-task-batch-via-code-label-code">D.10. Use case: Completing Task (Batch via <code>Label</code>)</a></h3>
 <div class="sect3">
-<h4 id="mss-9"><a class="link" href="#mss-9">D.9.1. MSS</a></h4>
+<h4 id="mss-10"><a class="link" href="#mss-10">D.10.1. MSS</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2153,7 +2187,7 @@ my progress and evaluate how I am doing.</p></td>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-9"><a class="link" href="#extensions-9">D.9.2. Extensions</a></h4>
+<h4 id="extensions-9"><a class="link" href="#extensions-9">D.10.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2309,4 +2343,4 @@ Expected: The most recent window size and location is retained.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-11 18:25:59 SRET</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-11 18:26:37 SRET</div></div></div></body></html>
