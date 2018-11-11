@@ -86,21 +86,6 @@ public class TaskViewPanel extends UiPart<Region> {
         }
     }
 
-    /**
-     * Clears the display on the TaskView to show blank entries for Task information.
-     */
-    private void clearDisplay() {
-        name.setText("");
-        dueDate.setText("");
-        remainingTime.setText("");
-        earliestTimeOfChildren.setText("");
-        description.setText("");
-        priorityValue.setText("");
-        status.setText("");
-        dependencies.setText("");
-        tags.getChildren().clear();
-    }
-
     private String getDependencies(Task task) {
         ObservableList<Task> tasks = logic.getFilteredTaskList();
         List<String> names = task
@@ -153,7 +138,6 @@ public class TaskViewPanel extends UiPart<Region> {
 
     @Subscribe
     public void handleTaskManagerChangedEvent(TaskManagerChangedEvent tmce) {
-        clearDisplay();
         try {
             earliestTimeOfChildren.setText(tmce.data.getEarliestDependentTimeForNode(this.displayedTask.get()).value);
         } catch (Exception e) {
