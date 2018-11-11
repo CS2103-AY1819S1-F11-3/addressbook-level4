@@ -13,6 +13,12 @@
 <li><a href="#design">3. Design</a>
 <ul class="sectlevel4">
 <li><a href="#command-component">Command Component</a></li>
+<li><a href="#Design-Architecture">3.2. Architecture</a></li>
+<li><a href="#Design-Ui">3.3. UI component</a></li>
+<li><a href="#Design-Logic">3.4. Logic component</a></li>
+<li><a href="#Design-Model">3.5. Model component</a></li>
+<li><a href="#Design-Storage">3.6. Storage component</a></li>
+<li><a href="#Design-Commons">3.7. Common classes</a></li>
 </ul>
 </li>
 <li><a href="#implementation">4. Implementation</a>
@@ -79,6 +85,7 @@
 <li><a href="#instructions-for-manual-testing">Appendix G: Instructions for Manual Testing</a>
 <ul class="sectlevel2">
 <li><a href="#launch-and-shutdown">G.1. Launch and Shutdown</a></li>
+<li><a href="#adding-or-removing-a-dependency">G.2. Adding or removing a dependency</a></li>
 </ul>
 </li>
 </ul></div></div><div id="content"><div class="sect1">
@@ -256,6 +263,291 @@ abstract method in command.</p>
 <div class="content">
 <img src="images/CommandComponentClassDiagram.png" alt="CommandComponentClassDiagram" width="1200">
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Design-Architecture"><a class="link" href="#Design-Architecture">3.2. Architecture</a></h3>
+<div class="imageblock">
+<div class="content">
+<img src="images/Architecture.png" alt="Architecture" width="600">
+</div>
+<div class="title">Figure 1. Architecture Diagram</div>
+</div>
+<div class="paragraph">
+<p>The <strong><em>Architecture Diagram</em></strong> given above explains the high-level design of the App. Given below is a quick overview of each component.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The <code>.pptx</code> files used to create diagrams in this document can be found in the <a href="https://github.com/se-edu/addressbook-level4/tree/master/docs/diagrams/">diagrams</a> folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose <code>Save as picture</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><code>Main</code> has only one class called <a href="https://github.com/se-edu/addressbook-level4/tree/master/src/main/java/seedu/address/MainApp.java"><code>MainApp</code></a>. It is responsible for,</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>At app launch: Initializes the components in the correct sequence, and connects them up with each other.</p>
+</li>
+<li>
+<p>At shut down: Shuts down the components and invokes cleanup method where necessary.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><a href="#Design-Commons"><strong><code>Commons</code></strong></a> represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>EventsCenter</code> : This class (written using <a href="https://github.com/google/guava/wiki/EventBusExplained">Google&#8217;s Event Bus library</a>) is used by components to communicate with other components using events (i.e. a form of <em>Event Driven</em> design)</p>
+</li>
+<li>
+<p><code>LogsCenter</code> : Used by many classes to write log messages to the App&#8217;s log file.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The rest of the App consists of four components.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#Design-Ui"><strong><code>UI</code></strong></a>: The UI of the App.</p>
+</li>
+<li>
+<p><a href="#Design-Logic"><strong><code>Logic</code></strong></a>: The command executor.</p>
+</li>
+<li>
+<p><a href="#Design-Model"><strong><code>Model</code></strong></a>: Holds the data of the App in-memory.</p>
+</li>
+<li>
+<p><a href="#Design-Storage"><strong><code>Storage</code></strong></a>: Reads data from, and writes data to, the hard disk.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Each of the four components</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Defines its <em>API</em> in an <code>interface</code> with the same name as the Component.</p>
+</li>
+<li>
+<p>Exposes its functionality using a <code>{Component Name}Manager</code> class.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For example, the <code>Logic</code> component (see the class diagram given below) defines it&#8217;s API in the <code>Logic.java</code> interface and exposes its functionality using the <code>LogicManager.java</code> class.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/LogicClassDiagram.png" alt="LogicClassDiagram" width="800">
+</div>
+<div class="title">Figure 2. Class Diagram of the Logic Component</div>
+</div>
+<h4 id="events-driven-nature-of-the-design" class="discrete">Events-Driven nature of the design</h4>
+<div class="paragraph">
+<p>The <em>Sequence Diagram</em> below shows how the components interact for the scenario where the user issues the command <code>delete 1</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/SDforDeletePerson.png" alt="SDforDeletePerson" width="800">
+</div>
+<div class="title">Figure 3. Component interactions for <code>delete 1</code> command (part 1)</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Note how the <code>Model</code> simply raises a <code>AddressBookChangedEvent</code> when the Address Book data are changed, instead of asking the <code>Storage</code> to save the updates to the hard disk.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The diagram below shows how the <code>EventsCenter</code> reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/SDforDeletePersonEventHandling.png" alt="SDforDeletePersonEventHandling" width="800">
+</div>
+<div class="title">Figure 4. Component interactions for <code>delete 1</code> command (part 2)</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Note how the event is propagated through the <code>EventsCenter</code> to the <code>Storage</code> and <code>UI</code> without <code>Model</code> having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The sections below give more details of each component.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Design-Ui"><a class="link" href="#Design-Ui">3.3. UI component</a></h3>
+<div class="imageblock">
+<div class="content">
+<img src="images/UiClassDiagram.png" alt="UiClassDiagram" width="800">
+</div>
+<div class="title">Figure 5. Structure of the UI Component</div>
+</div>
+<div class="paragraph">
+<p><strong>API</strong> : <a href="https://github.com/se-edu/addressbook-level4/tree/master/src/main/java/seedu/address/ui/Ui.java"><code>Ui.java</code></a></p>
+</div>
+<div class="paragraph">
+<p>The UI consists of a <code>MainWindow</code> that is made up of parts e.g.<code>CommandBox</code>, <code>ResultDisplay</code>, <code>PersonListPanel</code>, <code>StatusBarFooter</code>, <code>BrowserPanel</code> etc. All these, including the <code>MainWindow</code>, inherit from the abstract <code>UiPart</code> class.</p>
+</div>
+<div class="paragraph">
+<p>The <code>UI</code> component uses JavaFx UI framework. The layout of these UI parts are defined in matching <code>.fxml</code> files that are in the <code>src/main/resources/view</code> folder. For example, the layout of the <a href="https://github.com/se-edu/addressbook-level4/tree/master/src/main/java/seedu/address/ui/MainWindow.java"><code>MainWindow</code></a> is specified in <a href="https://github.com/se-edu/addressbook-level4/tree/master/src/main/resources/view/MainWindow.fxml"><code>MainWindow.fxml</code></a></p>
+</div>
+<div class="paragraph">
+<p>The <code>UI</code> component,</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Executes user commands using the <code>Logic</code> component.</p>
+</li>
+<li>
+<p>Binds itself to some data in the <code>Model</code> so that the UI can auto-update when data in the <code>Model</code> change.</p>
+</li>
+<li>
+<p>Responds to events raised from various parts of the App and updates the UI accordingly.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Design-Logic"><a class="link" href="#Design-Logic">3.4. Logic component</a></h3>
+<div id="fig-LogicClassDiagram" class="imageblock">
+<div class="content">
+<img src="images/LogicClassDiagram.png" alt="LogicClassDiagram" width="800">
+</div>
+<div class="title">Figure 6. Structure of the Logic Component</div>
+</div>
+<div class="paragraph">
+<p><strong>API</strong> :
+<a href="https://github.com/se-edu/addressbook-level4/tree/master/src/main/java/seedu/address/logic/Logic.java"><code>Logic.java</code></a></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>Logic</code> uses the <code>AddressBookParser</code> class to parse the user command.</p>
+</li>
+<li>
+<p>This results in a <code>Command</code> object which is executed by the <code>LogicManager</code>.</p>
+</li>
+<li>
+<p>The command execution can affect the <code>Model</code> (e.g. adding a person) and/or raise events.</p>
+</li>
+<li>
+<p>The result of the command execution is encapsulated as a <code>CommandResult</code> object which is passed back to the <code>Ui</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Given below is the Sequence Diagram for interactions within the <code>Logic</code> component for the <code>execute("delete 1")</code> API call.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/DeletePersonSdForLogic.png" alt="DeletePersonSdForLogic" width="800">
+</div>
+<div class="title">Figure 7. Interactions Inside the Logic Component for the <code>delete 1</code> Command</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Design-Model"><a class="link" href="#Design-Model">3.5. Model component</a></h3>
+<div class="imageblock">
+<div class="content">
+<img src="images/ModelClassDiagram.png" alt="ModelClassDiagram" width="800">
+</div>
+<div class="title">Figure 8. Structure of the Model Component</div>
+</div>
+<div class="paragraph">
+<p><strong>API</strong> : <a href="https://github.com/se-edu/addressbook-level4/tree/master/src/main/java/seedu/address/model/Model.java"><code>Model.java</code></a></p>
+</div>
+<div class="paragraph">
+<p>The <code>Model</code>,</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>stores a <code>UserPref</code> object that represents the user&#8217;s preferences.</p>
+</li>
+<li>
+<p>stores the Address Book data.</p>
+</li>
+<li>
+<p>exposes an unmodifiable <code>ObservableList&lt;Person&gt;</code> that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.</p>
+</li>
+<li>
+<p>does not depend on any of the other three components.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+As a more OOP model, we can store a <code>Tag</code> list in <code>Address Book</code>, which <code>Person</code> can reference. This would allow <code>Address Book</code> to only require one <code>Tag</code> object per unique <code>Tag</code>, instead of each <code>Person</code> needing their own <code>Tag</code> object. An example of how such a model may look like is given below.<br>
+<br>
+<span class="image"><img src="images/ModelClassBetterOopDiagram.png" alt="ModelClassBetterOopDiagram" width="800"></span>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Design-Storage"><a class="link" href="#Design-Storage">3.6. Storage component</a></h3>
+<div class="imageblock">
+<div class="content">
+<img src="images/StorageClassDiagram.png" alt="StorageClassDiagram" width="800">
+</div>
+<div class="title">Figure 9. Structure of the Storage Component</div>
+</div>
+<div class="paragraph">
+<p><strong>API</strong> : <a href="https://github.com/se-edu/addressbook-level4/tree/master/src/main/java/seedu/address/storage/Storage.java"><code>Storage.java</code></a></p>
+</div>
+<div class="paragraph">
+<p>The <code>Storage</code> component,</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>can save <code>UserPref</code> objects in json format and read it back.</p>
+</li>
+<li>
+<p>can save the Address Book data in xml format and read it back.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Design-Commons"><a class="link" href="#Design-Commons">3.7. Common classes</a></h3>
+<div class="paragraph">
+<p>Classes used by multiple components are in the <code>seedu.addressbook.commons</code> package.</p>
 </div>
 </div>
 </div>
@@ -974,7 +1266,7 @@ a hashset that contains the hashcode of the object that the task is dependent up
 </li>
 <li>
 <p>Cons: Some functions such as UI display might require details of the dependee task. Additional complexity incurred when
-finding details of the dependee task given its hashcode.</p>
+finding reference of the dependee task given its hashcode.</p>
 </li>
 </ul>
 </div>
@@ -1002,13 +1294,13 @@ to rather than recreated every time a topological sort or a cyclical check is ne
 <div class="ulist">
 <ul>
 <li>
-<p>[Assumption: <strong>In storage</strong>, Task dependencies are specified by hashcodes of task] When retrieving data from storage, the parser needs to first load the dependencies
-as a set of hashcodes, and can only perform the tasks reference once all tasks are instantiated from storage.</p>
+<p>Tasks are immutable, so whenever a task dependency is added, all connected components of the graph to the edited task needs to be reinstantiated.
+i.e. Task A has a new dependency. Task A has to be recreated with the additional dependency. After this new task is created, all
+other tasks that depends on A has to be recreated as the dependencies is updated.</p>
 </li>
 <li>
-<p>Tasks are immutable, so whenever a task dependency is added, all connected components of the graph needs to be reinstantiated.
-i.e. Task A has a new dependency. Task A has to be recreated with the additional dependency. After this new task is created, all
-other tasks that depends on A has to be recreated.</p>
+<p>[Assumption: <strong>In storage</strong>, Task dependencies are specified by hashcodes of task] When retrieving data from storage, the parser needs to first load the dependencies
+as a set of hashcodes before transforming the hashcodes to task reference only when all tasks are instantiated from storage.</p>
 </li>
 </ul>
 </div>
@@ -2342,5 +2634,75 @@ Expected: The most recent window size and location is retained.</p>
 </ol>
 </div>
 </div>
+<div class="sect2">
+<h3 id="adding-or-removing-a-dependency"><a class="link" href="#adding-or-removing-a-dependency">G.2. Adding or removing a dependency</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Adding a dependency when all tasks are listed</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: List all persons using the <code>list</code> command</p>
+</li>
+<li>
+<p>Test case: <code>dependency 1 2</code><br>
+Expected: Dependency added between task at index 1 to task at index 2.
+Details of added dependency shown on screen. Timestamp in the status bar is updated.
+Number of dependencies field on the task card updated.</p>
+</li>
+<li>
+<p>Test case: <code>dependency 0 0</code><br>
+Expected: No dependency added. Error details shown in the status message. Status bar remains the same.</p>
+</li>
+<li>
+<p>Other incorrect dependency commands to try: <code>dependency</code>, <code>dependency x 1</code> (where x is larger than the list size), adding a
+dependency that will cause a cyclic dependency<br>
+   Expected: Similar to previous.</p>
+</li>
+</ol>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-11 19:15:40 SRET</div></div></div></body></html>
+</li>
+<li>
+<p>Deleting a dependency when all tasks are listed and dependency present</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: List all persons using the <code>list</code> command, dependency between <code>Task</code> at index 1
+and <code>Task</code> at index 2 <strong>already exists</strong></p>
+</li>
+<li>
+<p>Test case: <code>dependency 1 2</code><br>
+Expected: Dependency removed between <code>Task</code> at index 1 to <code>Task</code> at index 2.
+Details of removed dependency shown on screen. Timestamp in the status bar is updated.
+Number of dependencies field on the task card updated.</p>
+</li>
+<li>
+<p>Other incorrect dependency commands to try: <code>dependency</code>, <code>dependency x 1</code> (where x is larger than the list size), adding a
+dependency that will cause a cyclic dependency<br>
+   Expected: Similar to previous.
+=== List topological order of tasks</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>List topological order of tasks</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: -</p>
+</li>
+<li>
+<p>Test case: <code>topoorder</code><br>
+Expected: A sequence of possible valid sequence of tasks to tackle given existing task dependency
+constraints will be displayed in the window below the command line.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-11 19:45:58 SRET</div></div></div></body></html>
