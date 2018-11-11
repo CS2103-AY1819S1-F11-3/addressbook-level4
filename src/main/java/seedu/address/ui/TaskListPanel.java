@@ -11,6 +11,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.address.model.task.Task;
@@ -62,6 +63,11 @@ public class TaskListPanel extends UiPart<Region> {
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         scrollTo(event.targetIndex);
+    }
+
+    @Subscribe
+    public void handleTaskManagerChangedEvent(TaskManagerChangedEvent tmce) {
+        personListView.getSelectionModel().clearSelection();
     }
 
     /**
