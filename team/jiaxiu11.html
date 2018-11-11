@@ -195,13 +195,13 @@ these fields will no longer be updated.
 <div class="sect3">
 <h4 id="structural-overview"><a class="link" href="#structural-overview">Structural Overview</a></h4>
 <div class="paragraph">
-<p>The achievement mechanism is facilitated by <code>AchievementRecord</code>. TaskManager is now composed of a <code>UniqueTaskList</code> as
-well as an <code>AchievementRecord</code>.<br>
+<p>The achievement mechanism is facilitated by <code>AchievementRecord</code>. TaskManager is added with an <code>AchievementRecord</code> on top
+of the original <code>UniqueTaskList</code>.<br>
 <br>
 <code>AchievementRecord</code> stores the achievement information of the user internally. These information include
-the current <code>Xp</code>, current <code>Level</code>, total number of tasks completed, as well as the xp earned and number of tasks
-completed by the user today and this week. To facilitate the tracking of the time-based achievements(xp earned and number of
-tasks completed by today and this week), <code>AchievementRecord</code> also stores the dates when the time-based achievement fields should
+the current <code>Xp</code>, current <code>Level</code>, total number of tasks completed across all time, as well as the xp earned and number of tasks
+completed by the user today and this week. To facilitate the tracking of the time-based achievements(namely xp earned and number of
+tasks completed by today and this week), <code>AchievementRecord</code> also stores the date and time when the time-based achievement fields should
 be reset.<br>
 <br>
 <code>AchievementRecord</code> also contains a field <code>displayOption</code> that specifies which set of achievement information should be
@@ -262,8 +262,8 @@ the set of achievement information as specified by user&#8217;s command.<br></p>
 <div class="paragraph">
 <p>The achievement mechanism follows the event-driven interaction of model component with Storage and UI components.
 When a task is marked as complete, both the <code>UniqueTaskList</code> and the <code>AchievementRecord</code> of the task manager is updated
-to reflect the new status of the task and the new xp and level information. A <code>TaskManagerChangedEvent</code> is then posted
-to <code>EventsCenter</code> and handled by both Storage and UI components to save the changes and feedback to user.<br>
+to reflect the new status of the task and the new achievement information. A <code>TaskManagerChangedEvent</code> is then posted
+to <code>EventsCenter</code> and handled by both Storage and UI components to save the changes and update the status bar.<br>
 <br>
 On top of the <code>TaskManagerChangedEvent</code>, an <code>AchievementsUpdatedEvent</code> is posted by the Model component every time
 the <code>AchievementRecord</code> is update(on task completion or change of display option). This event is handled by the
@@ -283,9 +283,9 @@ existing <code>UniqueTaskList</code>.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Easy to implement, greater efficiency. As xp and level change always come together with task status change,
+<p>Pros: Easy to implement, greater efficiency. As achievement information (eg. xp, level) changes always come together with task status changes,
 we can update both the <code>UniqueTaskList</code> and <code>AchievementRecord</code> then save the <code>TaskManager</code> only once. Undo/redo
-commands that revert the status tasks would revert the xp and level as well, matching between task status and
+commands that revert the status tasks would revert the achievement information as well, matching between task status and
 corresponding achievements is guaranteed.</p>
 </li>
 <li>
@@ -296,7 +296,7 @@ corresponding achievements is guaranteed.</p>
 </li>
 <li>
 <p>Alternative 2: Implement <code>AchievementRecord</code> as another component outside of <code>TaskManager</code> and let them communicate
-with events.</p>
+through events.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -342,7 +342,8 @@ Single Responsibility Principle.</p>
 <ul>
 <li>
 <p>Pros: Follows Single Responsibility Principle. <code>AchievementRecord</code> handles only achievement information. Greater
-cohesion as the display of achievements is handled by the <code>AchievementPanel</code> UI component alone.</p>
+cohesion as the display of achievements is handled by the <code>AchievementPanel</code> UI component alone. <code>AchievementPanel</code> UI component
+does not need to rely on <code>AchievementRecord</code> model to decide which set of achievement information to display.</p>
 </li>
 <li>
 <p>Cons: <code>AchievementPanel</code> needs to save the states of the <code>displayOption</code> to support undo/redo. Undo/redo of
@@ -357,4 +358,4 @@ abstraction.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-11 16:00:25 SRET</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-11 16:30:50 SRET</div></div></div></body></html>

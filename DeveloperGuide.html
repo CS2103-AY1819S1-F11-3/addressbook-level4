@@ -18,15 +18,16 @@
 <li><a href="#implementation">4. Implementation</a>
 <ul class="sectlevel2">
 <li><a href="#undo-redo-feature">4.1. Undo/Redo feature</a></li>
-<li><a href="#batch-completion-via-label-feature">4.2. Batch Completion via Label feature</a></li>
-<li><a href="#model-rollback-feature">4.3. Model Rollback feature</a></li>
-<li><a href="#dependency-feature-modelling">4.4. Dependency Feature Modelling</a></li>
-<li><a href="#modelling-dependency-validity">4.5. Modelling Dependency Validity</a></li>
-<li><a href="#monitoring-time">4.6. Monitoring time</a></li>
-<li><a href="#list">4.7. List</a></li>
-<li><a href="#game-manager">4.8. Game Manager</a></li>
-<li><a href="#logging">4.9. Logging</a></li>
-<li><a href="#configuration">4.10. Configuration</a></li>
+<li><a href="#achievement-mechanism">4.2. Achievement mechanism</a></li>
+<li><a href="#batch-completion-via-label-feature">4.3. Batch Completion via Label feature</a></li>
+<li><a href="#model-rollback-feature">4.4. Model Rollback feature</a></li>
+<li><a href="#dependency-feature-modelling">4.5. Dependency Feature Modelling</a></li>
+<li><a href="#modelling-dependency-validity">4.6. Modelling Dependency Validity</a></li>
+<li><a href="#monitoring-time">4.7. Monitoring time</a></li>
+<li><a href="#list">4.8. List</a></li>
+<li><a href="#game-manager">4.9. Game Manager</a></li>
+<li><a href="#logging">4.10. Logging</a></li>
+<li><a href="#configuration">4.11. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">5. Documentation</a>
@@ -456,8 +457,7 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 <p>Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.</p>
 </li>
 <li>
-<p>Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as <code>HistoryManager</code> now needs to do two different things.
-=== Achievement mechanism</p>
+<p>Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as <code>HistoryManager</code> now needs to do two different things.</p>
 </li>
 </ul>
 </div>
@@ -466,16 +466,19 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 </div>
+</div>
+<div class="sect2">
+<h3 id="achievement-mechanism"><a class="link" href="#achievement-mechanism">4.2. Achievement mechanism</a></h3>
 <div class="sect3">
-<h4 id="structural-overview"><a class="link" href="#structural-overview">4.1.3. Structural Overview</a></h4>
+<h4 id="structural-overview"><a class="link" href="#structural-overview">4.2.1. Structural Overview</a></h4>
 <div class="paragraph">
-<p>The achievement mechanism is facilitated by <code>AchievementRecord</code>. TaskManager is now composed of a <code>UniqueTaskList</code> as
-well as an <code>AchievementRecord</code>.<br>
+<p>The achievement mechanism is facilitated by <code>AchievementRecord</code>. TaskManager is added with an <code>AchievementRecord</code> on top
+of the original <code>UniqueTaskList</code>.<br>
 <br>
 <code>AchievementRecord</code> stores the achievement information of the user internally. These information include
-the current <code>Xp</code>, current <code>Level</code>, total number of tasks completed, as well as the xp earned and number of tasks
-completed by the user today and this week. To facilitate the tracking of the time-based achievements(xp earned and number of
-tasks completed by today and this week), <code>AchievementRecord</code> also stores the dates when the time-based achievement fields should
+the current <code>Xp</code>, current <code>Level</code>, total number of tasks completed across all time, as well as the xp earned and number of tasks
+completed by the user today and this week. To facilitate the tracking of the time-based achievements(namely xp earned and number of
+tasks completed by today and this week), <code>AchievementRecord</code> also stores the date and time when the time-based achievement fields should
 be reset.<br>
 <br>
 <code>AchievementRecord</code> also contains a field <code>displayOption</code> that specifies which set of achievement information should be
@@ -494,7 +497,7 @@ Integration of AchievementRecord in Model component:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="basic-mechanism"><a class="link" href="#basic-mechanism">4.1.4. Basic Mechanism</a></h4>
+<h4 id="basic-mechanism"><a class="link" href="#basic-mechanism">4.2.2. Basic Mechanism</a></h4>
 <div class="paragraph">
 <p>An <code>updateTaskStatus</code> method is implemented in <code>ModelManager</code> and exposed in the <code>Model</code> interface, this method is
 called in the execution of complete command. Upon completion of a task, the status of task is updated to COMPLETED,
@@ -532,12 +535,12 @@ the set of achievement information as specified by user&#8217;s command.<br></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="event-driven-interaction-with-other-components"><a class="link" href="#event-driven-interaction-with-other-components">4.1.5. Event-driven Interaction with other components</a></h4>
+<h4 id="event-driven-interaction-with-other-components"><a class="link" href="#event-driven-interaction-with-other-components">4.2.3. Event-driven Interaction with other components</a></h4>
 <div class="paragraph">
 <p>The achievement mechanism follows the event-driven interaction of model component with Storage and UI components.
 When a task is marked as complete, both the <code>UniqueTaskList</code> and the <code>AchievementRecord</code> of the task manager is updated
-to reflect the new status of the task and the new xp and level information. A <code>TaskManagerChangedEvent</code> is then posted
-to <code>EventsCenter</code> and handled by both Storage and UI components to save the changes and feedback to user.<br>
+to reflect the new status of the task and the new achievement information. A <code>TaskManagerChangedEvent</code> is then posted
+to <code>EventsCenter</code> and handled by both Storage and UI components to save the changes and update the status bar.<br>
 <br>
 On top of the <code>TaskManagerChangedEvent</code>, an <code>AchievementsUpdatedEvent</code> is posted by the Model component every time
 the <code>AchievementRecord</code> is update(on task completion or change of display option). This event is handled by the
@@ -545,7 +548,7 @@ the <code>AchievementRecord</code> is update(on task completion or change of dis
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">4.1.6. Design Considerations</a></h4>
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">4.2.4. Design Considerations</a></h4>
 <div class="paragraph">
 <p>Aspect: Associations Among <code>TaskManager</code>,<code>UniqueTaskList</code> and <code>AchievementRecord</code><br></p>
 </div>
@@ -557,9 +560,9 @@ existing <code>UniqueTaskList</code>.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Easy to implement, greater efficiency. As xp and level change always come together with task status change,
+<p>Pros: Easy to implement, greater efficiency. As achievement information (eg. xp, level) changes always come together with task status changes,
 we can update both the <code>UniqueTaskList</code> and <code>AchievementRecord</code> then save the <code>TaskManager</code> only once. Undo/redo
-commands that revert the status tasks would revert the xp and level as well, matching between task status and
+commands that revert the status tasks would revert the achievement information as well, matching between task status and
 corresponding achievements is guaranteed.</p>
 </li>
 <li>
@@ -570,7 +573,7 @@ corresponding achievements is guaranteed.</p>
 </li>
 <li>
 <p>Alternative 2: Implement <code>AchievementRecord</code> as another component outside of <code>TaskManager</code> and let them communicate
-with events.</p>
+through events.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -616,7 +619,8 @@ Single Responsibility Principle.</p>
 <ul>
 <li>
 <p>Pros: Follows Single Responsibility Principle. <code>AchievementRecord</code> handles only achievement information. Greater
-cohesion as the display of achievements is handled by the <code>AchievementPanel</code> UI component alone.</p>
+cohesion as the display of achievements is handled by the <code>AchievementPanel</code> UI component alone. <code>AchievementPanel</code> UI component
+does not need to rely on <code>AchievementRecord</code> model to decide which set of achievement information to display.</p>
 </li>
 <li>
 <p>Cons: <code>AchievementPanel</code> needs to save the states of the <code>displayOption</code> to support undo/redo. Undo/redo of
@@ -631,9 +635,9 @@ abstraction.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="batch-completion-via-label-feature"><a class="link" href="#batch-completion-via-label-feature">4.2. Batch Completion via Label feature</a></h3>
+<h3 id="batch-completion-via-label-feature"><a class="link" href="#batch-completion-via-label-feature">4.3. Batch Completion via Label feature</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">4.2.1. Current Implementation</a></h4>
+<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">4.3.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The batch completion mechanism is facilitated by <code>CompleteLabelCommand</code>.
 It extends <code>CompleteCommand</code> and encapsulates the internal logic of finding task and completing multiple
@@ -757,7 +761,7 @@ it&#8217;s status to <code>COMPLETED</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">4.2.2. Design Considerations</a></h4>
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">4.3.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-implementation-of-atomicity"><a class="link" href="#aspect-implementation-of-atomicity">Aspect: Implementation of atomicity</a></h5>
 <div class="ulist">
@@ -889,9 +893,9 @@ Abstract Methods.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="model-rollback-feature"><a class="link" href="#model-rollback-feature">4.3. Model Rollback feature</a></h3>
+<h3 id="model-rollback-feature"><a class="link" href="#model-rollback-feature">4.4. Model Rollback feature</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">4.3.1. Current Implementation</a></h4>
+<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">4.4.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>Allows for any uncommitted changes to be discarded.</p>
 </div>
@@ -925,9 +929,9 @@ commit in <code>taskManagerStateList</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="dependency-feature-modelling"><a class="link" href="#dependency-feature-modelling">4.4. Dependency Feature Modelling</a></h3>
+<h3 id="dependency-feature-modelling"><a class="link" href="#dependency-feature-modelling">4.5. Dependency Feature Modelling</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">4.4.1. Current Implementation</a></h4>
+<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">4.5.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The dependency mechanism is facilitated by an embedded <code>Dependencies</code> object. This object internally represents dependencies with
 a hashset that contains the hashcode of the object that the task is dependent upon.</p>
@@ -942,7 +946,7 @@ a hashset that contains the hashcode of the object that the task is dependent up
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">4.4.2. Design Considerations</a></h4>
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">4.5.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-modelling-of-the-embedded-dependency-object"><a class="link" href="#aspect-modelling-of-the-embedded-dependency-object">Aspect: Modelling of the embedded dependency object.</a></h5>
 <div class="ulist">
@@ -1017,16 +1021,16 @@ other tasks that depends on A has to be recreated.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="modelling-dependency-validity"><a class="link" href="#modelling-dependency-validity">4.5. Modelling Dependency Validity</a></h3>
+<h3 id="modelling-dependency-validity"><a class="link" href="#modelling-dependency-validity">4.6. Modelling Dependency Validity</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">4.5.1. Current Implementation</a></h4>
+<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">4.6.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The dependency graph is the graph representing the dependencies between the task objects. A graph model needs to be created
 so useful functions can be implemented such as cyclic and topological sort.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">4.5.2. Design Considerations</a></h4>
+<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">4.6.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-real-time-graph-or-graph-instantiated-on-function-call"><a class="link" href="#aspect-real-time-graph-or-graph-instantiated-on-function-call">Aspect: Real-time graph or graph instantiated on function call.</a></h5>
 <div class="ulist">
@@ -1097,9 +1101,9 @@ depend on each other.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="monitoring-time"><a class="link" href="#monitoring-time">4.6. Monitoring time</a></h3>
+<h3 id="monitoring-time"><a class="link" href="#monitoring-time">4.7. Monitoring time</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-6"><a class="link" href="#current-implementation-6">4.6.1. Current Implementation</a></h4>
+<h4 id="current-implementation-6"><a class="link" href="#current-implementation-6">4.7.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>Time is of key importance when dealing with the <code>TaskManager</code>. We implement and represent time using the ubiquitous
 <code>Date</code> class in Java. The class <code>DueDate</code> internally uses the <code>Date</code> class, and harnesses built in capabilities such as
@@ -1150,9 +1154,9 @@ the number of commands that a person uses likely occurs at a higher rate than th
 </div>
 </div>
 <div class="sect2">
-<h3 id="list"><a class="link" href="#list">4.7. List</a></h3>
+<h3 id="list"><a class="link" href="#list">4.8. List</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-7"><a class="link" href="#current-implementation-7">4.7.1. Current Implementation</a></h4>
+<h4 id="current-implementation-7"><a class="link" href="#current-implementation-7">4.8.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The <code>list</code> command accepts filters that either filter based on the due date of the tasks (relative to the
  current date) or the dependencies of the task. This is done using predicates that are given to filter the task list.</p>
@@ -1180,9 +1184,9 @@ fetch the task associated to that hashcode, in order to check its completion sta
 </div>
 </div>
 <div class="sect2">
-<h3 id="game-manager"><a class="link" href="#game-manager">4.8. Game Manager</a></h3>
+<h3 id="game-manager"><a class="link" href="#game-manager">4.9. Game Manager</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-8"><a class="link" href="#current-implementation-8">4.8.1. Current Implementation</a></h4>
+<h4 id="current-implementation-8"><a class="link" href="#current-implementation-8">4.9.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The GameManager class is responsible for the gamification aspects of WatchOver.</p>
 </div>
@@ -1218,7 +1222,7 @@ are. This limitation might be overcome if a creation date is implemented as a fi
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-7"><a class="link" href="#design-considerations-7">4.8.2. Design Considerations</a></h4>
+<h4 id="design-considerations-7"><a class="link" href="#design-considerations-7">4.9.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-location-of-implementation"><a class="link" href="#aspect-location-of-implementation">Aspect: Location of Implementation</a></h5>
 <div class="ulist">
@@ -1269,7 +1273,7 @@ policy apply to all tasks.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">4.9. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">4.10. Logging</a></h3>
 <div class="paragraph">
 <p>We are using java.util.logging package for logging. The LogsCenter class is used to manage the logging levels and logging destinations.</p>
 </div>
@@ -1299,7 +1303,7 @@ policy apply to all tasks.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="configuration"><a class="link" href="#configuration">4.10. Configuration</a></h3>
+<h3 id="configuration"><a class="link" href="#configuration">4.11. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: config.json).</p>
 </div>
@@ -2305,4 +2309,4 @@ Expected: The most recent window size and location is retained.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-11 16:00:25 SRET</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-11 16:30:50 SRET</div></div></div></body></html>
