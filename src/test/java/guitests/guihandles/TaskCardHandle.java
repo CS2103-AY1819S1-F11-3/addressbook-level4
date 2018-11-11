@@ -17,11 +17,13 @@ public class TaskCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String NAME_FIELD_ID = "#name";
     private static final String PHONE_FIELD_ID = "#dueDate";
+    private static final String DEPENDENCY_COUNT_ID = "#dependencyCount";
     private static final String TAGS_FIELD_ID = "#tags";
 
     private final Label idLabel;
     private final Label nameLabel;
     private final Label phoneLabel;
+    private final Label dependencyCountLabel;
     private final List<Label> tagLabels;
 
     public TaskCardHandle(Node cardNode) {
@@ -30,6 +32,7 @@ public class TaskCardHandle extends NodeHandle<Node> {
         idLabel = getChildNode(ID_FIELD_ID);
         nameLabel = getChildNode(NAME_FIELD_ID);
         phoneLabel = getChildNode(PHONE_FIELD_ID);
+        dependencyCountLabel = getChildNode(DEPENDENCY_COUNT_ID);
 
         Region tagsContainer = getChildNode(TAGS_FIELD_ID);
         tagLabels = tagsContainer
@@ -51,6 +54,10 @@ public class TaskCardHandle extends NodeHandle<Node> {
         return phoneLabel.getText();
     }
 
+    public String getDependencyCount() {
+        return dependencyCountLabel.getText();
+    }
+
     public List<String> getTags() {
         return tagLabels
                 .stream()
@@ -64,6 +71,7 @@ public class TaskCardHandle extends NodeHandle<Node> {
     public boolean equals(Task task) {
         return getName().equals(task.getName().fullName)
                 && getPhone().equals(task.getDueDate().value)
+                && getDependencyCount().equals(task.getDependency().getDependencyCount().toString())
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(task.getLabels().stream()
                         .map(tag -> tag.labelName)
                         .collect(Collectors.toList())));
