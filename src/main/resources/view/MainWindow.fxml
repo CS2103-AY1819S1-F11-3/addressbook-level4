@@ -47,7 +47,7 @@
           </padding>
         </StackPane>
 
-        <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.5" VBox.vgrow="ALWAYS">
+        <SplitPane id="splitPane" fx:id="splitPane" VBox.vgrow="ALWAYS">
           <VBox fx:id="personList" minWidth="500" prefWidth="500" SplitPane.resizableWithParent="false">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
@@ -56,12 +56,9 @@
           </VBox>
 
           <VBox minWidth="400">
-          <StackPane fx:id="taskViewPlaceholder">
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
-          </StackPane>
-            <GridPane fx:id="achievementPlaceholder" prefWidth="340">
+            <StackPane fx:id="taskViewPlaceholder" minHeight="300" prefHeight="300" maxHeight="300">
+            </StackPane>
+            <GridPane fx:id="achievementPlaceholder" prefWidth="340" minHeight="100" prefHeight="100">
               <padding>
                 <Insets top="10" right="10" bottom="10" left="10" />
               </padding>
