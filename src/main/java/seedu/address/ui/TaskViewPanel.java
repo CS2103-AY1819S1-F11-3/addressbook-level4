@@ -148,8 +148,10 @@ public class TaskViewPanel extends UiPart<Region> {
         displayedTask = Optional.of(event.getNewSelection());
         displayTask();
     }
+
     @Subscribe
     public void handleTaskManagerChangedEvent(TaskManagerChangedEvent tmce) {
+        clearDisplay();
         try {
             earliestTimeOfChildren.setText(tmce.data.getEarliestDependentTimeForNode(this.displayedTask.get()).value);
         } catch (Exception e) {
