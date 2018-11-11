@@ -87,6 +87,15 @@ public class Dependencies {
         return new Dependencies(newValue);
     }
 
+    /**
+     * Returns the number of dependencies stored.
+     *
+     * @return the number of dependencies in this Dependencies object
+     */
+    public Integer getDependencyCount() {
+        return hashes.size();
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
