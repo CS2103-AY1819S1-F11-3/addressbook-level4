@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import static seedu.address.ui.TaskCard.truncateLabelName;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
