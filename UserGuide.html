@@ -270,7 +270,8 @@ Format:<br>
 <div class="sect3">
 <h4 id="adding-removing-a-dependency-to-a-task-code-dependency-code"><a class="link" href="#adding-removing-a-dependency-to-a-task-code-dependency-code">3.3.4. Adding/Removing a dependency to a Task: <code>dependency</code></a></h4>
 <div class="paragraph">
-<p>Adds/removes a dependency of a task dependant to the task dependee. The dependency is added if it already exists, or removed if it does not.<br>
+<p>Adds/removes a dependency of a task dependant to the task dependee. The dependency is added if it already exists,<br>
+or removed if it does not.<br>
 Format:<br>
 <code>dependency INDEX_DEPENDANT INDEX_DEPENDEE</code></p>
 </div>
@@ -282,6 +283,41 @@ Format:<br>
 <p>-Example:
 <code>dependency 1</code>
 <code>dependency a b</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>There are several cases when a dependency cannot be created:</p>
+</div>
+<div class="paragraph">
+<p>1) If the dependency introduces a cyclic dependency</p>
+</div>
+<div class="paragraph">
+<p>A cyclic dependency is defined as a path from a task back to the task itself.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/CyclicDependency.png" alt="CyclicDependency" width="300">
+</div>
+</div>
+<div class="paragraph">
+<p>In the diagram above, an additional dependency from <code>Task</code> A to <code>Task</code> C will introduce a cycle and hence will be rejected by the Task Manager.</p>
+</div>
+<div class="paragraph">
+<p>2) If a dependency is added from a COMPLETED task to an IN-PROGRESS or OVERDUE task</p>
+</div>
+<div class="paragraph">
+<p>The dependency will violate the notion of a completed task as tasks can only be completed if all the tasks that it depends
+on are completed.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect3">
@@ -750,4 +786,4 @@ example, a task with priority value 5 will only award half the xp of an equivale
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-11 09:32:14 SRET</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-11 13:32:35 SRET</div></div></div></body></html>
