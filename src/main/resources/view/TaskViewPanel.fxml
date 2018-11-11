@@ -60,7 +60,7 @@
 
             <HBox alignment="CENTER_LEFT" spacing="10">
                 <Label styleClass="cell_big_label">EFFECTIVE DUE DATE: </Label>
-                <Label fx:id="earliestTimeOfChildren" styleClass="cell_small_label" />
+                <Label fx:id="earliestTimeOfChildren" styleClass="cell_big_label" />
             </HBox>
 
         </VBox>
