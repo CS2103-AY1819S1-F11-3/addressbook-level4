@@ -98,7 +98,7 @@ public class TaskViewPanel extends UiPart<Region> {
         priorityValue.setText("");
         status.setText("");
         dependencies.setText("");
-        tags.getChildren().removeAll(tags.getChildren());
+        tags.getChildren().clear();
     }
 
     private String getDependencies(Task task) {
