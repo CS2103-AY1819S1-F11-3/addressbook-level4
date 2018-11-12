@@ -68,18 +68,13 @@ to the batch of tasks. He need not painstakingly undo them one by one.</p>
 <p>Highlights: This enhancement required careful design considerations due to the
 creation of two flavours of the complete command. Moreover, the atomicity
 required from this feature required a model rollback operation that it does not
-currently support. Moreover, this implementation was challenging as it required
-changes to other components of the application.</p>
+currently support.</p>
 <div class="ulist">
 <ul>
 <li>
 <p>Converting <code>CompleteCommand</code> into an abstract class in order to support the
-polymorphic behaviour of the two flavour of completion. Additionally, this helps
-keeps code organised neatly by following the Single Responsibility Principle.</p>
-</li>
-<li>
-<p>Implementing a rollback operation for the model, which could possibly be
-used to provide better data integrity of the application in future development.</p>
+polymorphic behaviour of the two flavour of completion. This follows the Single Responsibility
+Principle and Template Method Pattern.</p>
 </li>
 </ul>
 </div>
@@ -103,9 +98,12 @@ used to provide better data integrity of the application in future development.<
 <div class="ulist">
 <ul>
 <li>
-<p>Extended the model to check if it is in an invalid state where completed tasks
-have uncompleted dependencies. Integrated this with CompleteCommand to prevent completion of
-tasks that will result in the aformentioned invalid state.</p>
+<p>Extended the model to check if it is in an invalid state where completed tasks have uncompleted
+dependencies.</p>
+</li>
+<li>
+<p>Implementing a rollback operation for the model, which could possibly be
+used to provide better data integrity of the application in future development.</p>
 </li>
 </ul>
 </div>
@@ -302,15 +300,17 @@ Explanation: <code>Task A</code> is dependent on <code>Task X</code> which will 
 <div class="ulist">
 <ul>
 <li>
-<p>Current implementation displays a generic standard congratulatory message/message of positive affirmation.
-=== Completed Tasks would be automatically hidden from view.</p>
+<p>Current implementation displays a generic standard congratulatory message/message of positive affirmation.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="completed-tasks-would-be-automatically-hidden-from-view"><a class="link" href="#completed-tasks-would-be-automatically-hidden-from-view">Completed Tasks would be automatically hidden from view.</a></h3>
 <div class="ulist">
 <ul>
 <li>
 <p>Completed Tasks should be automatically hidden from view</p>
-</li>
-</ul>
-</div>
 </li>
 </ul>
 </div>
@@ -348,6 +348,10 @@ the code. As <code>CompleteLabelCommand</code> is coupled to <code>CompleteComma
 general idea of the flow of execution before attempting to understand the following section. It
  assumes the developer is familiar enough with the codebase to understand where each method call
  are with respect to the activity diagram.</p>
+</div>
+<div class="paragraph">
+<p>This diagram below traces the the execution path of a <code>CompleteCommand</code>, starting from its
+super class, <code>Command</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -561,4 +565,4 @@ Abstract Methods.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 23:02:24 SRET</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 23:03:17 SRET</div></div></div></body></html>
