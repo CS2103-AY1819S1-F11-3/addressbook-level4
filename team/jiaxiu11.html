@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>Cai Jiaxiu - Project Portfolio</title><link rel="stylesheet" href="../stylesheets/gh-pages.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="../index.html">WatchOver</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link" href="../DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link active" href="../AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="../ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/CS2103-AY1819S1-F11-3/main.git"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>Cai Jiaxiu - Project Portfolio</h1></div><div id="content"><div class="sect1">
-<h2 id="project-addressbook-level-4"><a class="link" href="#project-addressbook-level-4">PROJECT: AddressBook - Level 4</a></h2>
+<h2 id="project-watchover"><a class="link" href="#project-watchover">PROJECT: WatchOver</a></h2>
 <div class="sectionbody">
 <hr>
 </div>
@@ -10,7 +10,7 @@
 <h2 id="overview"><a class="link" href="#overview">Overview</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.</p>
+<p>WatchOver is a gamified desktop task manager.</p>
 </div>
 </div>
 </div>
@@ -42,7 +42,7 @@ The whole mechanism requires extensive support and modification of all of the mo
 </div>
 </li>
 <li>
-<p><strong>Code contributed</strong>: [<a href="https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&amp;search=jiaxiu11">RepoSense</a>].</p>
+<p><strong>Code contributed</strong>: <a href="https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&amp;search=jiaxiu11">RepoSense</a>.</p>
 </li>
 <li>
 <p><strong>Other contributions</strong>:</p>
@@ -63,7 +63,7 @@ The whole mechanism requires extensive support and modification of all of the mo
 <div class="ulist">
 <ul>
 <li>
-<p>Added a status field to the tasks to different between in-progress, completed and overdue tasks.</p>
+<p>Added a status field to tasks to differentiate between in-progress, completed and overdue tasks.</p>
 </li>
 <li>
 <p>Refactored the model component of address book to task manager.</p>
@@ -146,6 +146,16 @@ Format: <code>achievements TIME_SPAN</code>, a valid <code>TIME_SPAN</code> may 
 +Example: <code>achievements this week</code><br>
 -Example: <code>achievements all time</code><br>
 -Example: <code>achievements TODAY</code></p>
+</div>
+<div class="paragraph">
+<p>Daily time-based achievement fields(today&#8217;s xp and number of tasks completed) are reset every day. Weekly time-based
+achievement fields(this week&#8217;s xp and number of tasks completed) are reset every week. The time range for all-time, today
+and this week&#8217;s achievements are shown as in the diagram.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/timeBasedAch.png" alt="timeBasedAch" width="1200">
+</div>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -249,7 +259,7 @@ the set of achievement information as specified by user&#8217;s command.<br></p>
 </div>
 </div>
 <div class="paragraph">
-<p>Activity diagram of the update of time-based achievement fields:</p>
+<p>Activity diagram of the update of daily time-based achievement fields(today&#8217;s xp, today&#8217;s number of tasks completed):</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -357,5 +367,199 @@ abstraction.</p>
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="achievement-mechanism-2"><a class="link" href="#achievement-mechanism-2">Achievement Mechanism</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Update of xp and number of tasks completed on task completion</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Test case: <code>complete 1</code><br>
+Expected: Xp value on the achievement panel increases, tasks completed increases by 1. The actual amount of xp value
+awarded is determined by the current game mode and reported by complete command message.</p>
+</li>
+<li>
+<p>Test case: <code>complete l/tutorial</code><br>
+Expected: Xp value on the achievement panel increases. The actual amount of xp value
+awarded is determined by the current game mode and reported by complete command message.
+Tasks completed increases by the number of tasks completed by the batch complete command (as specified in the
+complete command message).</p>
+</li>
+</ol>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 22:41:09 SRET</div></div></div></body></html>
+</li>
+<li>
+<p>Update of level on task completion</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: change the specified fields in data/taskmanager.xml(or other storage path) to:<br>
+<code>&lt;xp&gt;499&lt;/xp&gt;</code><br>
+<code>&lt;level&gt;lvl.1&lt;/level&gt;</code><br>
+<code>&lt;xpValueByDay&gt;0&lt;/xpValueByDay&gt;</code><br>
+<code>&lt;xpValueByWeek&gt;0&lt;/xpValueByWeek&gt;</code><br></p>
+</li>
+<li>
+<p>Test case: <code>complete 1</code><br>
+Expected: Xp value on the achievement panel increases, and level increases with xp(as the minimum xp of level 2 is 500).
+The actual amount of xp value awarded is determined by the current game mode and reported by complete command message.
+The level will always match the updated xp.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Update of achievement information on undo/redo of complete command.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Test case: <code>complete 1</code> <code>undo</code> <code>redo</code><br>
+Expected: Achievement information updates as specified in the other test cases, changes back
+to original values on <code>undo</code>, and changes again to the updated values on <code>redo</code>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Change of display option on achievement UI</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Test case: <code>achievements today</code><br>
+Expected: Achievement panel shows "Daily achievements from [today&#8217;s date]:", current level, xp earned and number of
+tasks completed from the beginning of the day.<br></p>
+</li>
+<li>
+<p>Test case: <code>achievements this week</code><br>
+Expected: Achievement panel shows "Weekly achievements from [date]:", current level, xp earned and number of tasks
+completed from the specified date.<br></p>
+</li>
+<li>
+<p>Test case: <code>achievements all-time</code><br>
+Expected: Achievement panel shows "All-time achievements:", current level, xp earned and number of tasks
+completed across all time.<br></p>
+</li>
+<li>
+<p>Test case: <code>achievements all-time</code> <code>achievements today</code> <code>undo</code> <code>redo</code><br>
+Expected: Achievement panel shows all-time achievement information followed by today&#8217;s achievement information.
+On <code>undo</code>, it shows all-time achievement information again and on <code>redo</code>, it shows back today&#8217;s achievement information.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Reset of time-based achievement fields</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>change the specified fields in data/taskmanager.xml(or other storage path) to:<br>
+<code>&lt;xp&gt;400&lt;/xp&gt;</code><br>
+<code>&lt;level&gt;lvl.1&lt;/level&gt;</code><br>
+<code>&lt;numTaskCompleted&gt;14&lt;/numTaskCompleted&gt;</code><br>
+<code>&lt;nextDayBreakPoint&gt;dd-mm-yy 0000&lt;/nextDayBreakPoint&gt;</code>(where dd-mm-yy is tomorrow&#8217;s date)<br>
+<code>&lt;xpValueByDay&gt;200&lt;/xpValueByDay&gt;</code><br>
+<code>&lt;numTaskCompletedByDay&gt;5&lt;/numTaskCompletedByDay&gt;</code><br>
+<code>&lt;nextWeekBreakPoint&gt;dd-mm-yy 0000&lt;/nextWeekBreakPoint&gt;</code>(where dd-mm-yy is today&#8217;s date + 7 days)<br>
+<code>&lt;xpValueByWeek&gt;300&lt;/xpValueByWeek&gt;</code><br>
+<code>&lt;numTaskCompletedByWeek&gt;12&lt;/numTaskCompletedByWeek&gt;</code><br></p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Test case:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p><code>achievements today</code></p>
+</li>
+<li>
+<p>set the system time of the testing computer to be tomorrow(one day after today)</p>
+</li>
+<li>
+<p><code>achievements today</code><br>
+Expected: Before system time change, <code>achievements today</code> shows "Daily achievements from [today&#8217;s date]:", today&#8217;s
+xp to be 200, tasks completed to be 5. After system time change, <code>achievements today</code> shows "Daily achievements from
+[tomorrow&#8217;s date]:", this day&#8217;s xp to be 0, tasks completed to be 0. All-time xp value remains 400, tasks completed
+remains 14. This week&#8217;s xp value remains 300, tasks completed remains 12.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Test case:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p><code>achievements this week</code></p>
+</li>
+<li>
+<p>set the system time of the testing computer to be next week(7 days after today)</p>
+</li>
+<li>
+<p><code>achievements this week</code></p>
+</li>
+<li>
+<p><code>achievements today</code><br>
+Expected: Before system time change, <code>achievements this week</code> shows "Weekly achievements from [today&#8217;s date]:",
+this week&#8217;s xp to be 300, tasks completed to be 12. After system time change, <code>achievements this week</code> shows "Weekly
+achievements from [next week&#8217;s date]:", this week&#8217;s xp to be 0, tasks completed to be 0. Now, <code>achievements today</code>
+shows "Daily achievements from [next week&#8217;s date]:", this day&#8217;s xp to be 0, tasks completed to be 0.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Detection of invalid/corrupted achievement information from storage<br>
+<br>
+change the specified fields in data/taskmanager.xml(or other storage path) to:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Test case: <code>&lt;displayOption&gt;5&lt;/displayOption&gt;</code> (invalid display option)</p>
+</li>
+<li>
+<p>Test case: <code>&lt;xp&gt;59&lt;/xp&gt;</code> <code>&lt;level&gt;lvl.2&lt;/level&gt;</code> (non-matching xp value and level)</p>
+</li>
+<li>
+<p>Test case: <code>&lt;xp&gt;559&lt;/xp&gt;</code> <code>&lt;xpValueByDay&gt;90&lt;/xpValueByDay&gt;</code> <code>&lt;xpValueByWeek&gt;60&lt;/xpValueByWeek&gt;</code><br>
+(Inconsistent xp values. All-time xp should never be smaller than this week&#8217;s xp, which should never be smaller
+than today&#8217;s xp.)</p>
+</li>
+<li>
+<p>Test case: <code>&lt;numTaskCompleted&gt;10&lt;/numTaskCompleted&gt;</code> <code>&lt;numTaskCompletedByDay&gt;12&lt;/numTaskCompletedByDay&gt;</code>
+<code>&lt;numTaskCompletedByWeek&gt;12&lt;/numTaskCompletedByWeek&gt;</code><br>
+(Inconsistent number of tasks completed. All-time number should never be smaller than this week&#8217;s number, which
+should never be smaller than today&#8217;s number.)</p>
+</li>
+<li>
+<p>Test case: <code>&lt;nextDayBreakPoint&gt;12-11-18 0000&lt;/nextDayBreakPoint&gt;</code>
+<code>&lt;nextWeekBreakPoint&gt;19-11-18 0000&lt;/nextWeekBreakPoint&gt;</code><br>
+(Inconsistent date breakpoints. <code>nextWeekBreakPoint</code> should never be earlier than <code>nexDayBreakPoint</code>, it should never be
+7 days or more later than nexDayBreakPoint.)</p>
+</li>
+<li>
+<p>Test case: <code>&lt;xp&gt;1000000001&lt;/xp&gt;</code><br>
+(The maximum integer value maintained by achievement record is 1000000000.)</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Expected: Due to the invalid data fields, the data file is considered corrupted and task manager is initialized with an
+empty data file. Task manager will be empty.</p>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 22:54:44 SRET</div></div></div></body></html>

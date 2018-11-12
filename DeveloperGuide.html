@@ -829,7 +829,7 @@ the set of achievement information as specified by user&#8217;s command.<br></p>
 </div>
 </div>
 <div class="paragraph">
-<p>Activity diagram of the update of time-based achievement fields:</p>
+<p>Activity diagram of the update of daily time-based achievement fields(today&#8217;s xp, today&#8217;s number of tasks completed):</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -2973,7 +2973,7 @@ complete command message).</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: change the specified fields in data/taskmanager.xml(or other storage path) to:
+<p>Prerequisites: change the specified fields in data/taskmanager.xml(or other storage path) to:<br>
 <code>&lt;xp&gt;499&lt;/xp&gt;</code><br>
 <code>&lt;level&gt;lvl.1&lt;/level&gt;</code><br>
 <code>&lt;xpValueByDay&gt;0&lt;/xpValueByDay&gt;</code><br>
@@ -3012,7 +3012,7 @@ tasks completed from the beginning of the day.<br></p>
 <li>
 <p>Test case: <code>achievements this week</code><br>
 Expected: Achievement panel shows "Weekly achievements from [date]:", current level, xp earned and number of tasks
-completed from the specified date, which is no earlier than today and not more than 6 days after today.<br></p>
+completed from the specified date.<br></p>
 </li>
 <li>
 <p>Test case: <code>achievements all-time</code><br>
@@ -3038,6 +3038,7 @@ On <code>undo</code>, it shows all-time achievement information again and on <co
 <li>
 <p>change the specified fields in data/taskmanager.xml(or other storage path) to:<br>
 <code>&lt;xp&gt;400&lt;/xp&gt;</code><br>
+<code>&lt;level&gt;lvl.1&lt;/level&gt;</code><br>
 <code>&lt;numTaskCompleted&gt;14&lt;/numTaskCompleted&gt;</code><br>
 <code>&lt;nextDayBreakPoint&gt;dd-mm-yy 0000&lt;/nextDayBreakPoint&gt;</code>(where dd-mm-yy is tomorrow&#8217;s date)<br>
 <code>&lt;xpValueByDay&gt;200&lt;/xpValueByDay&gt;</code><br>
@@ -3122,7 +3123,7 @@ should never be smaller than today&#8217;s number.)</p>
 <p>Test case: <code>&lt;nextDayBreakPoint&gt;12-11-18 0000&lt;/nextDayBreakPoint&gt;</code>
 <code>&lt;nextWeekBreakPoint&gt;19-11-18 0000&lt;/nextWeekBreakPoint&gt;</code><br>
 (Inconsistent date breakpoints. <code>nextWeekBreakPoint</code> should never be earlier than <code>nexDayBreakPoint</code>, it should never be
-more than 6 days later than nexDayBreakPoint.)</p>
+7 days or more later than nexDayBreakPoint.)</p>
 </li>
 <li>
 <p>Test case: <code>&lt;xp&gt;1000000001&lt;/xp&gt;</code><br>
@@ -3535,4 +3536,4 @@ Task View Panel on the right hand side.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 22:41:09 SRET</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 22:54:44 SRET</div></div></div></body></html>
