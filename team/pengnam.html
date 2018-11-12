@@ -46,7 +46,7 @@ Assume that there are two tasks, task A and task B, where task A is dependent on
 has to be recreated as the dependencies on task A has to reflect the dependency to the new task B object)</p>
 </li>
 <li>
-<p>Dependency feature is strongly connected to</p>
+<p>Dependency feature is strongly linked to edit, delete, complete commands</p>
 </li>
 </ul>
 </div>
@@ -167,8 +167,7 @@ CS2103-AY1819S1-W17-4 [#195:Non-unique tasks] [#241: Files with changed names]</
 <h4 id="adding-removing-a-dependency-to-a-task-code-dependency-code"><a class="link" href="#adding-removing-a-dependency-to-a-task-code-dependency-code">Adding/Removing a dependency to a Task: <code>dependency</code></a></h4>
 <div class="paragraph">
 <p>Adds/removes a dependency of a task dependent to the task dependee.<br>
-For a given scenario where task A is dependent on task B, task A is defined as the dependant task while task B is defined<br>
-as the dependee task.<br>
+For a given scenario where task A is dependent on task B, task A is defined as the dependant task while task B is defined as the dependee task.<br>
 The dependency is added if it already exists and removed if it does not exist.</p>
 </div>
 <div class="paragraph">
@@ -295,14 +294,6 @@ Format:</p>
 be interpreted as the start of the day, i.e <code>00:00</code>.</p>
 </div>
 <div class="paragraph">
-<p>On task creation, the task&#8217;s <code>INDEX</code> is shown as such:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code>Task &lt;INDEX&gt;, &lt;TASK_NAME&gt; was created.</code></pre>
-</div>
-</div>
-<div class="paragraph">
 <p>+Example:<br>
 <code>add n/complete milestone t/14-09-19 p/99 d/a detailed description l/CS2103</code><br>
 <code>add n/complete milestone t/14-09-19 1320 p/9 d/a detailed description l/CS2103</code></p>
@@ -365,7 +356,7 @@ dependent on the task, including the task itself.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Prune completed tasks and dependencies to completed tasks from the <code>DependencyGraph</code></p>
+<p>Prune completed tasks and dependencies to COMPLETED tasks from the <code>DependencyGraph</code></p>
 </li>
 <li>
 <p>Invert the dependencies in the <code>DependencyGraph</code> (to allow graph traversal in the opposite direction)</p>
@@ -691,4 +682,4 @@ Expected: No change to effective due date. Number of dependencies field on the t
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 23:03:17 SRET</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 23:13:01 SRET</div></div></div></body></html>
