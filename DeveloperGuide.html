@@ -88,8 +88,9 @@
 <li><a href="#editing-task-where-there-exists-dependencies-to-edited-task">H.6. Editing task where there exists dependencies to edited task</a></li>
 <li><a href="#interactions-of-complete-command-with-dependencies">H.7. Interactions of Complete Command with Dependencies</a></li>
 <li><a href="#list-topological-order-of-tasks">H.8. List topological order of tasks</a></li>
-<li><a href="#list-filter-results">H.9. List filter results</a></li>
-<li><a href="#task-view-panel">H.10. Task View Panel</a></li>
+<li><a href="#game-mode-testing">H.9. Game Mode testing</a></li>
+<li><a href="#list-filter-results">H.10. List filter results</a></li>
+<li><a href="#task-view-panel">H.11. Task View Panel</a></li>
 </ul>
 </li>
 </ul></div></div><div id="content"><div class="sect1">
@@ -1269,10 +1270,37 @@ fetch the task associated to that hashcode, in order to check its completion sta
 </div>
 <div class="sect2">
 <h3 id="game-manager"><a class="link" href="#game-manager">4.10. Game Manager</a></h3>
-<div class="sect3">
-<h4 id="current-implementation-9"><a class="link" href="#current-implementation-9">4.10.1. Current Implementation</a></h4>
 <div class="paragraph">
-<p>The GameManager class is responsible for the gamification aspects of WatchOver.</p>
+<p>The Game Manager is responsible for the gamification aspects of WatchOver.</p>
+</div>
+<div class="sect3">
+<h4 id="structural-overview-2"><a class="link" href="#structural-overview-2">4.10.1. Structural Overview</a></h4>
+<div class="imageblock">
+<div class="content">
+<img src="images/GameManagerClassDiagram.png" alt="GameManagerClassDiagram" width="1200">
+</div>
+</div>
+<div class="paragraph">
+<p>The Task Manager owns a <code>GameManager</code> object, which handles the core logic of gamification. All xp calculations are
+handled exclusively by the current <code>GameManager</code>.</p>
+</div>
+<div class="paragraph">
+<p>The <code>GameManager</code>, in turn, owns a <code>GameMode</code> object. <code>GameMode</code> is implemented as an abstract class, and specific
+implementations of game modes must extend the abstract <code>GameMode</code>. The <code>GameMode</code> handles the actual appraisal of tasks
+for xp, delegated from the <code>GameManager</code>. Individual variations of <code>GameMode</code> will contain their own logic to determine
+xp earned, accessible through <code>appraiseXpChange(Task taskFrom, Task taskTo)</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="mechanism"><a class="link" href="#mechanism">4.10.2. Mechanism</a></h4>
+<div class="paragraph">
+<p>When a task is completed, <code>ModelManager::updateTaskStatus(Task target, Task updatedTask)</code> is used to change the
+target task into the updated task. <code>TaskManager::appraiseXpChange(target, updatedTask)</code> is then called (from
+the current <code>versionedTaskManager</code> instance).</p>
+</div>
+<div class="paragraph">
+<p>At this point, the <code>TaskManager</code> calls <code>GameManager::appraiseXpChange(Task taskFrom, Task taskTo)</code>, passing
+control to the gamification component.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1280,39 +1308,77 @@ fetch the task associated to that hashcode, in order to check its completion sta
 </div>
 </div>
 <div class="paragraph">
-<p>A GameManager object is owned by a TaskManager, available to be called by its other methods. <strong>Any calls from anywhere
-requiring XP evaluation must be passed through the current GameManager</strong>.</p>
+<p>The <code>GameManager</code> delegates the xp calculation to its owned <code>GameMode</code> through
+<code>GameMode::appraiseXpChange(Task taskFrom, Task taskTo)</code>. The <code>GameMode</code> first checks if the tasks are valid. In
+particular, the tasks must be the same tasks (that is, they have the same fields), and the status change must be
+a valid change (e.g. from <code>IN_PROGRESS</code> to <code>COMPLETED</code>, and not something like <code>COMPLETED</code> to <code>OVERDUE</code>).</p>
 </div>
 <div class="paragraph">
-<p>The GameManager, in turn, owns a GameMode object. GameMode is implemented as an abstract class, and specific
-implementations of game modes must extend the abstract GameMode. The GameMode handles the actual appraisal of tasks
-for XP, delegated from the GameManager.</p>
-</div>
-<div class="paragraph">
-<p>The GameMode has access to the information of the Task being completed. Based on any detail of the Task, the GameMode
-can decide how much to award. The default FlatMode awards based on <code>Status</code> of the task, where <code>IN_PROGRESS</code> tasks are
-awarded a full amount of XP whereas <code>OVERDUE</code> tasks are awarded somewhat less.</p>
-</div>
-<div class="paragraph">
-<p>GameModes take in parameters determining the characteristics of the mode during construction, if necessary. For
-example, in the <code>FlatMode()</code> constructor, arguments can be specified for how much XP a completed task should obtain,
-as well as how much XP an overdue task should obtain.</p>
-</div>
-<div class="paragraph">
-<p>One key limitation of this implementation is that the start date of the task cannot be determined, as only the due
-date is tracked. As a result the Decreasing mode interpolates the drop over a fixed period, rather than tailoring it
-to each task by measuring how long the user took to complete the task relative to how distant the start and due dates
-are. This limitation might be overcome if a creation date is implemented as a field in Task.</p>
+<p>Following that, the <code>GameMode</code> performs the specific calculations unique to each <code>GameMode</code>, to determine the xp
+to be awarded.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-7"><a class="link" href="#design-considerations-7">4.10.2. Design Considerations</a></h4>
-<div class="sect4">
-<h5 id="aspect-location-of-implementation"><a class="link" href="#aspect-location-of-implementation">Aspect: Location of Implementation</a></h5>
+<h4 id="storage"><a class="link" href="#storage">4.10.3. Storage</a></h4>
+<div class="paragraph">
+<p>The current <code>GameManager</code> is persisted in WatchOver&#8217;s storage.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/GameManagerStorageClassDiagram.png" alt="GameManagerStorageClassDiagram" width="1200">
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>XmlSerializableTaskManager</code> contains a <code>XmlAdaptedGameManager</code>, to capture the state of the <code>GameManager</code>,
+allow persisting state between sessions, and take advantage of the version control to allow undoing and redoing
+of changing the game mode.</p>
+</div>
+<div class="paragraph">
+<p>Four fields are written to file:</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1(current choice):</strong> Using a separate GameManager class to calculate awarded XP.</p>
+<p>the game mode,</p>
+</li>
+<li>
+<p>the period,</p>
+</li>
+<li>
+<p>the lower bound of xp awarded, and</p>
+</li>
+<li>
+<p>the higher bound of xp awarded.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The game mode is serialised as the SimpleName of the <code>GameMode</code> subclass in the stored GameManager.</p>
+</div>
+<div class="paragraph">
+<p>The period is the time before the due date at which the xp awarded by <code>DecreasingMode</code> and <code>IncreasingMode</code> will start
+to fall or rise, respectively. Other modes ignore this field.</p>
+</div>
+<div class="paragraph">
+<p>The lower and higher bound of xp awarded are the scalings to which the game modes peg their xp awards, used by all
+existing game modes.</p>
+</div>
+<div class="paragraph">
+<p>Using these fields, the <code>GameManager</code> state can be fully reconstructed.</p>
+</div>
+<div class="paragraph">
+<p>If an invalid game mode is found written to storage, then the invalid data is ignored and a new default <code>GameManager</code>,
+using the default <code>FlatMode</code> set at medium difficulty, will be created, overwriting the invalid data.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="game-manager-design-considerations"><a class="link" href="#game-manager-design-considerations">4.10.4. Game Manager Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-location-of-xp-calculation-logic"><a class="link" href="#aspect-location-of-xp-calculation-logic">Aspect: Location of xp Calculation Logic</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Using a separate GameManager class to calculate awarded XP.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -1346,12 +1412,69 @@ are. This limitation might be overcome if a creation date is implemented as a fi
 policy apply to all tasks.</p>
 </li>
 <li>
-<p>Cons: Difficult for user to edit the modes of all tasks at one shot. Additionally, it has the potential to get messy.</p>
+<p>Cons: Difficult for user to edit the modes of all tasks at one shot. Additionally, the different modes attached to
+individual tasks may cause user confusion, especially if the user decides to change mode later but forgets to update
+previously set tasks. It is best to centralise all calculations to a single type of mode.</p>
 </li>
 </ul>
 </div>
 </li>
 </ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-placement-of-code-gamemode-code-logic"><a class="link" href="#aspect-placement-of-code-gamemode-code-logic">Aspect: Placement of <code>GameMode</code> Logic</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Wrapping the <code>GameMode</code> inside a <code>GameManager</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Since not all gamification elements are tied to the game mode, this allows future extensibility by creating
+the scaffolding for future such features to be included, such as in <code>v2.0</code>.</p>
+</li>
+<li>
+<p>Cons: One more layer of abstraction, and additional code and tests need to be written.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> <code>TaskManager</code> contains a <code>GameMode</code> directly, instead of a <code>GameManager</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: There is less code to write, and the code becomes more readable.</p>
+</li>
+<li>
+<p>Cons: The above is only true so long as <code>GameMode</code> is the only gamification feature in WatchOver. Once a new feature
+is added, significant restructuring needs to take place which will break many things.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="extensions"><a class="link" href="#extensions">4.10.5. Extensions</a></h4>
+<div class="sect4">
+<h5 id="creating-a-new-code-gamemode-code"><a class="link" href="#creating-a-new-code-gamemode-code">Creating a new <code>GameMode</code></a></h5>
+<div class="paragraph">
+<p>Creating a new <code>GameMode</code> can be done by extending <code>GameMode</code> and implementing the required abstract methods.</p>
+</div>
+<div class="paragraph">
+<p>Note that the following areas must also be changed to accomodate the new command:</p>
+</div>
+<div class="paragraph">
+<p><code>GameMode::setGameMode</code> must handle the new game mode.
+<code>GameMode::isValidGameMode</code> must recognise the game mode as an existing mode.</p>
+</div>
+<div class="paragraph">
+<p>Additionally, if the new game mode requires additional storage, the <code>XmlAdaptedGameManager</code> storage class must be
+modified to accomodate the additional stored information.</p>
 </div>
 </div>
 </div>
@@ -1888,7 +2011,7 @@ my progress and evaluate how I am doing.</p></td>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions"><a class="link" href="#extensions">D.1.2. Extensions</a></h4>
+<h4 id="extensions-2"><a class="link" href="#extensions-2">D.1.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1960,7 +2083,7 @@ Use case ends.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-2"><a class="link" href="#extensions-2">D.3.2. Extensions</a></h4>
+<h4 id="extensions-3"><a class="link" href="#extensions-3">D.3.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2016,7 +2139,7 @@ Use case ends.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-3"><a class="link" href="#extensions-3">D.4.2. Extensions</a></h4>
+<h4 id="extensions-4"><a class="link" href="#extensions-4">D.4.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2072,7 +2195,7 @@ Use case ends.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-4"><a class="link" href="#extensions-4">D.5.2. Extensions</a></h4>
+<h4 id="extensions-5"><a class="link" href="#extensions-5">D.5.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2111,7 +2234,7 @@ Use case ends.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-5"><a class="link" href="#extensions-5">D.6.2. Extensions</a></h4>
+<h4 id="extensions-6"><a class="link" href="#extensions-6">D.6.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2167,7 +2290,7 @@ Use case ends.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-6"><a class="link" href="#extensions-6">D.7.2. Extensions</a></h4>
+<h4 id="extensions-7"><a class="link" href="#extensions-7">D.7.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2206,7 +2329,7 @@ Use case ends.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-7"><a class="link" href="#extensions-7">D.8.2. Extensions</a></h4>
+<h4 id="extensions-8"><a class="link" href="#extensions-8">D.8.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2245,7 +2368,7 @@ Use case ends.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-8"><a class="link" href="#extensions-8">D.9.2. Extensions</a></h4>
+<h4 id="extensions-9"><a class="link" href="#extensions-9">D.9.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2341,7 +2464,7 @@ completed and completes them one by one.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-9"><a class="link" href="#extensions-9">D.10.2. Extensions</a></h4>
+<h4 id="extensions-10"><a class="link" href="#extensions-10">D.10.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -3113,7 +3236,231 @@ constraints will be displayed in the window below the command line.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="list-filter-results"><a class="link" href="#list-filter-results">H.9. List filter results</a></h3>
+<h3 id="game-mode-testing"><a class="link" href="#game-mode-testing">H.9. Game Mode testing</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Displaying current mode</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: -</p>
+</li>
+<li>
+<p>Test case: <code>mode</code><br></p>
+<div class="paragraph">
+<p>Expected: Current game mode details will be shown.<br>
+For example,<br>
+<code>You are currently using the Priority mode!
+Completing a task will earn you 6 times the priority value as xp, or 3 times if the task is overdue.</code></p>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Changing game mode</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: -</p>
+</li>
+<li>
+<p>Test case:<br>
+<code>mode decreasing easy</code><br>
+<code>mode</code><br>
+<code>mode increasing extreme</code><br>
+<code>mode</code><br></p>
+<div class="paragraph">
+<p>Expected: Description shown will be different during both invocations of
+<code>mode</code>.</p>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Correct xp awarded in Flat mode</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites:<br>
+Set game mode by running <code>mode flat</code></p>
+</li>
+<li>
+<p>Test case:<br>
+<code>clear</code><br>
+<code>add n/Task One t/01-01-2019 p/1 d/Some description</code><br>
+<code>edit 1 t/01-01-2018</code><br>
+<code>add n/Task Two t/31-12-2019 p/1 d/Some description</code><br>
+<code>complete 1</code><br>
+<code>complete 2</code><br></p>
+<div class="paragraph">
+<p>Expected:<br>
+Task One is overdue, and should award 30 xp under Flat mode, medium difficulty.<br>
+Task Two is on time, and should award 60 xp.</p>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Correct xp awarded in Increasing mode</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites:<br>
+Set game mode by running <code>mode increasing</code></p>
+</li>
+<li>
+<p>Test case:<br>
+<code>clear</code><br>
+<code>add n/Task One t/01-01-2019 p/1 d/Some description</code><br>
+<code>edit 1 t/01-01-2018</code><br>
+<code>add n/Task Two t/31-12-2019 p/1 d/Some description</code><br>
+<code>complete 1</code><br>
+<code>complete 2</code><br></p>
+<div class="paragraph">
+<p>Expected:<br>
+Task One is overdue, and should award 60 xp under Increasing mode, medium difficulty.<br>
+Task Two is on time, and should award 30 xp.<br>
+Setting Task Two to a different date within 3 days of the current date should award xp in between 30 xp and 60 xp.</p>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Correct xp awarded in Decreasing mode</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Set game mode by running <code>mode decreasing</code></p>
+</li>
+<li>
+<p>Test case:<br>
+<code>clear</code><br>
+<code>add n/Task One t/01-01-2019 p/1 d/Some description</code><br>
+<code>edit 1 t/01-01-2018</code><br>
+<code>add n/Task Two t/31-12-2019 p/1 d/Some description</code><br>
+<code>complete 1</code><br>
+<code>complete 2</code><br></p>
+<div class="paragraph">
+<p>Expected:<br>
+Task One is overdue, and should award 30 xp under Decreasing mode, medium difficulty.<br>
+Task Two is on time, and should award 60 xp.<br>
+Setting Task Two to a different date within 3 days of the current date should award xp in between 30 xp and 60 xp.</p>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Correct xp awarded in Priority mode</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Set game mode by running <code>mode priority</code></p>
+</li>
+<li>
+<p>Test case:<br>
+<code>clear</code><br>
+<code>add n/Task One t/31-12-2019 p/1 d/Some description</code><br>
+<code>add n/Task Two t/31-12-2019 p/10 d/Some description</code><br>
+<code>add n/Task Three t/01-01-2019 p/1 d/Some description</code><br>
+<code>add n/Task Four t/01-01-2019 p/10 d/Some description</code><br>
+<code>edit 3 t/01-01-2018</code><br>
+<code>edit 4 t/01-01-2018</code><br>
+<code>complete 1</code><br>
+<code>complete 2</code><br>
+<code>complete 3</code><br>
+<code>complete 4</code><br></p>
+<div class="paragraph">
+<p>Expected:<br>
+Task One has priority value 1 and is not overdue, and should award 6 xp under Priority mode, medium difficulty.<br>
+Task Two has priority value 10 and is not overdue, and should award 60 xp.<br>
+Task Three has priority value 1 and is overdue, and should award 3 xp.<br>
+Task Four has priority value 10 and is overdue, and should award 30 xp.<br></p>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Correct xp awarded in various game difficulties</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: -</p>
+</li>
+<li>
+<p>Test case:<br>
+<code>clear</code><br>
+<code>mode flat easy</code><br>
+<code>add n/Task One t/31-12-2019 p/1 d/Some description</code><br>
+<code>complete 1</code><br>
+<code>mode flat extreme</code><br>
+<code>add n/Task Two t/31-12-2019 p/1 d/Some description</code><br>
+<code>complete 2</code><br></p>
+<div class="paragraph">
+<p>Expected:<br>
+Task One was completed in Easy mode, and should award 50 xp.<br>
+Task Two was completed in Extreme mode, and should award 80 xp.</p>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Game mode persists between sessions</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: -</p>
+</li>
+<li>
+<p>Test case:<br>
+<code>mode</code><br>
+<code>exit</code><br>
+Restart application<br>
+<code>mode</code><br></p>
+<div class="paragraph">
+<p>Expected: Mode should remain the same before and after exiting</p>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Change of game mode can be undone</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: -</p>
+</li>
+<li>
+<p>Test case:<br>
+<code>mode priority easy</code><br>
+<code>mode</code><br>
+<code>mode flat extreme</code><br>
+<code>mode</code><br>
+<code>undo</code><br>
+<code>mode</code><br>
+<code>redo</code><br>
+<code>mode</code><br></p>
+<div class="paragraph">
+<p>Expected:<br>
+Undoing will return the mode to the previous Priority mode, and redoing will restore the subsequent Flat mode.</p>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="list-filter-results"><a class="link" href="#list-filter-results">H.10. List filter results</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3201,7 +3548,7 @@ Expected: Tasks A and C are listed.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="task-view-panel"><a class="link" href="#task-view-panel">H.10. Task View Panel</a></h3>
+<h3 id="task-view-panel"><a class="link" href="#task-view-panel">H.11. Task View Panel</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3249,4 +3596,4 @@ Task View Panel on the right hand side.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 23:13:01 SRET</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 23:14:13 SRET</div></div></div></body></html>

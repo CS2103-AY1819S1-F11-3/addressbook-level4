@@ -735,56 +735,88 @@ these fields will no longer be updated.
 <div class="sect3">
 <h4 id="change-game-mode-code-mode-code"><a class="link" href="#change-game-mode-code-mode-code">3.4.2. Change game mode: <code>mode</code></a></h4>
 <div class="paragraph">
-<p>Changes the game mode and game difficulty.<br>
-The game mode determines the method of calculating XP, whereas the difficulty scales the amounts awarded.</p>
-</div>
-<div class="paragraph">
-<p>Note: The game mode command is <strong>not affected by undo/redo</strong>, because it does not change the state of the tasks. To reverse an unintended game mode change, simply change again to the desired game mode.</p>
+<p>Used with no arguments, <code>mode</code> displays the current game mode. If used with arguments, it sets the game mode and<br>
+difficulty level.</p>
 </div>
 <div class="sect4">
-<h5 id="game-modes-available"><a class="link" href="#game-modes-available">Game modes available</a></h5>
+<h5 id="difficulty-levels"><a class="link" href="#difficulty-levels">Difficulty levels</a></h5>
+<div class="paragraph">
+<p>When tasks are completed, they award xp based on criteria unique to each game mode. However, the variance of xp
+changes with the difficulty level. Lower difficulty levels award xp in a smaller range, whereas harder difficulties
+have a higher variance and are therefore riskier.</p>
+</div>
+<div class="sect5">
+<h6 id="easy"><a class="link" href="#easy">Easy</a></h6>
+<div class="paragraph">
+<p>Easy difficulty awards a minimum of 40 and a maximum of 50 xp.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="medium"><a class="link" href="#medium">Medium</a></h6>
+<div class="paragraph">
+<p>This is the default difficulty level, awarding a minimum of 30 and a maximum of 60 xp.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="hard"><a class="link" href="#hard">Hard</a></h6>
+<div class="paragraph">
+<p>Hard difficulty awards a minimum of 20 and a maximum of 70 xp.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="extreme"><a class="link" href="#extreme">Extreme</a></h6>
+<div class="paragraph">
+<p>Extreme difficulty awards a minimum of 10 and a maximum of 80 xp.</p>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="game-modes"><a class="link" href="#game-modes">Game modes</a></h5>
 <div class="sect5">
 <h6 id="flat"><a class="link" href="#flat">Flat</a></h6>
 <div class="paragraph">
-<p>The Flat mode awards a constant amount of xp for a task completed on time, and a constant but lower amount of xp for
-a task completed after the deadline (with status OVERDUE). This is the most basic mode, and is enabled by default.
-Higher difficulties award a greater reward for tasks completed on time, but also give less reward for overdue tasks.</p>
+<p>Flat mode is the most basic mode and is enabled by default, awarding the higher amount of xp for a task
+completed on time, and the lower amount of xp for overdue task.</p>
 </div>
 </div>
 <div class="sect5">
 <h6 id="decreasing"><a class="link" href="#decreasing">Decreasing</a></h6>
 <div class="paragraph">
-<p>The Decreasing mode awards a maximum amount of xp for a task completed before the deadline, with the amount awarded
-decreasing over time to a minimum at or past the deadline. This mode is recommended for procrastinators who want
-WatchOver to reward early completion of deadlines. Setting a higher difficulty level lowers the minimum, making
-procrastination more costly.</p>
+<p>The Decreasing mode is essentially an interpolation of the Flat mode. Tasks start at the higher amount of xp, and start
+decreasing linearly at a date close to the due date, reaching the lower value at the due time and not decreasing further.
+The xp awarded starts decreasing exactly 1, 3, 7 and 10 days before the due date, for easy, medium, hard and extreme
+modes respectively.</p>
 </div>
 </div>
 <div class="sect5">
 <h6 id="increasing"><a class="link" href="#increasing">Increasing</a></h6>
 <div class="paragraph">
-<p>The Increasing mode awards a base amount of xp for tasks, which increases as the deadline nears and peaks when the
-deadline is reached. This mode can be considered the opposite of the Decreasing mode. It is recommended for motivated
-users who want the xp awards to reflect the urgency of the task; the reasoning being that if the current amount of
-xp has not yet been able to make the task 'worth it' to complete, then the amount should increase. Higher difficulties
-increase the magnitude and duration over which the xp increases.</p>
+<p>The Increasing mode is the opposite of the Decreasing mode: the xp awarded begins at the lower amount, and increases as
+the deadline nears, plateauing at the higher value when the deadline is reached. It is recommended for motivated users
+who want the xp awards to reflect the urgency of the task; the reasoning being that if the current amount of xp has not
+yet been able to make the task 'worth it' to complete, then the amount should increase. The time interval is the same
+as the Decreasing mode.</p>
 </div>
 </div>
 <div class="sect5">
 <h6 id="priority"><a class="link" href="#priority">Priority</a></h6>
 <div class="paragraph">
-<p>The Priority mode leaves the xp decision up to the user. It is identical to the Flat mode for tasks with priority
-value 10 on all difficulty levels, however, different priority values will linearly scale the awarded xp. For
-example, a task with priority value 5 will only award half the xp of an equivalent task with priority value 10.</p>
+<p>The Priority mode lets the user influence the xp awarded for individual tasks. Unlike the other modes, this mode
+does not follow the outlined minimums and maximums, instead applying a multiplier to the priority value. The multiplier
+is equal to one tenth of the Flat mode xp for the same difficulty, i.e. under Medium difficulty, an overdue task will
+obtain priority value * 3 xp, and a task completed on time will receive priority value * 6 xp.</p>
 </div>
 <div class="paragraph">
-<p>Format: <code>mode [GAME_MODE] [Optional: GAME_DIFFICULTY]</code>, where:<br>
+<p>Format: <code>mode [Optional: GAME_MODE] [Optional: GAME_DIFFICULTY]</code>, where:<br>
 	<code>GAME_MODE</code> can be <code>flat</code> (default), <code>decreasing</code>, <code>increasing</code>, <code>priority</code>;<br>
-	<code>GAME_DIFFICULTY</code> can be <code>easy</code>, <code>medium</code> (default), <code>hard</code>, <code>extreme</code>.</p>
+	<code>GAME_DIFFICULTY</code> can be <code>easy</code>, <code>medium</code> (default), <code>hard</code>, <code>extreme</code>.<br>
+	<code>GAME_MODE</code> must be specified in order to also set <code>GAME_DIFFICULTY</code>.</p>
 </div>
 <div class="paragraph">
-<p>+Example: <code>mode flat</code><br>
+<p>+Example: <code>mode</code><br>
++Example: <code>mode flat</code><br>
 +Example: <code>mode decreasing hard</code><br>
+-Example: <code>mode extreme</code><br>
 -Example: <code>mode edna</code></p>
 </div>
 </div>
@@ -897,4 +929,4 @@ example, a task with priority value 5 will only award half the xp of an equivale
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 23:13:01 SRET</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 23:14:13 SRET</div></div></div></body></html>
