@@ -17,18 +17,17 @@
 </li>
 <li><a href="#implementation">4. Implementation</a>
 <ul class="sectlevel2">
-<li><a href="#undo-redo-feature">4.1. Undo/Redo feature</a></li>
-<li><a href="#achievement-mechanism">4.2. Achievement mechanism</a></li>
-<li><a href="#batch-completion-via-label-feature">4.3. Batch Completion via Label feature</a></li>
-<li><a href="#model-rollback-feature">4.4. Model Rollback feature</a></li>
-<li><a href="#dependency-feature-modelling">4.5. Dependency Feature Modelling</a></li>
-<li><a href="#modelling-dependency-checks">4.6. Modelling Dependency Checks</a></li>
-<li><a href="#effective-due-date">4.7. Effective Due Date</a></li>
-<li><a href="#monitoring-time">4.8. Monitoring time</a></li>
-<li><a href="#list">4.9. List</a></li>
-<li><a href="#game-manager">4.10. Game Manager</a></li>
-<li><a href="#logging">4.11. Logging</a></li>
-<li><a href="#configuration">4.12. Configuration</a></li>
+<li><a href="#achievement-mechanism">4.1. Achievement mechanism</a></li>
+<li><a href="#batch-completion-via-label-feature">4.2. Batch Completion via Label feature</a></li>
+<li><a href="#model-rollback-feature">4.3. Model Rollback feature</a></li>
+<li><a href="#dependency-feature-modelling">4.4. Dependency Feature Modelling</a></li>
+<li><a href="#modelling-dependency-checks">4.5. Modelling Dependency Checks</a></li>
+<li><a href="#effective-due-date">4.6. Effective Due Date</a></li>
+<li><a href="#monitoring-time">4.7. Monitoring time</a></li>
+<li><a href="#list">4.8. List</a></li>
+<li><a href="#game-manager">4.9. Game Manager</a></li>
+<li><a href="#logging">4.10. Logging</a></li>
+<li><a href="#configuration">4.11. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">5. Documentation</a>
@@ -279,211 +278,9 @@ abstract method in command.</p>
 <p>This section describes some noteworthy details on how certain features are implemented.</p>
 </div>
 <div class="sect2">
-<h3 id="undo-redo-feature"><a class="link" href="#undo-redo-feature">4.1. Undo/Redo feature</a></h3>
+<h3 id="achievement-mechanism"><a class="link" href="#achievement-mechanism">4.1. Achievement mechanism</a></h3>
 <div class="sect3">
-<h4 id="current-implementation"><a class="link" href="#current-implementation">4.1.1. Current Implementation</a></h4>
-<div class="paragraph">
-<p>The undo/redo mechanism is facilitated by <code>VersionedAddressBook</code>.
-It extends <code>AddressBook</code> with an undo/redo history, stored internally as an <code>addressBookStateList</code> and <code>currentStatePointer</code>.
-Additionally, it implements the following operations:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>VersionedAddressBook#commit()</code>&#8201;&#8212;&#8201;Saves the current address book state in its history.</p>
-</li>
-<li>
-<p><code>VersionedAddressBook#undo()</code>&#8201;&#8212;&#8201;Restores the previous address book state from its history.</p>
-</li>
-<li>
-<p><code>VersionedAddressBook#redo()</code>&#8201;&#8212;&#8201;Restores a previously undone address book state from its history.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>These operations are exposed in the <code>Model</code> interface as <code>Model#commitAddressBook()</code>, <code>Model#undoAddressBook()</code> and <code>Model#redoAddressBook()</code> respectively.</p>
-</div>
-<div class="paragraph">
-<p>Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.</p>
-</div>
-<div class="paragraph">
-<p>Step 1. The user launches the application for the first time. The <code>VersionedAddressBook</code> will be initialized with the initial address book state, and the <code>currentStatePointer</code> pointing to that single address book state.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoRedoStartingStateListDiagram.png" alt="UndoRedoStartingStateListDiagram" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>Step 2. The user executes <code>delete 5</code> command to delete the 5th person in the address book. The <code>delete</code> command calls <code>Model#commitAddressBook()</code>, causing the modified state of the address book after the <code>delete 5</code> command executes to be saved in the <code>addressBookStateList</code>, and the <code>currentStatePointer</code> is shifted to the newly inserted address book state.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoRedoNewCommand1StateListDiagram.png" alt="UndoRedoNewCommand1StateListDiagram" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>Step 3. The user executes <code>add n/David &#8230;&#8203;</code> to add a new person. The <code>add</code> command also calls <code>Model#commitAddressBook()</code>, causing another modified address book state to be saved into the <code>addressBookStateList</code>.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoRedoNewCommand2StateListDiagram.png" alt="UndoRedoNewCommand2StateListDiagram" width="800">
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If a command fails its execution, it will not call <code>Model#commitAddressBook()</code>, so the address book state will not be saved into the <code>addressBookStateList</code>.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the <code>undo</code> command. The <code>undo</code> command will call <code>Model#undoAddressBook()</code>, which will shift the <code>currentStatePointer</code> once to the left, pointing it to the previous address book state, and restores the address book to that state.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoRedoExecuteUndoStateListDiagram.png" alt="UndoRedoExecuteUndoStateListDiagram" width="800">
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If the <code>currentStatePointer</code> is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The <code>undo</code> command uses <code>Model#canUndoAddressBook()</code> to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The following sequence diagram shows how the undo operation works:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoRedoSequenceDiagram.png" alt="UndoRedoSequenceDiagram" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>The <code>redo</code> command does the opposite&#8201;&#8212;&#8201;it calls <code>Model#redoAddressBook()</code>, which shifts the <code>currentStatePointer</code> once to the right, pointing to the previously undone state, and restores the address book to that state.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If the <code>currentStatePointer</code> is at index <code>addressBookStateList.size() - 1</code>, pointing to the latest address book state, then there are no undone address book states to restore. The <code>redo</code> command uses <code>Model#canRedoAddressBook()</code> to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Step 5. The user then decides to execute the command <code>list</code>. Commands that do not modify the address book, such as <code>list</code>, will usually not call <code>Model#commitAddressBook()</code>, <code>Model#undoAddressBook()</code> or <code>Model#redoAddressBook()</code>. Thus, the <code>addressBookStateList</code> remains unchanged.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoRedoNewCommand3StateListDiagram.png" alt="UndoRedoNewCommand3StateListDiagram" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>Step 6. The user executes <code>clear</code>, which calls <code>Model#commitAddressBook()</code>. Since the <code>currentStatePointer</code> is not pointing at the end of the <code>addressBookStateList</code>, all address book states after the <code>currentStatePointer</code> will be purged. We designed it this way because it no longer makes sense to redo the <code>add n/David &#8230;&#8203;</code> command. This is the behavior that most modern desktop applications follow.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoRedoNewCommand4StateListDiagram.png" alt="UndoRedoNewCommand4StateListDiagram" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>The following activity diagram summarizes what happens when a user executes a new command:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoRedoActivityDiagram.png" alt="UndoRedoActivityDiagram" width="650">
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="design-considerations"><a class="link" href="#design-considerations">4.1.2. Design Considerations</a></h4>
-<div class="sect4">
-<h5 id="aspect-how-undo-redo-executes"><a class="link" href="#aspect-how-undo-redo-executes">Aspect: How undo &amp; redo executes</a></h5>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Alternative 1 (current choice):</strong> Saves the entire address book.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Easy to implement.</p>
-</li>
-<li>
-<p>Cons: May have performance issues in terms of memory usage.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Alternative 2:</strong> Individual command knows how to undo/redo by itself.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Will use less memory (e.g. for <code>delete</code>, just save the person being deleted).</p>
-</li>
-<li>
-<p>Cons: We must ensure that the implementation of each individual command are correct.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect4">
-<h5 id="aspect-data-structure-to-support-the-undo-redo-commands"><a class="link" href="#aspect-data-structure-to-support-the-undo-redo-commands">Aspect: Data structure to support the undo/redo commands</a></h5>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Alternative 1 (current choice):</strong> Use a list to store the history of address book states.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.</p>
-</li>
-<li>
-<p>Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both <code>HistoryManager</code> and <code>VersionedAddressBook</code>.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Alternative 2:</strong> Use <code>HistoryManager</code> for undo/redo</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.</p>
-</li>
-<li>
-<p>Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as <code>HistoryManager</code> now needs to do two different things.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="achievement-mechanism"><a class="link" href="#achievement-mechanism">4.2. Achievement mechanism</a></h3>
-<div class="sect3">
-<h4 id="structural-overview"><a class="link" href="#structural-overview">4.2.1. Structural Overview</a></h4>
+<h4 id="structural-overview"><a class="link" href="#structural-overview">4.1.1. Structural Overview</a></h4>
 <div class="paragraph">
 <p>The achievement mechanism is facilitated by <code>AchievementRecord</code>. TaskManager is added with an <code>AchievementRecord</code> on top
 of the original <code>UniqueTaskList</code>.<br>
@@ -510,7 +307,7 @@ Integration of AchievementRecord in Model component:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="basic-mechanism"><a class="link" href="#basic-mechanism">4.2.2. Basic Mechanism</a></h4>
+<h4 id="basic-mechanism"><a class="link" href="#basic-mechanism">4.1.2. Basic Mechanism</a></h4>
 <div class="paragraph">
 <p>An <code>updateTaskStatus</code> method is implemented in <code>ModelManager</code> and exposed in the <code>Model</code> interface, this method is
 called in the execution of complete command. Upon completion of a task, the status of task is updated to COMPLETED,
@@ -548,7 +345,7 @@ the set of achievement information as specified by user&#8217;s command.<br></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="event-driven-interaction-with-other-components"><a class="link" href="#event-driven-interaction-with-other-components">4.2.3. Event-driven Interaction with other components</a></h4>
+<h4 id="event-driven-interaction-with-other-components"><a class="link" href="#event-driven-interaction-with-other-components">4.1.3. Event-driven Interaction with other components</a></h4>
 <div class="paragraph">
 <p>The achievement mechanism follows the event-driven interaction of model component with Storage and UI components.
 When a task is marked as complete, both the <code>UniqueTaskList</code> and the <code>AchievementRecord</code> of the task manager is updated
@@ -561,7 +358,7 @@ the <code>AchievementRecord</code> is update(on task completion or change of dis
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">4.2.4. Design Considerations</a></h4>
+<h4 id="design-considerations"><a class="link" href="#design-considerations">4.1.4. Design Considerations</a></h4>
 <div class="paragraph">
 <p>Aspect: Associations Among <code>TaskManager</code>,<code>UniqueTaskList</code> and <code>AchievementRecord</code><br></p>
 </div>
@@ -648,7 +445,7 @@ abstraction.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="batch-completion-via-label-feature"><a class="link" href="#batch-completion-via-label-feature">4.3. Batch Completion via Label feature</a></h3>
+<h3 id="batch-completion-via-label-feature"><a class="link" href="#batch-completion-via-label-feature">4.2. Batch Completion via Label feature</a></h3>
 <div class="paragraph">
 <p>This section and its subsections are written with reference to commit:
 9ddb0ffddf5d769d357e28fbd5337011614e7b14</p>
@@ -671,7 +468,7 @@ general idea of the flow of execution before attempting to understand the follow
 to: Appendix E: Complete Command Activity Diagram</em></p>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">4.3.1. Current Implementation</a></h4>
+<h4 id="current-implementation"><a class="link" href="#current-implementation">4.2.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The batch completion mechanism is facilitated by <code>CompleteLabelCommand</code>. It extends
 <code>CompleteCommand</code> and encapsulates the internal logic of finding completable tasks via a supplied
@@ -722,7 +519,7 @@ predicate.</p>
 </div>
 <div class="paragraph">
 <p>Step 2. The user sees all tasks previously displayed on the screen which matches the label change
-it&#8217;s status to <code>COMPLETED</code></p>
+its status to <code>COMPLETED</code></p>
 </div>
 <div class="paragraph">
 <p><strong>Extensions</strong></p>
@@ -783,7 +580,7 @@ commands</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">4.3.2. Design Considerations</a></h4>
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">4.2.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-implementation-of-atomicity"><a class="link" href="#aspect-implementation-of-atomicity">Aspect: Implementation of atomicity</a></h5>
 <div class="ulist">
@@ -871,7 +668,7 @@ to CompleteCommand.</p>
 Alternative 2 was considered for <code>CompleteCommandParser</code>. However in this case, it is hard to determine whether
 the argument is meant for <code>CompleteLabelCommand</code> or <code>CompleteIndexCommand</code> until actually parsing, As such, it could be
 viewed that the job of figuring out what to parse the argument as is subsumed under the concerned of parsing. Thus
-<code>CompleteCommandParser</code> is viewed to still respect the Single Responsibility Principle, and it&#8217;s separation may result in
+<code>CompleteCommandParser</code> is viewed to still respect the Single Responsibility Principle, and its separation may result in
 a high amount of coupling.
 </td>
 </tr>
@@ -919,13 +716,13 @@ Abstract Methods.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="model-rollback-feature"><a class="link" href="#model-rollback-feature">4.4. Model Rollback feature</a></h3>
+<h3 id="model-rollback-feature"><a class="link" href="#model-rollback-feature">4.3. Model Rollback feature</a></h3>
 <div class="paragraph">
 <p>This section and its subsections are written with reference to commit:
 9ddb0ffddf5d769d357e28fbd5337011614e7b14</p>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">4.4.1. Current Implementation</a></h4>
+<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">4.3.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>Allows for any uncommitted changes to be discarded.</p>
 </div>
@@ -958,9 +755,9 @@ the commit pointed by the <code>currentStatePointer</code> in the <code>taskMana
 </div>
 </div>
 <div class="sect2">
-<h3 id="dependency-feature-modelling"><a class="link" href="#dependency-feature-modelling">4.5. Dependency Feature Modelling</a></h3>
+<h3 id="dependency-feature-modelling"><a class="link" href="#dependency-feature-modelling">4.4. Dependency Feature Modelling</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">4.5.1. Current Implementation</a></h4>
+<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">4.4.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The dependencies of a task is modelled by an embedded <code>Dependencies</code> object in the task. This object represents dependencies with
 a hashset that contains the hashcodes of the tasks that the task is dependent upon.</p>
@@ -983,7 +780,7 @@ When editing a task, all dependencies to the edited task will be updated with th
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">4.5.2. Design Considerations</a></h4>
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">4.4.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-modelling-a-dependency"><a class="link" href="#aspect-modelling-a-dependency">Aspect: Modelling a dependency</a></h5>
 <div class="ulist">
@@ -1030,9 +827,9 @@ as a set of hashcodes before transforming the hashcodes to references to tasks o
 </div>
 </div>
 <div class="sect2">
-<h3 id="modelling-dependency-checks"><a class="link" href="#modelling-dependency-checks">4.6. Modelling Dependency Checks</a></h3>
+<h3 id="modelling-dependency-checks"><a class="link" href="#modelling-dependency-checks">4.5. Modelling Dependency Checks</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">4.6.1. Current Implementation</a></h4>
+<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">4.5.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The <code>DependencyGraph</code> is the graph representing the dependencies between the task objects. A graph model needs to be created
 so useful functions can be implemented such as cyclic check, topological sort, or a depth first search of the graph.</p>
@@ -1051,7 +848,7 @@ tasks from graph.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">4.6.2. Design Considerations</a></h4>
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">4.5.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-real-time-graph-or-graph-instantiated-on-function-call"><a class="link" href="#aspect-real-time-graph-or-graph-instantiated-on-function-call">Aspect: Real-time graph or graph instantiated on function call.</a></h5>
 <div class="ulist">
@@ -1123,9 +920,9 @@ depend on each other.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="effective-due-date"><a class="link" href="#effective-due-date">4.7. Effective Due Date</a></h3>
+<h3 id="effective-due-date"><a class="link" href="#effective-due-date">4.6. Effective Due Date</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-6"><a class="link" href="#current-implementation-6">4.7.1. Current Implementation</a></h4>
+<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">4.6.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>Effective Due Date (EDD) is a derived field in the UI. It is the earliest due date among all tasks directly or indirectly
 dependent on the task, including the task itself.</p>
@@ -1186,9 +983,9 @@ all children (i.e. B)</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="monitoring-time"><a class="link" href="#monitoring-time">4.8. Monitoring time</a></h3>
+<h3 id="monitoring-time"><a class="link" href="#monitoring-time">4.7. Monitoring time</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-7"><a class="link" href="#current-implementation-7">4.8.1. Current Implementation</a></h4>
+<h4 id="current-implementation-6"><a class="link" href="#current-implementation-6">4.7.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>Time is of key importance when dealing with the <code>TaskManager</code>. We implement and represent time using the ubiquitous
 <code>Date</code> class in Java. The class <code>DueDate</code> internally uses the <code>Date</code> class, and harnesses built in capabilities such as
@@ -1199,7 +996,7 @@ accurate to the minute.</p>
 <p>A check on whether any of the tasks are overdue is done before the execution of every command.</p>
 </div>
 <div class="sect4">
-<h5 id="design-considerations-6"><a class="link" href="#design-considerations-6">Design Considerations</a></h5>
+<h5 id="design-considerations-5"><a class="link" href="#design-considerations-5">Design Considerations</a></h5>
 <div class="sect5">
 <h6 id="aspect-implementing-the-check-on-whether-a-task-is-overdue"><a class="link" href="#aspect-implementing-the-check-on-whether-a-task-is-overdue">Aspect: Implementing the check on whether a task is overdue</a></h6>
 <div class="ulist">
@@ -1239,9 +1036,9 @@ the number of commands that a person uses likely occurs at a higher rate than th
 </div>
 </div>
 <div class="sect2">
-<h3 id="list"><a class="link" href="#list">4.9. List</a></h3>
+<h3 id="list"><a class="link" href="#list">4.8. List</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-8"><a class="link" href="#current-implementation-8">4.9.1. Current Implementation</a></h4>
+<h4 id="current-implementation-7"><a class="link" href="#current-implementation-7">4.8.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The <code>list</code> command accepts filters that either filter based on the due date of the tasks (relative to the
  current date) or the dependencies of the task. This is done using predicates that are given to filter the task list.</p>
@@ -1269,12 +1066,12 @@ fetch the task associated to that hashcode, in order to check its completion sta
 </div>
 </div>
 <div class="sect2">
-<h3 id="game-manager"><a class="link" href="#game-manager">4.10. Game Manager</a></h3>
+<h3 id="game-manager"><a class="link" href="#game-manager">4.9. Game Manager</a></h3>
 <div class="paragraph">
 <p>The Game Manager is responsible for the gamification aspects of WatchOver.</p>
 </div>
 <div class="sect3">
-<h4 id="structural-overview-2"><a class="link" href="#structural-overview-2">4.10.1. Structural Overview</a></h4>
+<h4 id="structural-overview-2"><a class="link" href="#structural-overview-2">4.9.1. Structural Overview</a></h4>
 <div class="imageblock">
 <div class="content">
 <img src="images/GameManagerClassDiagram.png" alt="GameManagerClassDiagram" width="1200">
@@ -1292,7 +1089,7 @@ xp earned, accessible through <code>appraiseXpChange(Task taskFrom, Task taskTo)
 </div>
 </div>
 <div class="sect3">
-<h4 id="mechanism"><a class="link" href="#mechanism">4.10.2. Mechanism</a></h4>
+<h4 id="mechanism"><a class="link" href="#mechanism">4.9.2. Mechanism</a></h4>
 <div class="paragraph">
 <p>When a task is completed, <code>ModelManager::updateTaskStatus(Task target, Task updatedTask)</code> is used to change the
 target task into the updated task. <code>TaskManager::appraiseXpChange(target, updatedTask)</code> is then called (from
@@ -1319,7 +1116,7 @@ to be awarded.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="storage"><a class="link" href="#storage">4.10.3. Storage</a></h4>
+<h4 id="storage"><a class="link" href="#storage">4.9.3. Storage</a></h4>
 <div class="paragraph">
 <p>The current <code>GameManager</code> is persisted in WatchOver&#8217;s storage.</p>
 </div>
@@ -1372,7 +1169,7 @@ using the default <code>FlatMode</code> set at medium difficulty, will be create
 </div>
 </div>
 <div class="sect3">
-<h4 id="game-manager-design-considerations"><a class="link" href="#game-manager-design-considerations">4.10.4. Game Manager Design Considerations</a></h4>
+<h4 id="game-manager-design-considerations"><a class="link" href="#game-manager-design-considerations">4.9.4. Game Manager Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-location-of-xp-calculation-logic"><a class="link" href="#aspect-location-of-xp-calculation-logic">Aspect: Location of xp Calculation Logic</a></h5>
 <div class="ulist">
@@ -1459,7 +1256,7 @@ is added, significant restructuring needs to take place which will break many th
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions"><a class="link" href="#extensions">4.10.5. Extensions</a></h4>
+<h4 id="extensions"><a class="link" href="#extensions">4.9.5. Extensions</a></h4>
 <div class="sect4">
 <h5 id="creating-a-new-code-gamemode-code"><a class="link" href="#creating-a-new-code-gamemode-code">Creating a new <code>GameMode</code></a></h5>
 <div class="paragraph">
@@ -1480,7 +1277,7 @@ modified to accomodate the additional stored information.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">4.11. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">4.10. Logging</a></h3>
 <div class="paragraph">
 <p>We are using java.util.logging package for logging. The LogsCenter class is used to manage the logging levels and logging destinations.</p>
 </div>
@@ -1510,7 +1307,7 @@ modified to accomodate the additional stored information.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="configuration"><a class="link" href="#configuration">4.12. Configuration</a></h3>
+<h3 id="configuration"><a class="link" href="#configuration">4.11. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: config.json).</p>
 </div>
@@ -2042,8 +1839,13 @@ my progress and evaluate how I am doing.</p></td>
 </li>
 <li>
 <p>Application displays command history.
- Use case ends.
-==== Extensions</p>
+Use case ends.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="extensions-3"><a class="link" href="#extensions-3">D.2.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2058,9 +1860,6 @@ Use case ends.</p>
 </div>
 </li>
 </ul>
-</div>
-</li>
-</ol>
 </div>
 </div>
 </div>
@@ -2083,7 +1882,7 @@ Use case ends.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-3"><a class="link" href="#extensions-3">D.3.2. Extensions</a></h4>
+<h4 id="extensions-4"><a class="link" href="#extensions-4">D.3.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2139,7 +1938,7 @@ Use case ends.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-4"><a class="link" href="#extensions-4">D.4.2. Extensions</a></h4>
+<h4 id="extensions-5"><a class="link" href="#extensions-5">D.4.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2195,7 +1994,7 @@ Use case ends.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-5"><a class="link" href="#extensions-5">D.5.2. Extensions</a></h4>
+<h4 id="extensions-6"><a class="link" href="#extensions-6">D.5.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2234,7 +2033,7 @@ Use case ends.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-6"><a class="link" href="#extensions-6">D.6.2. Extensions</a></h4>
+<h4 id="extensions-7"><a class="link" href="#extensions-7">D.6.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2290,7 +2089,7 @@ Use case ends.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-7"><a class="link" href="#extensions-7">D.7.2. Extensions</a></h4>
+<h4 id="extensions-8"><a class="link" href="#extensions-8">D.7.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2329,7 +2128,7 @@ Use case ends.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-8"><a class="link" href="#extensions-8">D.8.2. Extensions</a></h4>
+<h4 id="extensions-9"><a class="link" href="#extensions-9">D.8.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2368,7 +2167,7 @@ Use case ends.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-9"><a class="link" href="#extensions-9">D.9.2. Extensions</a></h4>
+<h4 id="extensions-10"><a class="link" href="#extensions-10">D.9.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2464,7 +2263,7 @@ completed and completes them one by one.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extensions-10"><a class="link" href="#extensions-10">D.10.2. Extensions</a></h4>
+<h4 id="extensions-11"><a class="link" href="#extensions-11">D.10.2. Extensions</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -3156,7 +2955,7 @@ Task B to be completed first.</p>
 </li>
 <li>
 <p>Test case 3: <code>complete 2</code>, followed by <code>complete 1</code>
-Expected: Task B is completed, followed by it&#8217;s standard output. Task A is completed, followed by
+Expected: Task B is completed, followed by its standard output. Task A is completed, followed by
  its standard output.</p>
 </li>
 </ol>
@@ -3596,4 +3395,4 @@ Task View Panel on the right hand side.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 23:31:29 SRET</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 23:49:35 SRET</div></div></div></body></html>
