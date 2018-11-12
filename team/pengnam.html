@@ -10,7 +10,7 @@
 <h2 id="overview"><a class="link" href="#overview">Overview</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>OverWatch is a desktop task manager.</p>
+<p>WatchOver is a gamified desktop task manager.</p>
 </div>
 </div>
 </div>
@@ -26,8 +26,7 @@
 <li>
 <p>What it does:
 Users can add and remove dependencies between tasks:
-1) to ensure that the right tasks are completed in order
-2)the earliest due date among all tasks that are directly or indirectly dependent on a given task is
+to ensure that the right tasks are completed in order and to know the earliest due date among all tasks that are directly or indirectly dependent on a given task is
 displayed for that given task (an effective due date)</p>
 </li>
 <li>
@@ -79,17 +78,8 @@ has to be recreated as the dependencies on task A has to reflect the dependency 
 </li>
 <li>
 <p><strong>Bugs found in other team&#8217;s code:</strong>
-Bugs not due to inaccurate documentation are listed here. Some are relatively major and difficult to find.</p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://github.com/CS2103-AY1819S1-W17-4/main/issues/195">Non-unique tasks</a></p>
-</li>
-<li>
-<p><a href="https://github.com/CS2103-AY1819S1-W17-4/main/issues/241#issuecomment-437561699">Files with changed names</a></p>
-</li>
-</ul>
-</div>
+Bugs not due to inaccurate documentation are listed here. Some are relatively major and difficult to find.
+CS2103-AY1819S1-W17-4 [#195:Non-unique tasks] [#241: Files with changed names]</p>
 </li>
 <li>
 <p><strong>Project Management:</strong></p>
@@ -106,7 +96,7 @@ Bugs not due to inaccurate documentation are listed here. Some are relatively ma
 <p>Coordinated and facilitated meetings one to two times a week</p>
 </li>
 <li>
-<p>Ensures that deadlines are completed on-time (all team milestones met at all milestones)</p>
+<p>Ensures that deadlines are completed on-time</p>
 </li>
 </ul>
 </div>
@@ -122,23 +112,10 @@ Bugs not due to inaccurate documentation are listed here. Some are relatively ma
 <div class="ulist">
 <ul>
 <li>
-<p>Enhanced the GUI by allowing it to display time until completion</p>
+<p>Enhanced the GUI by allowing it to display time until completion, dependencies [PR #219]</p>
 </li>
 <li>
-<p>Did a significant amount of initial refactoring for the team:</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Documentation:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Did cosmetic tweaks to existing contents of the Developer Guide</p>
-</li>
-<li>
-<p>Actively maintained the Developer Guide</p>
+<p>Did a significant amount of initial refactoring for the team: [PR 41, 47, 48, 50, 51, 54, 66]</p>
 </li>
 </ul>
 </div>
@@ -148,12 +125,10 @@ Bugs not due to inaccurate documentation are listed here. Some are relatively ma
 <div class="ulist">
 <ul>
 <li>
-<p>Reported bug on module website
-(examples:  <a href="https://github.com/nus-cs2103-AY1819S1/cs2103-website/issues/3">#3</a>,
-<a href="https://github.com/nus-cs2103-AY1819S1/cs2103-website/issues/2">#2</a>)</p>
+<p>Reported bug on module website [Module webpage GH issue 2,3]</p>
 </li>
 <li>
-<p>PRs reviewed (with non-trivial review comments):</p>
+<p>PRs reviews : [PR 76, 95, 154, 67, 213, 241]</p>
 </li>
 </ul>
 </div>
@@ -184,16 +159,17 @@ Bugs not due to inaccurate documentation are listed here. Some are relatively ma
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the User Guide.</em></p></td>
 </tr>
 </tbody>
 </table>
 <div class="sect3">
 <h4 id="adding-removing-a-dependency-to-a-task-code-dependency-code"><a class="link" href="#adding-removing-a-dependency-to-a-task-code-dependency-code">Adding/Removing a dependency to a Task: <code>dependency</code></a></h4>
 <div class="paragraph">
-<p>Adds/removes a dependency of a task dependant to the task dependee.<br>
-For a given scenario where task A is dependent on task B, task A is defined as the dependent task while task B is defined as the dependee task.<br>
-The dependency is added if it already exists amd removed if it does not.</p>
+<p>Adds/removes a dependency of a task dependent to the task dependee.<br>
+For a given scenario where task A is dependent on task B, task A is defined as the dependant task while task B is defined<br>
+as the dependee task.<br>
+The dependency is added if it already exists and removed if it does not exist.</p>
 </div>
 <div class="paragraph">
 <p>Format:
@@ -250,8 +226,8 @@ on are completed.</p>
 <p>Shows a list of uncompleted tasks by their topological order in the CLI window.</p>
 </div>
 <div class="paragraph">
-<p>It defines a possible valid sequence of tasks to tackle given existing task dependency
- constraints.</p>
+<p>A topological order defines a possible valid sequence of tasks to tackle given existing task dependency
+ constraints. Dependencies to completed tasks are deemed as fulfilled and is not a "constraint".</p>
 </div>
 <div class="paragraph">
 <p>Example:</p>
@@ -334,7 +310,7 @@ be interpreted as the start of the day, i.e <code>00:00</code>.</p>
 <div class="paragraph">
 <p>-Example:
 <code>add n/complete milestone t/2018/09/14 p/important</code>
-<code>add n/complete milestone t/2018/09/14 p/-4</code></p>
+<code>add n/complete milestone t/14-09-19 p/-4</code></p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -361,131 +337,134 @@ due date or tasks with the same name and priority value.
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the Developer Guide.</em></p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Sections excluded: topological order command manual testing, dependency related  manual testing, extra details about implementation of dependency</em></p></td>
 </tr>
 </tbody>
 </table>
 <div class="sect2">
-<h3 id="effective-due-date-field"><a class="link" href="#effective-due-date-field">Effective Due Date field</a></h3>
+<h3 id="effective-due-date"><a class="link" href="#effective-due-date">Effective Due Date</a></h3>
+<div class="sect3">
+<h4 id="current-implementation"><a class="link" href="#current-implementation">Current Implementation</a></h4>
+<div class="paragraph">
+<p>Effective Due Date (EDD) is a derived field in the UI. It is the earliest due date among all tasks directly or indirectly
+dependent on the task, including the task itself.</p>
+</div>
+<div class="paragraph">
+<p>Steps to find effective due date of task A:</p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Showcasing Effective due date field<br></p>
+<p>Prune completed tasks and dependencies to completed tasks from the <code>DependencyGraph</code></p>
 </li>
-</ol>
-</div>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p>Effective due date is a field in the UI that updates accordingly to command changes.
-Effective due date can only be seen by selecting the task on task panel with the mouse or by entering the command
-<code>select x</code>, where x is the index of the task.</p>
-</div>
-</div>
-</div>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites:</p>
+<p>Invert the dependencies in the <code>DependencyGraph</code> (to allow graph traversal in the opposite direction)</p>
 </li>
 </ol>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/EffectiveDueDate1.png" alt="EffectiveDueDate1" width="200">
+<img src="../images/EffectiveDueDateImplementation1.png" alt="EffectiveDueDateImplementation1" width="300">
 </div>
 </div>
 <div class="paragraph">
-<p><em>Diagram of Due Dates and Effective Due Dates after pre-requisites are fulfilled</em></p>
+<p><em>Diagram for effective due date implementation</em></p>
 </div>
-<div class="olist lowerroman">
-<ol class="lowerroman" type="i">
+<div class="olist arabic">
+<ol class="arabic" start="3">
 <li>
-<p>Clear task manager with <code>clear</code></p>
-</li>
-<li>
-<p>Add Task A using <code>add n/A t/1-2-19 p/5 d/blank</code></p>
-</li>
-<li>
-<p>Add Task B using <code>add n/B t/1-1-19 p/5 d/blank</code></p>
-</li>
-<li>
-<p>Add Task C using <code>add n/C t/1-3-19 p/5 d/blank</code></p>
-</li>
-</ol>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/EffectiveDueDate2.png" alt="EffectiveDueDate2" width="200">
-</div>
-</div>
-<div class="paragraph">
-<p><em>Diagram of Due Dates and Effective Due Dates for test case 1</em></p>
-</div>
+<p>Perform a depth first search from Task A to find earliest effective due date among
+all children (i.e. B)</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Test case 1: <code>dependency 2 1</code>, <code>select 1</code> or click on Task A<br>
-Expected: Dependency added between task B and task A. Effective due date of A now specifies 1-1-19.
-Number of dependencies field on the task card updated.</p>
+<p>Task C&#8217;s effective due date will be 1-3-19 [No children]</p>
+</li>
+<li>
+<p>Task B&#8217;s effective due date will be 1-1-19 [C: 1-3-19, B&#8217;s due date is earlier than EDD of C]</p>
+</li>
+<li>
+<p>Task A&#8217;s effective due date will be 1-1-19 [B: 1-1-19, B&#8217;s EDD is earlier than A&#8217;s due date]</p>
 </li>
 </ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Note: comparison of due date with EDDs of children in square brackets</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/EffectiveDueDate3.png" alt="EffectiveDueDate3" width="200">
+<img src="../images/EffectiveDueDateImplementation2.png" alt="EffectiveDueDateImplementation2" width="400">
 </div>
 </div>
 <div class="paragraph">
-<p><em>Diagram of Due Dates and Effective Due Dates for test case 2</em></p>
+<p><em>Table for effective due date implementation</em></p>
 </div>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Test case 2: [Execute commands from test case 1] + <code>dependency 3 2</code> + <code>select 3</code> or click on task C<br>
-Expected: No change to effective due date.</p>
-</li>
-</ol>
 </div>
-<div class="sect4">
-<h5 id="command-component"><a class="link" href="#command-component">Command Component</a></h5>
+<div class="sect3">
+<h4 id="command-component"><a class="link" href="#command-component">Command Component</a></h4>
 <div class="paragraph">
-<p>Command is refactored to be implemented using a <a href="https://en.wikipedia.org/wiki/Template_method_pattern">template method pattern</a>.
+<p>Command is refactored to be implemented using a template method pattern.
  The rationale is that there are shared codes and invariants among all the executions of the command classes such as the
  method to update the status of tasks to overdue if their due date is past current time.</p>
 </div>
 <div class="paragraph">
 <p>The common patterns in execution are implemented in the <code>execute</code> function of the command class which is declared final.
 Concrete implementations of each execute function is implemented in the <code>executePrimitive</code> function of each subclass of command.
-The implementation for executePrimitive fill the "variant" portion of the model template. Note that execute primitive is implemented as a
+The implementation for executePrimitive fill the "variant" portion of the model template. Note that execute primitive is implemented as an
 abstract method in command.</p>
-</div>
-<div class="paragraph">
-<p>Simplified class diagram for the command component:</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/CommandComponentClassDiagram.png" alt="CommandComponentClassDiagram" width="600">
+<img src="../images/CommandComponentClassDiagram.png" alt="CommandComponentClassDiagram" width="400">
 </div>
+</div>
+<div class="paragraph">
+<p><em>Simplified class diagram for the command component</em></p>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="dependency-feature-modelling"><a class="link" href="#dependency-feature-modelling">Dependency Feature Modelling</a></h3>
 <div class="sect3">
-<h4 id="current-implementation"><a class="link" href="#current-implementation">Current Implementation</a></h4>
+<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">Current Implementation</a></h4>
 <div class="paragraph">
-<p>The dependency mechanism is facilitated by an embedded <code>Dependencies</code> object. This object represents dependencies with
+<p>The dependencies of a task is modelled by an embedded <code>Dependencies</code> object in the task. This object represents dependencies with
 a hashset that contains the hashcodes of the tasks that the task is dependent upon.</p>
 </div>
 <div class="paragraph">
-<p>Sequence Diagram of the dependencies command</p>
+<p>The dependencies between tasks are added or removed using the dependency command. If a given task A is dependent on a given task B,
+task A is the dependant task while task B is the dependee task.</p>
+</div>
+<div class="paragraph">
+<p>When deleting a task, all dependencies to the deleted task will be removed.
+When editing a task, all dependencies to the edited task will be updated with the hashcode of the new edited task.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/DependencyActivityDiagram.png" alt="DependencyActivityDiagram" width="600">
+</div>
+</div>
+<div class="paragraph">
+<p><em>Activity diagram for the dependency command (dependencies are toggled using the command)</em></p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
 <div class="sect4">
-<h5 id="aspect-modelling-of-the-embedded-dependency-object"><a class="link" href="#aspect-modelling-of-the-embedded-dependency-object">Aspect: Modelling of the embedded dependency object.</a></h5>
+<h5 id="aspect-modelling-a-dependency"><a class="link" href="#aspect-modelling-a-dependency">Aspect: Modelling a dependency</a></h5>
 <div class="ulist">
 <ul>
 <li>
@@ -493,58 +472,33 @@ a hashset that contains the hashcodes of the tasks that the task is dependent up
 <div class="ulist">
 <ul>
 <li>
-<p>Pros:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>There is no task creation propogation when task dependency is added. (refer to alternative 2).</p>
+<p>Pros:
+When a task dependency is updated, the updating of tasks do not propagate . (Refer to alternative 2)<br>
+The hashcodes are generated without a task&#8217;s dependencies. Hence, when updating a given task A, tasks dependent
+to task A do not need to be recreated as the hashcode of the new task A is the same hashcode as the old task A.</p>
 </li>
 <li>
-<p>Easy to reform the dependency graph.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Cons: Some functions such as UI display might require details of the dependee task. Additional complexity incurred when
-finding reference of the dependee task given its hashcode.</p>
+<p>Cons:
+Some functions such as UI display require details of the dependee tasks. Additional computation required to
+find reference of the dependee task from its hashcode.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong> Alternative 2: </strong>Dependencies specified by (references to) the Tasks objects themselves</p>
+<p><strong> Alternative 2: </strong>Dependencies specified by (references to) the Task objects themselves</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>It allows an easy reference to the task object.</p>
+<p>Pros: Easy reference the task object.</p>
 </li>
 <li>
-<p>Allows for the implementation of a real-time dependency graph, which is referenced
-to rather than recreated every time a topological sort or a cyclical check is needed.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Cons: Introduces unnecessary complications.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Tasks are immutable, so whenever a task dependency is added, all connected components of the graph to the edited task needs to be reinstantiated.
-i.e. Task A has a new dependency. Task A has to be recreated with the additional dependency. After this new task is created, all
-other tasks that depends on A has to be recreated as the dependencies is updated.</p>
-</li>
-<li>
-<p>[Assumption: <strong>In storage</strong>, Task dependencies are specified by hashcodes of task] When retrieving data from storage, the parser needs to first load the dependencies
-as a set of hashcodes before transforming the hashcodes to task reference only when all tasks are instantiated from storage.</p>
-</li>
-</ul>
-</div>
+<p>Cons: Introduces unnecessary complications.<br>
+1)Tasks are immutable. Whenever a task dependency is added or removed a new task is created. All tasks dependent
+to the updated task have to have their dependencies updated. Consequently, all tasks that are dependent to the the tasks dependent
+to the original task have to have their dependencies updated as well.<br>
+2)[Assumption: <strong>In storage</strong>, task dependencies are specified by hashcodes of task] When retrieving data from storage, the parser needs to first load the dependencies
+as a set of hashcodes before transforming the hashcodes to references to tasks only when all tasks are instantiated from storage.</p>
 </li>
 </ul>
 </div>
@@ -555,12 +509,24 @@ as a set of hashcodes before transforming the hashcodes to task reference only w
 </div>
 </div>
 <div class="sect2">
-<h3 id="modelling-dependency-validity"><a class="link" href="#modelling-dependency-validity">Modelling Dependency Validity</a></h3>
+<h3 id="modelling-dependency-checks"><a class="link" href="#modelling-dependency-checks">Modelling Dependency Checks</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">Current Implementation</a></h4>
+<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">Current Implementation</a></h4>
 <div class="paragraph">
-<p>The dependency graph is the graph representing the dependencies between the task objects. A graph model needs to be created
-so useful functions can be implemented such as cyclic and topological sort.</p>
+<p>The <code>DependencyGraph</code> is the graph representing the dependencies between the task objects. A graph model needs to be created
+so useful functions can be implemented such as cyclic check, topological sort, or a depth first search of the graph.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ShowTopologicalOrderCommandSequenceDiagram.png" alt="ShowTopologicalOrderCommandSequenceDiagram" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p><em>Sequence Diagram of the Show Topological Order Command (DependencyGraph on the right hand side of diagram)</em></p>
+</div>
+<div class="paragraph">
+<p><code>DependencyGraph</code> is instantiated whenever it is needed. Transformations such as inverting the graph or pruning COMPLETED
+tasks from graph.</p>
 </div>
 </div>
 <div class="sect3">
@@ -574,7 +540,9 @@ so useful functions can be implemented such as cyclic and topological sort.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Graph does not have to be updated or maintained.</p>
+<p>Pros:<br>
+1) Graph does not have to be maintained at every relevant command<br>
+2) Graph can be transformed (pruning/inverting) without worrying about modifying the original dependencies object</p>
 </li>
 <li>
 <p>Cons: Slight increase in latency, but mitigated by the fact that a typical user won&#8217;t
@@ -584,60 +552,19 @@ have an extremely large amount of tasks.</p>
 </div>
 </li>
 <li>
-<p><strong> Alternative 2:</strong> Graph created on start-up and maintained during run-time.</p>
+<p><strong> Alternative 2:</strong> Graph created on start-up and maintained during run-time</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Slightly faster speed for dependency related commands.</p>
+<p>Pros: Slightly faster speed for dependency related commands</p>
 </li>
 <li>
-<p>Cons: Upkeep of graph is slightly complex to implement especially with the immutable nature of the Tasks with the only
-benefit being a slightly shorter run-time</p>
+<p>Cons: Upkeep of graph is complex to implement especially with the immutable nature of the Tasks</p>
 </li>
 </ul>
 </div>
 </li>
 </ul>
-</div>
-</div>
-<div class="sect4">
-<h5 id="aspect-task-dependencies-modelled-with-a-graph"><a class="link" href="#aspect-task-dependencies-modelled-with-a-graph">Aspect: Task dependencies modelled with a graph</a></h5>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Alternative 1(current choice):</strong> Using a graph.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>With a graph, major problems with task dependency can be identified. The biggest problem is
-cyclic dependency, which is when a set of tasks have a dependency to each other and hence they cannot be completed because they
-depend on each other.</p>
-</li>
-<li>
-<p>A topological sort can also be performed on the graph to order tasks by the number of dependencies.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Cons: nil</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect4">
-<h5 id="aspect-implementing-topological-sort"><a class="link" href="#aspect-implementing-topological-sort">Aspect: Implementing topological sort</a></h5>
-<div class="imageblock">
-<div class="content">
-<img src="../images/ShowTopologicalOrderCommandSequenceDiagram.png" alt="ShowTopologicalOrderCommandSequenceDiagram" width="1200">
-</div>
 </div>
 </div>
 <div class="sect4">
@@ -666,7 +593,7 @@ the number of commands that a person uses likely occurs at a higher rate than th
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: The overdue state of the task is definitely current</p>
+<p>Pros: The overdue state of the task is current</p>
 </li>
 <li>
 <p>Cons: Potential race condition and might introduce latency to the application.</p>
@@ -680,5 +607,88 @@ the number of commands that a person uses likely occurs at a higher rate than th
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="effective-due-date-field"><a class="link" href="#effective-due-date-field">Effective Due Date field</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Showcasing Effective due date field<br></p>
+</li>
+</ol>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 22:29:55 SRET</div></div></div></body></html>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>Effective due date is a field in the UI that updates according to command changes.
+Effective due date can be seen by selecting the task on task panel with the mouse or by entering the command
+<code>select x</code>, where x is the index of the task.</p>
+</div>
+</div>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites:</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/EffectiveDueDate1.png" alt="EffectiveDueDate1" width="400">
+</div>
+</div>
+<div class="paragraph">
+<p><em>Diagram of Due Dates and Effective Due Dates after pre-requisites are fulfilled</em></p>
+</div>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Clear task manager with <code>clear</code></p>
+</li>
+<li>
+<p>Add Task A using <code>add n/A t/1-2-19 p/5 d/blank</code></p>
+</li>
+<li>
+<p>Add Task B using <code>add n/B t/1-1-19 p/5 d/blank</code></p>
+</li>
+<li>
+<p>Add Task C using <code>add n/C t/1-3-19 p/5 d/blank</code></p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/EffectiveDueDate2.png" alt="EffectiveDueDate2" width="400">
+</div>
+</div>
+<div class="paragraph">
+<p><em>Diagram of Due Dates and Effective Due Dates for test case 1</em></p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Test case 1: <code>dependency 2 1</code>, <code>select 1</code> or click on Task A<br>
+Expected: Dependency added between task B and task A. Effective due date of A now specifies 1-1-19.
+Number of dependencies field on the task card updated.</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/EffectiveDueDate3.png" alt="EffectiveDueDate3" width="400">
+</div>
+</div>
+<div class="paragraph">
+<p><em>Diagram of Due Dates and Effective Due Dates for test case 2</em></p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Test case 2: <code>dependency 2 1</code> + <code>dependency 3 2</code> + <code>select 3</code> or click on task C<br>
+Expected: No change to effective due date. Number of dependencies field on the task card updated.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 22:41:09 SRET</div></div></div></body></html>
