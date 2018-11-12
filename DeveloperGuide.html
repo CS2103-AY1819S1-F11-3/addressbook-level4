@@ -91,6 +91,8 @@
 <li><a href="#adding-or-removing-a-dependency">H.4. Adding or removing a dependency</a></li>
 <li><a href="#interactions-of-complete-command-with-dependencies">H.5. Interactions of Complete Command with Dependencies</a></li>
 <li><a href="#list-topological-order-of-tasks">H.6. List topological order of tasks</a></li>
+<li><a href="#list-filter-results">H.7. List filter results</a></li>
+<li><a href="#task-view-panel">H.8. Task View Panel</a></li>
 </ul>
 </li>
 </ul></div></div><div id="content"><div class="sect1">
@@ -3246,5 +3248,141 @@ constraints will be displayed in the window below the command line.</p>
 </ol>
 </div>
 </div>
+<div class="sect2">
+<h3 id="list-filter-results"><a class="link" href="#list-filter-results">H.7. List filter results</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Expected results for time-based filters</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Clear task manager with <code>clear</code></p>
+</li>
+<li>
+<p>Add Task A using <code>add n/A p/5 d/due today l/one t/X Y</code> where <code>X</code> is today&#8217;s date and Y is a
+time before the end of the day</p>
+</li>
+<li>
+<p>Add Task B using <code>add n/B p/5 d/due before sunday l/two t/X Y</code> where <code>X</code> is any valid date before the end of the
+week and <code>Y</code> is any valid time</p>
+</li>
+<li>
+<p>Add Task C using <code>add n/C p/5 d/due before end of month l/two t/X Y</code> where <code>X</code> is any valid date before
+the end of the month and <code>Y</code> is any valid time</p>
+</li>
+</ol>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 20:25:58 SRET</div></div></div></body></html>
+</li>
+<li>
+<p>Test case 1: <code>list f/today</code>,
+Expected: Only Task A is listed.</p>
+</li>
+<li>
+<p>Test case 2: <code>list f/week</code>,
+Expected: Only Task B is listed.</p>
+</li>
+<li>
+<p>Test case 3: <code>list f/month</code>,
+Expected: Only Task C is listed.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Expected results for dependency-based filter (<code>doable</code>)</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Clear task manager with <code>clear</code></p>
+</li>
+<li>
+<p>Add Task A using <code>add n/A t/1-1-19 p/5 d/blank l/two</code></p>
+</li>
+<li>
+<p>Add Task B using <code>add n/B t/1-1-19 p/5 d/blank l/two</code></p>
+</li>
+<li>
+<p>Add Task C using <code>add n/C t/1-1-19 p/5 d/blank l/two</code></p>
+</li>
+<li>
+<p>List all tasks using <code>list</code></p>
+</li>
+<li>
+<p>Add a dependency from A to B using <code>dependency 1 2</code></p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Test case 1: <code>list f/doable</code>,
+Expected: Tasks B and C are listed.</p>
+</li>
+<li>
+<p>Test case 2: <code>list</code>, <code>complete 2</code>, <code>list f/doable</code>,
+Expected: Tasks A and C are listed.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="task-view-panel"><a class="link" href="#task-view-panel">H.8. Task View Panel</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Expected view for selecting tasks</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Clear task manager with <code>clear</code></p>
+</li>
+<li>
+<p>Add Task A using <code>add n/A t/1-1-19 p/5 d/blank l/two</code></p>
+</li>
+<li>
+<p>Add Task B using <code>add n/B t/1-1-19 p/5 d/blank l/two</code></p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Test case 1: <code>select 1</code>,
+Expected: Task A is selected and its details are displayed on the Task View Panel on the right hand side.</p>
+</li>
+<li>
+<p>Test case 2: <code>select 2</code>,
+Expected: Task B is selected and its details are displayed on the Task View Panel on the right hand side.</p>
+</li>
+<li>
+<p>Test case 3: <code>edit 2 n/C</code>,
+Expected: Task B is edited to become Task C, gets selected and its details are displayed on the
+Task View Panel on the right hand side.</p>
+</li>
+<li>
+<p>Test case 3: <code>edit 2 n/C</code>,
+Expected: Task B is edited to become Task C, gets selected and its details are displayed on the
+Task View Panel on the right hand side.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 21:16:49 SRET</div></div></div></body></html>
