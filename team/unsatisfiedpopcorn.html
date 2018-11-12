@@ -298,13 +298,98 @@ Explanation: <code>Task A</code> is dependent on <code>Task X</code> which will 
 </table>
 <div class="sect2">
 <h3 id="batch-completion-via-label-feature"><a class="link" href="#batch-completion-via-label-feature">Batch Completion via Label feature</a></h3>
+<div class="paragraph">
+<p>The <code>CompleteLabelCommand</code> class inherits from the <code>CompleteCommand</code> class. It takes in a
+<code>Task&lt;Predicate&gt;</code> while another subclass of <code>CompleteCommand</code>, <code>CompleteIndexCommand</code>
+takes in an <code>Index</code> to support polymorphic behavior for both a single operation and batch operation.</p>
+</div>
+<div class="paragraph">
+<p><em>If you require involved context for the execution of the whole <code>CompleteCommand</code> please refer
+to: Appendix E: Complete Command Activity Diagram</em></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This section and its subsections are written with reference to commit:
+9ddb0ffddf5d769d357e28fbd5337011614e7b14
+</td>
+</tr>
+</table>
+</div>
 <div class="sect3">
 <h4 id="current-implementation"><a class="link" href="#current-implementation">Current Implementation</a></h4>
 <div class="paragraph">
-<p>The batch completion mechanism is facilitated by <code>CompleteLabelCommand</code>.
-It extends <code>CompleteCommand</code> and encapsulates the internal logic of finding task and completing multiple
-tasks atomically.</p>
+<p>The batch completion mechanism is facilitated by <code>CompleteLabelCommand</code>. It extends
+<code>CompleteCommand</code> and encapsulates the internal logic of finding completable tasks via a supplied
+ <code>Task&lt;Predicate&gt;</code>. Additionally it is able to complete and rollback multiple tasks atomically.</p>
 </div>
+<div class="paragraph">
+<p>These are the methods in the CompleteCommand class supporting the batch completion:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>#completeAllTasksReturnStringOfTasks(Model)</code></p>
+</li>
+<li>
+<p><code>#completeTasksInSetUpdateModel(Model, Set&lt;Task&gt;)</code></p>
+</li>
+<li>
+<p><code>#completeOneTaskReturnStringOfTasks(Task, Model)</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><em>Premise: The application has several tasks tagged with the label: many.</em></p>
+</div>
+<div class="paragraph">
+<p>Step 1. The user executes <code>complete l/many</code> command to complete all the tasks labelled <code>many</code>.</p>
+</div>
+<div class="paragraph">
+<p>Step 1.1. The argument <code>String</code> is passed to  the <code>CompleteCommandParser</code>, which checks to see
+if the user&#8217;s input contains a label, then calls <code>CompleteCommandParser#parseLabel(&#8230;&#8203;)</code>. As a
+result a new <code>CompleteLabelCommand</code> instance is created. It contains a
+<code>LabelMatchesAnyKeywordsPredicate</code> which will only test true against a <code>Task</code> containing a
+<code>Label::many</code>.</p>
+</div>
+<div class="paragraph">
+<p>Step 1.2. A chain of event triggers, ultimately calling <code>CompleteCommand#execute(&#8230;&#8203;)</code> for the
+created instance. Subsequently <code>CompleteCommand#completeAllTasksReturnStringOfTasks(&#8230;&#8203;)</code> is
+called which encapsulates the logic for updating all valid completable tasks matching the predicate.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/CompleteViaLabelOnSuccess.png" alt="CompleteViaLabelOnSuccess" width="700">
+</div>
+</div>
+<div class="paragraph">
+<p>Step 1.2.1 If all tasks are updated successfully, <code>Model#commit()</code> will be called.</p>
+</div>
+<div class="paragraph">
+<p>Step 2. The user sees all tasks previously displayed on the screen which matches the label change
+it&#8217;s status to <code>COMPLETED</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="paragraph">
+<p>Step 1.2.1.a If all tasks are not updated successfull, <code>Model#rollbal()</code> will be called. All
+uncommitted changes will be reset to the current state pointed to in <code>taskManagerStateList</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/CompleteViaLabelOnFail.png" alt="CompleteViaLabelOnFail" width="700">
+</div>
+</div>
+<div class="paragraph">
+<p>Step 1.2.1.a1 Then user will see a relevant error message pertaining to what went wrong.</p>
+</div>
+<div class="sect4">
+<h5 id="auxiliary-changes"><a class="link" href="#auxiliary-changes">Auxiliary Changes</a></h5>
 <div class="paragraph">
 <p>Additionally, in order to facilitate the finding of task and completing tasks atomically, the
 following auxiliary classes have been created / extended as a result:</p>
@@ -312,12 +397,12 @@ following auxiliary classes have been created / extended as a result:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>LabelMatchesKeywordPredicate</code>&#8201;&#8212;&#8201;Extension of the functional interface <code>Predicate&lt;E&gt;</code></p>
+<p><code>LabelMatchesAnyKeywordsPredicate</code>&#8201;&#8212;&#8201;Extension of the functional interface <code>Predicate&lt;E&gt;</code></p>
 <div class="ulist">
 <ul>
 <li>
 <p>This class is required to encapsulate the logic of determining if a task has a <code>Label</code> matching
-the desired <code>Label</code> (case-insensitive).</p>
+any of the desired <code>Label</code>(s) specified (case-insensitive).</p>
 </li>
 </ul>
 </div>
@@ -344,82 +429,6 @@ commands</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>These are the methods in the CompleteCommand class supporting the batch completion:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>#completeAllTasksReturnStringOfTasks(Model)</code></p>
-</li>
-<li>
-<p><code>#completeOneTaskReturnStringOfTasks(Task, Model)</code></p>
-</li>
-</ul>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The <code>CompleteLabelCommand</code> class inherits from the <code>CompleteCommand</code> class. It takes in a
-<code>Task&lt;Predicate&gt;</code> while another subclass of <code>CompleteCommand</code>, <code>CompleteIndexCommand</code>
-takes in an <code>Index</code> to support polymorphic behavior for both a single operation and batch operation.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.</p>
-</div>
-<div class="paragraph">
-<p><em>Premise: The application has several tasks tagged with the label: many.</em></p>
-</div>
-<div class="paragraph">
-<p>Step 1. The user executes <code>complete l/many</code> command to complete all the tasks labelled <code>many</code>.</p>
-</div>
-<div class="paragraph">
-<p>Step 1.1. The argument <code>String</code> is passed to  the <code>CompleteCommandParser</code>, which checks to see
-if the user&#8217;s input contains a label, then calls <code>CompleteCommandParser#parseLabel(&#8230;&#8203;)</code>. As a
-result a new <code>CompleteCommand</code> instance containing a  <code>LabelMatchesKeywordPredicate</code> which
-will only test true against a <code>Task</code> containing a <code>Label::many</code>.</p>
-</div>
-<div class="paragraph">
-<p>Step 1.2. A chain of event triggers, ultimately calling <code>CompleteCommand#execute(&#8230;&#8203;)</code> for the
-created instance. Subsequently <code>CompleteCommand#completeAllTasksReturnStringOfTasks(&#8230;&#8203;)</code> is
-called which handles the logic for updating all valid completable tasks matching the predicate.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/CompleteViaLabelOnFail.png" alt="CompleteViaLabelOnFail" width="1200">
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If a command fails its execution, it will call <code>Model#rollbackTaskManager()</code>, so
-all current changes will be reset to the latest commit / state in <code>taskManagerStateList</code>.
-</td>
-</tr>
-</table>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/CompleteViaLabelOnSuccess.png" alt="CompleteViaLabelOnSuccess" width="1200">
-</div>
-</div>
-<div class="paragraph">
-<p>Step 1.2.1 If all tasks are updated successful, <code>Model#commit()</code> will be called.</p>
-</div>
-<div class="paragraph">
-<p>Step 2. The user sees all tasks previously displayed on the screen which matches the label change
-it&#8217;s status to <code>COMPLETED</code></p>
 </div>
 </div>
 <div class="sect3">
@@ -435,21 +444,22 @@ otherwise <code>Model#commit()</code></p>
 <ul>
 <li>
 <p>Pros: This implementation defensively codes for scenarios where CommandExceptions are thrown, thus
-ensuring that there are no partially-done batch operation resulting in harder to debug state.</p>
+ensuring that there are no partially-done batch operation resulting in a possibly invalid state.</p>
 </li>
 <li>
-<p>Cons: Increases coupling of components.</p>
+<p>Cons: Requires extending the Model class and depending on its funcationalities; resulting in
+tighter coupling.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Alternative 2:</strong> Doing a check on all tasks and only proceeding to update the model and
-commit if deemed that all tasks can be completed successfully else throw an exception.</p>
+<p><strong>Alternative 2:</strong> Doing a check on all tasks to see if they can be completed successfully. If
+yes, then proceed to update the model and commit else throw an exception.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Reduces coupling.</p>
+<p>Pros: Looser coupling as checks are implemented within CompleteCommand.</p>
 </li>
 <li>
 <p>Cons: Unable to handle unforeseen failure to complete, resulting in a partially committed
@@ -471,11 +481,11 @@ both behaviours within.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Groups possibly tightly coupled code together into a single class; thus reducing
-coupling.</p>
+<p>Pros: This is one easy way of grouping possibly tightly coupled code together into a single
+class; thus reducing coupling.</p>
 </li>
 <li>
-<p>Cons: Possibly goes against the Separations of Concerns principle.</p>
+<p>Cons: Goes against the Separations of Concerns principle.</p>
 </li>
 </ul>
 </div>
@@ -487,10 +497,13 @@ two different behaviours implemented are: completion via index and completion vi
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Clear separation of concern, respecting the Single Responsibility Principle.</p>
+<p>Pros: Clear separation of concern, respecting the Single Responsibility Principle.
+Additionally, there is less duplicated code as similar code can be implemented in the
+<code>CompleteCommand</code> class.</p>
 </li>
 <li>
-<p>Cons: Harder to initially design properly.</p>
+<p>Cons: Harder to initially design properly, also sub-classes of CompleteCommand are now coupled
+to CompleteCommand.</p>
 </li>
 </ul>
 </div>
@@ -520,12 +533,12 @@ a high amount of coupling.
 <ul>
 <li>
 <p><strong>Alternative 1 (current choice):</strong> As an explicit implemented class
-<code>LabelMatchesKeywordPredicate</code>.</p>
+<code>LabelMatchesAnyKeywordsPredicate</code>.</p>
 <div class="ulist">
 <ul>
 <li>
 <p>Pros: Notion of equality can be overloaded. This allows for proper checking of equality in every class composing the
-<code>LabelMatchesKeywordPredicate</code>. In sum, it allows for the checking of structural equality rather than just referential
+<code>LabelMatchesAnyKeywordsPredicate</code>. In sum, it allows for the checking of structural equality rather than just referential
 equality.</p>
 </li>
 <li>
@@ -576,9 +589,8 @@ Abstract Methods.</p>
 </div>
 <div class="paragraph">
 <p>When <code>VersionedTaskManager#Rollback()</code> is called, the current data is reset to the state of the
-latest commit. Internally, <code>VersionedTaskManager#resetDate(&#8230;&#8203;)</code> is called to reset the data to
-the latest commit, also the <code>currentStatePointer</code> is set to point at the index of the latest
-commit in <code>taskManagerStateList</code>.</p>
+latest commit. Internally, <code>VersionedTaskManager#resetData(&#8230;&#8203;)</code> is called to reset the data to
+the commit pointed by the <code>currentStatePointer</code> in the <code>taskManagerStateList</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -586,9 +598,9 @@ commit in <code>taskManagerStateList</code>.</p>
 </div>
 </div>
 <div class="paragraph">
-<p><em>Internal calls of <code>VersionedTaskManager.resetData(&#8230;&#8203;)</code> has been omitted for brevity</em></p>
+<p><em>Calls to the Commons/Event component has been omitted for brevity.</em></p>
 </div>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 11:18:28 SRET</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 19:04:35 SRET</div></div></div></body></html>

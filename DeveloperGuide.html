@@ -64,8 +64,8 @@
 </ul>
 </li>
 <li><a href="#target-user-profile">Appendix A: Target User Profile</a></li>
-<li><a href="#appendix-b-value-proposition">Appendix B: Appendix B: Value proposition</a></li>
-<li><a href="#appendix-c-user-stories">Appendix C: Appendix C: User Stories</a></li>
+<li><a href="#value-proposition">Appendix B: Value proposition</a></li>
+<li><a href="#user-stories">Appendix C: User Stories</a></li>
 <li><a href="#use-cases">Appendix D: Use cases</a>
 <ul class="sectlevel2">
 <li><a href="#use-case-list-task">D.1. Use case: List Task</a></li>
@@ -80,15 +80,17 @@
 <li><a href="#use-case-completing-task-batch-via-code-label-code">D.10. Use case: Completing Task (Batch via <code>Label</code>)</a></li>
 </ul>
 </li>
-<li><a href="#non-functional-requirements">Appendix E: Non-functional requirements</a></li>
-<li><a href="#glossary">Appendix F: Glossary</a></li>
-<li><a href="#instructions-for-manual-testing">Appendix G: Instructions for Manual Testing</a>
+<li><a href="#complete-command-activity-diagram">Appendix E: Complete Command Activity Diagram</a></li>
+<li><a href="#non-functional-requirements">Appendix F: Non-functional requirements</a></li>
+<li><a href="#glossary">Appendix G: Glossary</a></li>
+<li><a href="#instructions-for-manual-testing">Appendix H: Instructions for Manual Testing</a>
 <ul class="sectlevel2">
-<li><a href="#launch-and-shutdown">G.1. Launch and Shutdown</a></li>
-<li><a href="#effective-due-date-field">G.2. Effective Due Date field</a></li>
-<li><a href="#achievement-mechanism-2">G.3. Achievement Mechanism</a></li>
-<li><a href="#adding-or-removing-a-dependency">G.4. Adding or removing a dependency</a></li>
-<li><a href="#list-topological-order-of-tasks">G.5. List topological order of tasks</a></li>
+<li><a href="#launch-and-shutdown">H.1. Launch and Shutdown</a></li>
+<li><a href="#effective-due-date-field">H.2. Effective Due Date field</a></li>
+<li><a href="#achievement-mechanism-2">H.3. Achievement Mechanism</a></li>
+<li><a href="#adding-or-removing-a-dependency">H.4. Adding or removing a dependency</a></li>
+<li><a href="#interactions-of-complete-command-with-dependencies">H.5. Interactions of Complete Command with Dependencies</a></li>
+<li><a href="#list-topological-order-of-tasks">H.6. List topological order of tasks</a></li>
 </ul>
 </li>
 </ul></div></div><div id="content"><div class="sect1">
@@ -932,13 +934,98 @@ abstraction.</p>
 </div>
 <div class="sect2">
 <h3 id="batch-completion-via-label-feature"><a class="link" href="#batch-completion-via-label-feature">4.3. Batch Completion via Label feature</a></h3>
+<div class="paragraph">
+<p>The <code>CompleteLabelCommand</code> class inherits from the <code>CompleteCommand</code> class. It takes in a
+<code>Task&lt;Predicate&gt;</code> while another subclass of <code>CompleteCommand</code>, <code>CompleteIndexCommand</code>
+takes in an <code>Index</code> to support polymorphic behavior for both a single operation and batch operation.</p>
+</div>
+<div class="paragraph">
+<p><em>If you require involved context for the execution of the whole <code>CompleteCommand</code> please refer
+to: Appendix E: Complete Command Activity Diagram</em></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This section and its subsections are written with reference to commit:
+9ddb0ffddf5d769d357e28fbd5337011614e7b14
+</td>
+</tr>
+</table>
+</div>
 <div class="sect3">
 <h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">4.3.1. Current Implementation</a></h4>
 <div class="paragraph">
-<p>The batch completion mechanism is facilitated by <code>CompleteLabelCommand</code>.
-It extends <code>CompleteCommand</code> and encapsulates the internal logic of finding task and completing multiple
-tasks atomically.</p>
+<p>The batch completion mechanism is facilitated by <code>CompleteLabelCommand</code>. It extends
+<code>CompleteCommand</code> and encapsulates the internal logic of finding completable tasks via a supplied
+ <code>Task&lt;Predicate&gt;</code>. Additionally it is able to complete and rollback multiple tasks atomically.</p>
 </div>
+<div class="paragraph">
+<p>These are the methods in the CompleteCommand class supporting the batch completion:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>#completeAllTasksReturnStringOfTasks(Model)</code></p>
+</li>
+<li>
+<p><code>#completeTasksInSetUpdateModel(Model, Set&lt;Task&gt;)</code></p>
+</li>
+<li>
+<p><code>#completeOneTaskReturnStringOfTasks(Task, Model)</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><em>Premise: The application has several tasks tagged with the label: many.</em></p>
+</div>
+<div class="paragraph">
+<p>Step 1. The user executes <code>complete l/many</code> command to complete all the tasks labelled <code>many</code>.</p>
+</div>
+<div class="paragraph">
+<p>Step 1.1. The argument <code>String</code> is passed to  the <code>CompleteCommandParser</code>, which checks to see
+if the user&#8217;s input contains a label, then calls <code>CompleteCommandParser#parseLabel(&#8230;&#8203;)</code>. As a
+result a new <code>CompleteLabelCommand</code> instance is created. It contains a
+<code>LabelMatchesAnyKeywordsPredicate</code> which will only test true against a <code>Task</code> containing a
+<code>Label::many</code>.</p>
+</div>
+<div class="paragraph">
+<p>Step 1.2. A chain of event triggers, ultimately calling <code>CompleteCommand#execute(&#8230;&#8203;)</code> for the
+created instance. Subsequently <code>CompleteCommand#completeAllTasksReturnStringOfTasks(&#8230;&#8203;)</code> is
+called which encapsulates the logic for updating all valid completable tasks matching the predicate.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/CompleteViaLabelOnSuccess.png" alt="CompleteViaLabelOnSuccess" width="700">
+</div>
+</div>
+<div class="paragraph">
+<p>Step 1.2.1 If all tasks are updated successfully, <code>Model#commit()</code> will be called.</p>
+</div>
+<div class="paragraph">
+<p>Step 2. The user sees all tasks previously displayed on the screen which matches the label change
+it&#8217;s status to <code>COMPLETED</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="paragraph">
+<p>Step 1.2.1.a If all tasks are not updated successfull, <code>Model#rollbal()</code> will be called. All
+uncommitted changes will be reset to the current state pointed to in <code>taskManagerStateList</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/CompleteViaLabelOnFail.png" alt="CompleteViaLabelOnFail" width="700">
+</div>
+</div>
+<div class="paragraph">
+<p>Step 1.2.1.a1 Then user will see a relevant error message pertaining to what went wrong.</p>
+</div>
+<div class="sect4">
+<h5 id="auxiliary-changes"><a class="link" href="#auxiliary-changes">Auxiliary Changes</a></h5>
 <div class="paragraph">
 <p>Additionally, in order to facilitate the finding of task and completing tasks atomically, the
 following auxiliary classes have been created / extended as a result:</p>
@@ -946,12 +1033,12 @@ following auxiliary classes have been created / extended as a result:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>LabelMatchesKeywordPredicate</code>&#8201;&#8212;&#8201;Extension of the functional interface <code>Predicate&lt;E&gt;</code></p>
+<p><code>LabelMatchesAnyKeywordsPredicate</code>&#8201;&#8212;&#8201;Extension of the functional interface <code>Predicate&lt;E&gt;</code></p>
 <div class="ulist">
 <ul>
 <li>
 <p>This class is required to encapsulate the logic of determining if a task has a <code>Label</code> matching
-the desired <code>Label</code> (case-insensitive).</p>
+any of the desired <code>Label</code>(s) specified (case-insensitive).</p>
 </li>
 </ul>
 </div>
@@ -978,82 +1065,6 @@ commands</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>These are the methods in the CompleteCommand class supporting the batch completion:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>#completeAllTasksReturnStringOfTasks(Model)</code></p>
-</li>
-<li>
-<p><code>#completeOneTaskReturnStringOfTasks(Task, Model)</code></p>
-</li>
-</ul>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The <code>CompleteLabelCommand</code> class inherits from the <code>CompleteCommand</code> class. It takes in a
-<code>Task&lt;Predicate&gt;</code> while another subclass of <code>CompleteCommand</code>, <code>CompleteIndexCommand</code>
-takes in an <code>Index</code> to support polymorphic behavior for both a single operation and batch operation.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.</p>
-</div>
-<div class="paragraph">
-<p><em>Premise: The application has several tasks tagged with the label: many.</em></p>
-</div>
-<div class="paragraph">
-<p>Step 1. The user executes <code>complete l/many</code> command to complete all the tasks labelled <code>many</code>.</p>
-</div>
-<div class="paragraph">
-<p>Step 1.1. The argument <code>String</code> is passed to  the <code>CompleteCommandParser</code>, which checks to see
-if the user&#8217;s input contains a label, then calls <code>CompleteCommandParser#parseLabel(&#8230;&#8203;)</code>. As a
-result a new <code>CompleteCommand</code> instance containing a  <code>LabelMatchesKeywordPredicate</code> which
-will only test true against a <code>Task</code> containing a <code>Label::many</code>.</p>
-</div>
-<div class="paragraph">
-<p>Step 1.2. A chain of event triggers, ultimately calling <code>CompleteCommand#execute(&#8230;&#8203;)</code> for the
-created instance. Subsequently <code>CompleteCommand#completeAllTasksReturnStringOfTasks(&#8230;&#8203;)</code> is
-called which handles the logic for updating all valid completable tasks matching the predicate.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/CompleteViaLabelOnFail.png" alt="CompleteViaLabelOnFail" width="1200">
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If a command fails its execution, it will call <code>Model#rollbackTaskManager()</code>, so
-all current changes will be reset to the latest commit / state in <code>taskManagerStateList</code>.
-</td>
-</tr>
-</table>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/CompleteViaLabelOnSuccess.png" alt="CompleteViaLabelOnSuccess" width="1200">
-</div>
-</div>
-<div class="paragraph">
-<p>Step 1.2.1 If all tasks are updated successful, <code>Model#commit()</code> will be called.</p>
-</div>
-<div class="paragraph">
-<p>Step 2. The user sees all tasks previously displayed on the screen which matches the label change
-it&#8217;s status to <code>COMPLETED</code></p>
 </div>
 </div>
 <div class="sect3">
@@ -1069,21 +1080,22 @@ otherwise <code>Model#commit()</code></p>
 <ul>
 <li>
 <p>Pros: This implementation defensively codes for scenarios where CommandExceptions are thrown, thus
-ensuring that there are no partially-done batch operation resulting in harder to debug state.</p>
+ensuring that there are no partially-done batch operation resulting in a possibly invalid state.</p>
 </li>
 <li>
-<p>Cons: Increases coupling of components.</p>
+<p>Cons: Requires extending the Model class and depending on its funcationalities; resulting in
+tighter coupling.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Alternative 2:</strong> Doing a check on all tasks and only proceeding to update the model and
-commit if deemed that all tasks can be completed successfully else throw an exception.</p>
+<p><strong>Alternative 2:</strong> Doing a check on all tasks to see if they can be completed successfully. If
+yes, then proceed to update the model and commit else throw an exception.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Reduces coupling.</p>
+<p>Pros: Looser coupling as checks are implemented within CompleteCommand.</p>
 </li>
 <li>
 <p>Cons: Unable to handle unforeseen failure to complete, resulting in a partially committed
@@ -1105,11 +1117,11 @@ both behaviours within.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Groups possibly tightly coupled code together into a single class; thus reducing
-coupling.</p>
+<p>Pros: This is one easy way of grouping possibly tightly coupled code together into a single
+class; thus reducing coupling.</p>
 </li>
 <li>
-<p>Cons: Possibly goes against the Separations of Concerns principle.</p>
+<p>Cons: Goes against the Separations of Concerns principle.</p>
 </li>
 </ul>
 </div>
@@ -1121,10 +1133,13 @@ two different behaviours implemented are: completion via index and completion vi
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Clear separation of concern, respecting the Single Responsibility Principle.</p>
+<p>Pros: Clear separation of concern, respecting the Single Responsibility Principle.
+Additionally, there is less duplicated code as similar code can be implemented in the
+<code>CompleteCommand</code> class.</p>
 </li>
 <li>
-<p>Cons: Harder to initially design properly.</p>
+<p>Cons: Harder to initially design properly, also sub-classes of CompleteCommand are now coupled
+to CompleteCommand.</p>
 </li>
 </ul>
 </div>
@@ -1154,12 +1169,12 @@ a high amount of coupling.
 <ul>
 <li>
 <p><strong>Alternative 1 (current choice):</strong> As an explicit implemented class
-<code>LabelMatchesKeywordPredicate</code>.</p>
+<code>LabelMatchesAnyKeywordsPredicate</code>.</p>
 <div class="ulist">
 <ul>
 <li>
 <p>Pros: Notion of equality can be overloaded. This allows for proper checking of equality in every class composing the
-<code>LabelMatchesKeywordPredicate</code>. In sum, it allows for the checking of structural equality rather than just referential
+<code>LabelMatchesAnyKeywordsPredicate</code>. In sum, it allows for the checking of structural equality rather than just referential
 equality.</p>
 </li>
 <li>
@@ -1210,9 +1225,8 @@ Abstract Methods.</p>
 </div>
 <div class="paragraph">
 <p>When <code>VersionedTaskManager#Rollback()</code> is called, the current data is reset to the state of the
-latest commit. Internally, <code>VersionedTaskManager#resetDate(&#8230;&#8203;)</code> is called to reset the data to
-the latest commit, also the <code>currentStatePointer</code> is set to point at the index of the latest
-commit in <code>taskManagerStateList</code>.</p>
+latest commit. Internally, <code>VersionedTaskManager#resetData(&#8230;&#8203;)</code> is called to reset the data to
+the commit pointed by the <code>currentStatePointer</code> in the <code>taskManagerStateList</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1220,7 +1234,7 @@ commit in <code>taskManagerStateList</code>.</p>
 </div>
 </div>
 <div class="paragraph">
-<p><em>Internal calls of <code>VersionedTaskManager.resetData(&#8230;&#8203;)</code> has been omitted for brevity</em></p>
+<p><em>Calls to the Commons/Event component has been omitted for brevity.</em></p>
 </div>
 </div>
 </div>
@@ -1887,7 +1901,7 @@ Suggested path for new programmers:</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="appendix-b-value-proposition"><a class="link" href="#appendix-b-value-proposition">Appendix B: Appendix B: Value proposition</a></h2>
+<h2 id="value-proposition"><a class="link" href="#value-proposition">Appendix B: Value proposition</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>By offering a gamified experience, we hope to be able to improve the user experience and keep users motivated in completing their tasks.</p>
@@ -1895,7 +1909,7 @@ Suggested path for new programmers:</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="appendix-c-user-stories"><a class="link" href="#appendix-c-user-stories">Appendix C: Appendix C: User Stories</a></h2>
+<h2 id="user-stories"><a class="link" href="#user-stories">Appendix C: User Stories</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely to have) - *</p>
@@ -2430,12 +2444,15 @@ Use case ends.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User marks task as complete.</p>
+<p>User completes a task by specifying the index of the task to complete.</p>
 </li>
 <li>
-<p>Application reports both points earned and current points to user.</p>
+<p>Application reports both points earned and tasks completed to the user.</p>
 </li>
 </ol>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
 </div>
 </div>
 <div class="sect3">
@@ -2443,26 +2460,71 @@ Use case ends.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>1a. An error occurs, causes one of the task to not be completed</p>
+<p>1a. The selected task is already completed.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>1a1. Application displays error message, no points are earned either.</p>
+<p>1a1. Application displays a relevant error message.</p>
 </li>
 </ul>
 </div>
 </li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1b. The index supplied is invalid.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1b1. Application displays a relevant error message.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1c. This task to be completed has unfulfilled dependencie(s) that must be completed first.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1b1. Application displays a relevant error message.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+<div class="ulist">
+<ul>
 <li>
 <p>2a. User earns enough points to level up</p>
 <div class="ulist">
 <ul>
 <li>
-<p>2a1. Application displays a congratulatory message, current points, and points earned to user.</p>
+<p>2a1. Application displays a trivial congratulatory message, level achieved, points earned and
+tasks completed to the user.</p>
 </li>
 </ul>
 </div>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
 </div>
 </div>
 </div>
@@ -2473,12 +2535,20 @@ Use case ends.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User marks a batch of tasks with the same specified <code>Label</code> as complete.</p>
+<p>User completes a task by specifying one or more <code>Label</code>(s) that are tagged to the tasks he
+wishes to complete.</p>
 </li>
 <li>
-<p>Application reports both points earned and current points to user.</p>
+<p>Application identifies a completable batch of tasks that contains the specified <code>Label</code>(s) to be
+completed and completes them one by one.</p>
+</li>
+<li>
+<p>Application reports both points earned and tasks completed to user.</p>
 </li>
 </ol>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
 </div>
 </div>
 <div class="sect3">
@@ -2486,34 +2556,111 @@ Use case ends.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>1a. An error occurs, causes one of the tasks to not be able to be completed</p>
+<p>1a. The label supplied is invalid</p>
 <div class="ulist">
 <ul>
 <li>
-<p>1a1. Application displays an error message, resetting the batch of tasks to their
+<p>1a1. Application displays a relevant error message.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>2a. There are no completable tasks identified by the label</p>
+<div class="ulist">
+<ul>
+<li>
+<p>2a1. Application displays a relevant error message.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>2b. There is an error internally with the application, it tries to complete a task that has
+already been completed.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>2b1. Application resets the batch of tasks to their pre-completed state and no points are earned.</p>
+</li>
+<li>
+<p>2b2. Application displays a relevant error message.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>2c. At least one of tasks identified via label to be completed has unfulfilled dependencie(s)
+that must be completed first.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>2c1. Application displays an error message, resetting the batch of tasks to their
 pre-completed state and no points are earned.</p>
 </li>
 </ul>
 </div>
 </li>
-<li>
-<p>2a. User earns enough points to level up</p>
+</ul>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p>2a1. Application displays a congratulatory message, current points, and points earned to user.</p>
+<p>3a. User earns enough points to level up</p>
+<div class="ulist">
+<ul>
+<li>
+<p>3a1. Application displays a trivial congratulatory message, level achieved, points
+earned and tasks completed to the user.</p>
 </li>
 </ul>
 </div>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
 </div>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="non-functional-requirements"><a class="link" href="#non-functional-requirements">Appendix E: Non-functional requirements</a></h2>
+<h2 id="complete-command-activity-diagram"><a class="link" href="#complete-command-activity-diagram">Appendix E: Complete Command Activity Diagram</a></h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="images/CompleteCommandActivityDiagram.png" alt="CompleteCommandActivityDiagram" width="800">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="non-functional-requirements"><a class="link" href="#non-functional-requirements">Appendix F: Non-functional requirements</a></h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
@@ -2543,7 +2690,7 @@ pre-completed state and no points are earned.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="glossary"><a class="link" href="#glossary">Appendix F: Glossary</a></h2>
+<h2 id="glossary"><a class="link" href="#glossary">Appendix G: Glossary</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A glossary serves to ensure that all stakeholders have a common understanding of the noteworthy terms, abbreviation, acronyms etc.</p>
@@ -2585,7 +2732,7 @@ pre-completed state and no points are earned.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="instructions-for-manual-testing"><a class="link" href="#instructions-for-manual-testing">Appendix G: Instructions for Manual Testing</a></h2>
+<h2 id="instructions-for-manual-testing"><a class="link" href="#instructions-for-manual-testing">Appendix H: Instructions for Manual Testing</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Given below are instructions to test the app manually.</p>
@@ -2603,7 +2750,7 @@ These instructions only provide a starting point for testers to work on; testers
 </table>
 </div>
 <div class="sect2">
-<h3 id="launch-and-shutdown"><a class="link" href="#launch-and-shutdown">G.1. Launch and Shutdown</a></h3>
+<h3 id="launch-and-shutdown"><a class="link" href="#launch-and-shutdown">H.1. Launch and Shutdown</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2638,7 +2785,7 @@ Expected: The most recent window size and location is retained.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="effective-due-date-field"><a class="link" href="#effective-due-date-field">G.2. Effective Due Date field</a></h3>
+<h3 id="effective-due-date-field"><a class="link" href="#effective-due-date-field">H.2. Effective Due Date field</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2721,7 +2868,7 @@ Expected: No change to effective due date.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="achievement-mechanism-2"><a class="link" href="#achievement-mechanism-2">G.3. Achievement Mechanism</a></h3>
+<h3 id="achievement-mechanism-2"><a class="link" href="#achievement-mechanism-2">H.3. Achievement Mechanism</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2914,7 +3061,7 @@ empty data file. Task manager will be empty.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="adding-or-removing-a-dependency"><a class="link" href="#adding-or-removing-a-dependency">G.4. Adding or removing a dependency</a></h3>
+<h3 id="adding-or-removing-a-dependency"><a class="link" href="#adding-or-removing-a-dependency">H.4. Adding or removing a dependency</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2968,7 +3115,117 @@ dependency that will cause a cyclic dependency<br>
 </div>
 </div>
 <div class="sect2">
-<h3 id="list-topological-order-of-tasks"><a class="link" href="#list-topological-order-of-tasks">G.5. List topological order of tasks</a></h3>
+<h3 id="interactions-of-complete-command-with-dependencies"><a class="link" href="#interactions-of-complete-command-with-dependencies">H.5. Interactions of Complete Command with Dependencies</a></h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+As the standard output for Complete Command is quite verbose, we shall alias "standard output" to
+ mean "Xp change, new level acquired (if any) and Task(s) Completed is/are shown to user."
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="index-based-interactions"><a class="link" href="#index-based-interactions">H.5.1. Index based interactions</a></h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Expected interactions without dependencies</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Clear task manager with <code>clear</code></p>
+</li>
+<li>
+<p>Add Task A using <code>add n/A t/1-2-19 p/5 d/blank</code></p>
+</li>
+<li>
+<p>Add Task B using <code>add n/B t/1-1-19 p/5 d/blank</code></p>
+</li>
+<li>
+<p>Add a dependency from Task A to Task B using <code>dependency 1 2</code></p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Test case 1: <code>complete 2</code>,
+Expected: Task B is completed, followed by its standard output.</p>
+</li>
+<li>
+<p>Test case 2: <code>complete 1</code>,
+Expected: An error message is shown to the user as Task A is dependent on Task B, i.e. requires
+Task B to be completed first.</p>
+</li>
+<li>
+<p>Test case 3: <code>complete 2</code>, followed by <code>complete 1</code>
+Expected: Task B is completed, followed by it&#8217;s standard output. Task A is completed, followed by
+ its standard output.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="label-based-interactions"><a class="link" href="#label-based-interactions">H.5.2. Label based interactions</a></h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Expected interactions without dependencies</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Clear task manager with <code>clear</code></p>
+</li>
+<li>
+<p>Add Task A using <code>add n/A t/1-2-19 p/5 d/blank l/one</code></p>
+</li>
+<li>
+<p>Add Task B using <code>add n/B t/1-1-19 p/5 d/blank l/two</code></p>
+</li>
+<li>
+<p>Add a dependency from Task A to Task B using <code>dependency 1 2</code></p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Test case 1: <code>complete l/two</code>,
+Expected: Task B is completed, followed by its standard output.</p>
+</li>
+<li>
+<p>Test case 2: <code>complete l/one</code>,
+Expected: An error message is shown to the user as Task A is dependent on Task B, i.e. requires
+Task B to be completed first.</p>
+</li>
+<li>
+<p>Test case 3: <code>complete l/one l/two</code>,
+Expected: Both Task A and Task B are completed in no defined order, followed by
+ its standard output.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="list-topological-order-of-tasks"><a class="link" href="#list-topological-order-of-tasks">H.6. List topological order of tasks</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2990,4 +3247,4 @@ constraints will be displayed in the window below the command line.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 11:18:28 SRET</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 19:04:35 SRET</div></div></div></body></html>
